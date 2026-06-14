@@ -1,0 +1,505 @@
+{
+  "title": "Geography Night",
+  "rounds": [
+    {
+      "id": "jeopardy",
+      "name": "Jeopardy",
+      "values": [200, 400, 600, 800, 1000],
+      "categories": [
+        {
+          "title": "Tallest Mountains",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This is the tallest mountain in the world.",
+              "correctResponse": "Mount Everest",
+              "acceptedResponses": ["Everest"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "Mount Kilimanjaro is the tallest mountain in this country.",
+              "correctResponse": "Tanzania",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "Denali, the tallest mountain in the United States, is in this state.",
+              "correctResponse": "Alaska",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This mountain is the tallest in Japan.",
+              "correctResponse": "Mount Fuji",
+              "acceptedResponses": ["Fuji"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "Aconcagua, the tallest mountain outside Asia, is in this country.",
+              "correctResponse": "Argentina",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Weather Events",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This rotating storm is called a hurricane in the Atlantic and a typhoon in the western Pacific.",
+              "correctResponse": "Tropical cyclone",
+              "acceptedResponses": ["Cyclone", "Hurricane", "Typhoon"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This violent rotating column of air is often rated on the Enhanced Fujita scale.",
+              "correctResponse": "Tornado",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This weather event is a prolonged period of unusually low rainfall.",
+              "correctResponse": "Drought",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This warm Pacific Ocean pattern can shift weather around the globe.",
+              "correctResponse": "El Nino",
+              "acceptedResponses": ["El Niño"],
+              "dailyDouble": true
+            },
+            {
+              "value": 1000,
+              "clue": "This sudden flood can occur quickly after intense rain, especially in narrow canyons or urban areas.",
+              "correctResponse": "Flash flood",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Ski Resorts",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This Colorado ski town shares its name with a tree known for white bark and trembling leaves.",
+              "correctResponse": "Aspen",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This Utah ski destination near Salt Lake City hosted alpine events during the 2002 Winter Olympics.",
+              "correctResponse": "Park City",
+              "acceptedResponses": ["Park City Mountain"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This Canadian resort is paired with Blackcomb and sits north of Vancouver.",
+              "correctResponse": "Whistler",
+              "acceptedResponses": ["Whistler Blackcomb"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This French Alpine resort is known for access to the Mont Blanc area.",
+              "correctResponse": "Chamonix",
+              "acceptedResponses": ["Chamonix-Mont-Blanc"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This Swiss resort below the Matterhorn is famous for skiing and car-free streets.",
+              "correctResponse": "Zermatt",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Rivers Run",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This river flows through Egypt and is often called the longest river in the world.",
+              "correctResponse": "Nile",
+              "acceptedResponses": ["The Nile", "Nile River"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This river flows through Paris.",
+              "correctResponse": "Seine",
+              "acceptedResponses": ["The Seine", "Seine River"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This South American river carries more water than any other river on Earth.",
+              "correctResponse": "Amazon",
+              "acceptedResponses": ["The Amazon", "Amazon River"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This river forms much of the border between the United States and Mexico.",
+              "correctResponse": "Rio Grande",
+              "acceptedResponses": ["The Rio Grande"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This river flows through Baghdad and joins the Euphrates before reaching the Persian Gulf.",
+              "correctResponse": "Tigris",
+              "acceptedResponses": ["The Tigris", "Tigris River"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Island Nations",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This island nation has Tokyo as its capital.",
+              "correctResponse": "Japan",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This island country south of India is known for tea and the city of Colombo.",
+              "correctResponse": "Sri Lanka",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This Caribbean island nation shares the island of Hispaniola with Haiti.",
+              "correctResponse": "Dominican Republic",
+              "acceptedResponses": ["The Dominican Republic"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This island nation in the Indian Ocean is famous for lemurs.",
+              "correctResponse": "Madagascar",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This Pacific island nation has a capital named Suva.",
+              "correctResponse": "Fiji",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Map Lines",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This imaginary line circles Earth at 0 degrees latitude.",
+              "correctResponse": "Equator",
+              "acceptedResponses": ["The equator"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This line at 0 degrees longitude passes through Greenwich, England.",
+              "correctResponse": "Prime Meridian",
+              "acceptedResponses": ["The Prime Meridian"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This circle of latitude marks the northern boundary of the tropics.",
+              "correctResponse": "Tropic of Cancer",
+              "acceptedResponses": ["The Tropic of Cancer"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This circle of latitude marks the southern boundary of the tropics.",
+              "correctResponse": "Tropic of Capricorn",
+              "acceptedResponses": ["The Tropic of Capricorn"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This line roughly follows 180 degrees longitude and is where calendar dates change.",
+              "correctResponse": "International Date Line",
+              "acceptedResponses": ["The International Date Line"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "doubleJeopardy",
+      "name": "Double Jeopardy",
+      "values": [400, 800, 1200, 1600, 2000],
+      "categories": [
+        {
+          "title": "Rock Stars",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This common volcanic rock often forms from cooled lava and makes up much of the ocean floor.",
+              "correctResponse": "Basalt",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This light-colored igneous rock is common in continental crust and in many countertops.",
+              "correctResponse": "Granite",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "Limestone changes into this metamorphic rock under heat and pressure.",
+              "correctResponse": "Marble",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This sedimentary rock is formed from compacted sand grains.",
+              "correctResponse": "Sandstone",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This glassy volcanic rock forms when lava cools very quickly.",
+              "correctResponse": "Obsidian",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Deserts",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This is the largest hot desert in the world.",
+              "correctResponse": "Sahara",
+              "acceptedResponses": ["The Sahara", "Sahara Desert"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This desert covers parts of Mongolia and northern China.",
+              "correctResponse": "Gobi",
+              "acceptedResponses": ["The Gobi", "Gobi Desert"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This very dry desert lies along the Pacific coast of Chile and Peru.",
+              "correctResponse": "Atacama",
+              "acceptedResponses": ["The Atacama", "Atacama Desert"],
+              "dailyDouble": true
+            },
+            {
+              "value": 1600,
+              "clue": "This Australian desert shares its name with a British queen.",
+              "correctResponse": "Great Victoria Desert",
+              "acceptedResponses": ["The Great Victoria Desert"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This desert in southern Africa is known for high red dunes and the name means vast place.",
+              "correctResponse": "Namib",
+              "acceptedResponses": ["The Namib", "Namib Desert"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Capital Climates",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This Canadian capital is known for cold winters and skating on the Rideau Canal.",
+              "correctResponse": "Ottawa",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This high-altitude capital of Ethiopia has a mild climate despite being near the equator.",
+              "correctResponse": "Addis Ababa",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This capital of Peru sits in a coastal desert with frequent gray mist.",
+              "correctResponse": "Lima",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This capital of Iceland has cool summers and ocean-moderated winters.",
+              "correctResponse": "Reykjavik",
+              "acceptedResponses": ["Reykjavík"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This capital of Bolivia is one of the world's highest national capitals.",
+              "correctResponse": "La Paz",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Plate Tectonics",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "Earthquakes and volcanoes are common around this Pacific rim zone.",
+              "correctResponse": "Ring of Fire",
+              "acceptedResponses": ["The Ring of Fire", "Pacific Ring of Fire"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This process occurs when one tectonic plate sinks beneath another.",
+              "correctResponse": "Subduction",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This major transform fault runs through California.",
+              "correctResponse": "San Andreas Fault",
+              "acceptedResponses": ["The San Andreas Fault"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This undersea mountain chain marks a divergent boundary in the Atlantic Ocean.",
+              "correctResponse": "Mid-Atlantic Ridge",
+              "acceptedResponses": ["The Mid-Atlantic Ridge"],
+              "dailyDouble": true
+            },
+            {
+              "value": 2000,
+              "clue": "This ancient supercontinent began breaking apart during the Mesozoic Era.",
+              "correctResponse": "Pangaea",
+              "acceptedResponses": ["Pangea"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Lakes Great",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This Great Lake is the only one entirely within the United States.",
+              "correctResponse": "Lake Michigan",
+              "acceptedResponses": ["Michigan"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This African lake is often called the world's largest tropical lake.",
+              "correctResponse": "Lake Victoria",
+              "acceptedResponses": ["Victoria"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This lake between Russia and several Central Asian countries is shrinking and heavily affected by water diversion.",
+              "correctResponse": "Aral Sea",
+              "acceptedResponses": ["The Aral Sea"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This Siberian lake is the world's deepest freshwater lake.",
+              "correctResponse": "Lake Baikal",
+              "acceptedResponses": ["Baikal"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This salty lake sits at Earth's lowest land elevation along the Israel-Jordan border.",
+              "correctResponse": "Dead Sea",
+              "acceptedResponses": ["The Dead Sea"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Borders",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This country shares the longest international land border with the United States.",
+              "correctResponse": "Canada",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This mountain range forms a natural border between France and Spain.",
+              "correctResponse": "Pyrenees",
+              "acceptedResponses": ["The Pyrenees"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This river forms much of the border between Romania and Bulgaria.",
+              "correctResponse": "Danube",
+              "acceptedResponses": ["The Danube", "Danube River"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This line separates India and Pakistan in Kashmir.",
+              "correctResponse": "Line of Control",
+              "acceptedResponses": ["The Line of Control"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This narrow strait separates Spain from Morocco.",
+              "correctResponse": "Strait of Gibraltar",
+              "acceptedResponses": ["The Strait of Gibraltar", "Gibraltar Strait"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "category": "World Geography",
+    "clue": "This country has more time zones than any other, largely because of its overseas territories.",
+    "correctResponse": "France",
+    "acceptedResponses": []
+  }
+}

@@ -47,6 +47,8 @@ Polish setup navigation and test the full setup-to-standings loop.
 - Added `public/boards/trivia-night-board.json` as a second selectable test board.
 - Added bundled Jeopardy-style audio cues for setup, round starts, Daily Doubles, timers, and scoring.
 - Added audio settings for muted default state, music volume, effects volume, and a global mute button.
+- Added `BOARD_GENERATION.md` to guide future Codex-generated board creation.
+- Generated `public/boards/geography-night-board.json` as a medium geography-themed board.
 
 ## In Progress
 

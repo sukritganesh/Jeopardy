@@ -472,6 +472,61 @@ input {
   line-height: 1.5;
 }
 
+.final-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.final-panel {
+  border: 1px solid rgba(255, 214, 88, 0.36);
+  border-radius: 8px;
+  padding: clamp(24px, 4vw, 44px);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.final-panel h2 {
+  color: #fff8d6;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1;
+}
+
+.final-panel p {
+  max-width: 60ch;
+  color: #dfe6ff;
+  line-height: 1.5;
+}
+
+.final-wager-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.standings-list {
+  display: grid;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style-position: inside;
+}
+
+.standings-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff8d6;
+  font-weight: 900;
+}
+
+.standings-list strong {
+  color: #ffd658;
+}
+
 .clue-text {
   max-width: 980px;
   margin: 0;
@@ -560,7 +615,8 @@ input {
   .setup-grid,
   .scoreboard,
   .settings-summary,
-  .clue-status-panel {
+  .clue-status-panel,
+  .final-wager-list {
     grid-template-columns: 1fr;
   }
 

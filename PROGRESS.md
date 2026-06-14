@@ -32,15 +32,19 @@ Turn the normal clue loop into complete round flow, then add Daily Double and Fi
 - Added transition from Jeopardy to Double Jeopardy.
 - Added lowest-score player control for starting Double Jeopardy.
 - Added the post-reading buzz grace timer and reset behavior after incorrect responses.
+- Added Final Jeopardy category/wager screen.
+- Added Final Jeopardy clue reading with a 30-second timer.
+- Added early reveal for the Final Jeopardy correct response.
+- Added Final Jeopardy host scoring and final standings.
 
 ## In Progress
 
-- Expanding Double Jeopardy completion toward Final Jeopardy.
+- Testing the full game loop from setup through Final Jeopardy.
 
 ## Next Up
 
-- Add Final Jeopardy screens.
 - Add stricter validation for duplicate buzzer keys in settings/setup.
+- Remove the temporary 2-clue round-completion testing shortcut.
 
 ## Notes
 

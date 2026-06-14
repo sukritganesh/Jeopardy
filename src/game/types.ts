@@ -1,6 +1,14 @@
 export type BuzzMode = 'early' | 'afterRead';
 
-export type AppScreen = 'setup' | 'board' | 'dailyDoubleWager' | 'clue' | 'roundTransition';
+export type AppScreen =
+  | 'setup'
+  | 'board'
+  | 'dailyDoubleWager'
+  | 'clue'
+  | 'roundTransition'
+  | 'finalWager'
+  | 'finalClue'
+  | 'finalStandings';
 
 export type CluePhase = 'reading' | 'buzzing' | 'answering';
 
@@ -70,6 +78,7 @@ export type SettingsPlayer = Omit<Player, 'score'>;
 export type GameSettings = {
   boardPath: string;
   answerTimeSeconds: number;
+  finalJeopardyTimeSeconds: number;
   defaultBuzzMode: BuzzMode;
   defaultPlayerCount: number;
   tts: {
@@ -94,6 +103,7 @@ export const DEFAULT_SETUP: SetupConfig = {
 export const DEFAULT_SETTINGS: GameSettings = {
   boardPath: '/boards/sample-board.json',
   answerTimeSeconds: 5,
+  finalJeopardyTimeSeconds: 30,
   defaultBuzzMode: 'afterRead',
   defaultPlayerCount: 2,
   tts: {

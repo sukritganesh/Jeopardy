@@ -56,6 +56,7 @@ The settings file controls:
 
 - Board JSON path.
 - Answer timer length.
+- Final Jeopardy timer length.
 - Default buzzer mode.
 - Default player count.
 - Fixed player buzzer keys.
@@ -253,9 +254,9 @@ Flow:
 2. Collect wagers from eligible players.
 3. Validate wagers.
 4. Reveal and read the clue.
-5. Collect typed responses from eligible players.
-6. Reveal each player's response one at a time.
-7. Host marks each response Correct or Incorrect.
+5. Start the Final Jeopardy timer.
+6. Reveal the correct response when the timer expires or when the host chooses to reveal early.
+7. Host marks each eligible player Correct or Incorrect.
 8. Apply scoring.
 9. Show final standings.
 
@@ -270,6 +271,13 @@ Final Jeopardy scoring:
 - Correct: add the wager to the player's score.
 - Incorrect: subtract the wager from the player's score.
 - Blank response counts as Incorrect unless the host chooses otherwise.
+
+Final Jeopardy timer:
+
+- Default is 30 seconds.
+- Timer length comes from `public/config/game-settings.json`.
+- Revealing the correct response stops the timer early.
+- Timer expiration does not auto-score responses.
 
 ## Host Controls
 

@@ -46,6 +46,10 @@ export function validateSettings(value: unknown): GameSettings {
   return {
     boardPath: typeof value.boardPath === 'string' ? value.boardPath : DEFAULT_SETTINGS.boardPath,
     answerTimeSeconds: Math.max(1, readNumber(value.answerTimeSeconds, 5)),
+    finalJeopardyTimeSeconds: Math.max(
+      1,
+      readNumber(value.finalJeopardyTimeSeconds, DEFAULT_SETTINGS.finalJeopardyTimeSeconds),
+    ),
     defaultBuzzMode: isBuzzMode(value.defaultBuzzMode)
       ? value.defaultBuzzMode
       : DEFAULT_SETTINGS.defaultBuzzMode,

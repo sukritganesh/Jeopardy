@@ -2,9 +2,18 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { BoardScreen } from './components/BoardScreen';
 import { ClueScreen } from './components/ClueScreen';
 import { DailyDoubleWagerScreen } from './components/DailyDoubleWagerScreen';
+import { FinalJeopardyClueScreen } from './components/FinalJeopardyClueScreen';
+import { FinalJeopardyWagerScreen } from './components/FinalJeopardyWagerScreen';
+import { FinalStandingsScreen } from './components/FinalStandingsScreen';
 import { RoundTransitionScreen } from './components/RoundTransitionScreen';
 import { SetupScreen } from './components/SetupScreen';
 import { loadBoard } from './game/boardLoader';
+import {
+  applyFinalJeopardyScores,
+  type FinalJudgments,
+  type FinalWagers,
+  getFinalJeopardyPlayers,
+} from './game/finalJeopardy';
 import { getLowestScoringPlayer, isRoundComplete } from './game/rounds';
 import { loadSettings } from './game/settingsLoader';
 import { speakClue, stopSpeech } from './game/speech';
@@ -50,7 +59,12 @@ function App() {
   const [timerRemaining, setTimerRemaining] = useState(DEFAULT_SETTINGS.answerTimeSeconds);
   const [clueIsBeingRead, setClueIsBeingRead] = useState(false);
   const [ttsUnavailable, setTtsUnavailable] = useState(false);
+  const [finalWagers, setFinalWagers] = useState<FinalWagers>({});
+  const [finalJudgments, setFinalJudgments] = useState<FinalJudgments>({});
+  const [finalTimerRemaining, setFinalTimerRemaining] = useState(DEFAULT_SETTINGS.finalJeopardyTimeSeconds);
+  const [finalResponseIsRevealed, setFinalResponseIsRevealed] = useState(false);
   const speechRunRef = useRef(0);
+  const finalSpeechRunRef = useRef(0);
 
   useEffect(() => {
     let isCurrent = true;
@@ -99,6 +113,8 @@ function App() {
 
   const scoringValue =
     currentClue?.dailyDouble && dailyDoubleWager !== null ? dailyDoubleWager : (currentClue?.value ?? 0);
+
+  const finalEligiblePlayers = useMemo(() => getFinalJeopardyPlayers(players), [players]);
 
   useEffect(() => {
     if (screen !== 'clue' || appData.status !== 'ready' || currentClue === null) {
@@ -197,6 +213,45 @@ function App() {
     return () => window.clearTimeout(timerId);
   }, [buzzedPlayerId, clueIsBeingRead, cluePhase, screen, timerRemaining]);
 
+  useEffect(() => {
+    if (screen !== 'finalClue' || appData.status !== 'ready') {
+      return;
+    }
+
+    const runId = finalSpeechRunRef.current + 1;
+    finalSpeechRunRef.current = runId;
+    setTtsUnavailable(false);
+    setFinalResponseIsRevealed(false);
+    setFinalTimerRemaining(appData.settings.finalJeopardyTimeSeconds);
+
+    speakClue(appData.board.final.clue, {
+      settings: appData.settings.tts,
+      onUnavailable: () => setTtsUnavailable(true),
+      onEnd: () => {
+        if (finalSpeechRunRef.current !== runId) {
+          return;
+        }
+      },
+    });
+
+    return () => {
+      finalSpeechRunRef.current += 1;
+      stopSpeech();
+    };
+  }, [appData, screen]);
+
+  useEffect(() => {
+    if (screen !== 'finalClue' || finalResponseIsRevealed || finalTimerRemaining <= 0) {
+      return;
+    }
+
+    const timerId = window.setTimeout(() => {
+      setFinalTimerRemaining((current) => Math.max(0, current - 1));
+    }, 1000);
+
+    return () => window.clearTimeout(timerId);
+  }, [finalResponseIsRevealed, finalTimerRemaining, screen]);
+
   function handlePlayerCountChange(count: number) {
     setSetup((current) => ({
       ...current,
@@ -232,6 +287,9 @@ function App() {
     setBuzzedPlayerId(null);
     setDailyDoubleWager(null);
     setClueIsBeingRead(false);
+    setFinalWagers({});
+    setFinalJudgments({});
+    setFinalResponseIsRevealed(false);
     setScreen('board');
   }
 
@@ -284,6 +342,18 @@ function App() {
     ) {
       setCompletedRoundIndex(currentRoundIndex);
       setScreen('roundTransition');
+      return;
+    }
+
+    if (
+      isRoundComplete(appData.board, currentRoundIndex, nextSelectedClueKeys) &&
+      currentRoundIndex === appData.board.rounds.length - 1
+    ) {
+      setFinalWagers({});
+      setFinalJudgments({});
+      setFinalResponseIsRevealed(false);
+      setFinalTimerRemaining(appData.settings.finalJeopardyTimeSeconds);
+      setScreen('finalWager');
       return;
     }
 
@@ -424,6 +494,34 @@ function App() {
     });
   }
 
+  function handleSubmitFinalWagers(wagers: FinalWagers) {
+    if (appData.status !== 'ready') {
+      return;
+    }
+
+    setFinalWagers(wagers);
+    setFinalJudgments({});
+    setFinalResponseIsRevealed(false);
+    setFinalTimerRemaining(appData.settings.finalJeopardyTimeSeconds);
+    setScreen('finalClue');
+  }
+
+  function handleRevealFinalResponse() {
+    finalSpeechRunRef.current += 1;
+    stopSpeech();
+    setFinalResponseIsRevealed(true);
+  }
+
+  function handleMarkFinalPlayer(playerId: string, isCorrect: boolean) {
+    const nextJudgments = { ...finalJudgments, [playerId]: isCorrect };
+    setFinalJudgments(nextJudgments);
+
+    if (finalEligiblePlayers.every((player) => player.id in nextJudgments)) {
+      setPlayers((current) => applyFinalJeopardyScores(current, finalWagers, nextJudgments));
+      setScreen('finalStandings');
+    }
+  }
+
   if (screen === 'setup' || appData.status !== 'ready') {
     return (
       <SetupScreen
@@ -476,6 +574,38 @@ function App() {
         />
       );
     }
+  }
+
+  if (screen === 'finalWager') {
+    return (
+      <FinalJeopardyWagerScreen
+        board={appData.board}
+        players={players}
+        eligiblePlayers={finalEligiblePlayers}
+        onSubmitWagers={handleSubmitFinalWagers}
+      />
+    );
+  }
+
+  if (screen === 'finalClue') {
+    return (
+      <FinalJeopardyClueScreen
+        board={appData.board}
+        players={players}
+        eligiblePlayers={finalEligiblePlayers}
+        timerRemaining={finalTimerRemaining}
+        finalTimeSeconds={appData.settings.finalJeopardyTimeSeconds}
+        responseIsRevealed={finalResponseIsRevealed}
+        ttsUnavailable={ttsUnavailable}
+        finalJudgments={finalJudgments}
+        onRevealResponse={handleRevealFinalResponse}
+        onMarkPlayer={handleMarkFinalPlayer}
+      />
+    );
+  }
+
+  if (screen === 'finalStandings') {
+    return <FinalStandingsScreen board={appData.board} players={players} />;
   }
 
   if (screen === 'clue' && selectedClue !== null) {

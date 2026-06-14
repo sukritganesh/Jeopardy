@@ -1,6 +1,7 @@
 {
   "boardPath": "/boards/sample-board.json",
   "answerTimeSeconds": 5,
+  "finalJeopardyTimeSeconds": 30,
   "defaultBuzzMode": "afterRead",
   "defaultPlayerCount": 2,
   "tts": {

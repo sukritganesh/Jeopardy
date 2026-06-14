@@ -8,6 +8,7 @@ import { FinalStandingsScreen } from './components/FinalStandingsScreen';
 import { RoundTransitionScreen } from './components/RoundTransitionScreen';
 import { SetupScreen } from './components/SetupScreen';
 import { loadBoard } from './game/boardLoader';
+import { validateBoard } from './game/boardValidation';
 import {
   applyFinalJeopardyScores,
   type FinalJudgments,
@@ -49,6 +50,7 @@ function cloneDefaultSetup(): SetupConfig {
 function App() {
   const [screen, setScreen] = useState<AppScreen>('setup');
   const [appData, setAppData] = useState<AppDataState>({ status: 'loading' });
+  const [boardFileError, setBoardFileError] = useState<string | null>(null);
   const [setup, setSetup] = useState<SetupConfig>(() => cloneDefaultSetup());
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
@@ -79,6 +81,7 @@ function App() {
         const board = await loadBoard(settings.boardPath);
 
         if (isCurrent) {
+          setBoardFileError(null);
           setSetup(setupFromSettings(settings));
           setTimerRemaining(settings.buzzWindowSeconds);
           setAppData({ status: 'ready', board, settings });
@@ -304,6 +307,31 @@ function App() {
 
   function handleDebugAdvanceChange(enabled: boolean) {
     setSetup((current) => ({ ...current, debugAdvanceAfterOneClue: enabled }));
+  }
+
+  async function handleBoardFileSelect(file: File) {
+    setBoardFileError(null);
+
+    try {
+      const board = validateBoard(JSON.parse(await file.text()));
+      const settings = appData.status === 'ready' ? appData.settings : DEFAULT_SETTINGS;
+
+      setAppData({ status: 'ready', board, settings });
+      setCurrentRoundIndex(0);
+      setCompletedRoundIndex(null);
+      setSelectedClue(null);
+      setSelectedClueKeys(new Set());
+      setAttemptedPlayerIds(new Set());
+      setBuzzedPlayerId(null);
+      setDailyDoubleWager(null);
+      setClueIsBeingRead(false);
+      setFinalWagers({});
+      setFinalJudgments({});
+      setFinalResponseIsRevealed(false);
+      setFinalClueIsBeingRead(false);
+    } catch (error: unknown) {
+      setBoardFileError(error instanceof Error ? error.message : 'Could not load that board file.');
+    }
   }
 
   function handleStartGame() {
@@ -577,6 +605,8 @@ function App() {
         boardTitle={appData.board?.title}
         boardStatus={appData.status}
         boardError={appData.error}
+        boardFileError={boardFileError ?? undefined}
+        onBoardFileSelect={handleBoardFileSelect}
         onPlayerCountChange={handlePlayerCountChange}
         onPlayerChange={handlePlayerChange}
         onBuzzModeChange={handleBuzzModeChange}

@@ -266,6 +266,31 @@ input[type="range"] {
   margin-top: 18px;
 }
 
+.board-picker {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(240px, 1fr);
+  gap: 16px;
+  align-items: end;
+}
+
+.board-picker span {
+  display: block;
+  color: #dfe6ff;
+  font-weight: 700;
+}
+
+.board-picker strong {
+  display: block;
+  margin-top: 6px;
+  color: #ffd658;
+  font-size: 1.25rem;
+}
+
+.board-picker label {
+  display: grid;
+  gap: 8px;
+}
+
 .primary-action,
 .secondary-action,
 .ghost-action,
@@ -682,6 +707,7 @@ input[type="range"] {
   }
 
   .setup-grid,
+  .board-picker,
   .scoreboard,
   .setup-actions,
   .clue-status-panel,

@@ -43,6 +43,8 @@ Polish setup navigation and test the full setup-to-standings loop.
 - Added a Final Jeopardy timer slider.
 - Split setup into a compact player front page and a separate settings page.
 - Compacted the clue screen and moved response reveal into the hidden-response strip.
+- Added settings-page local board JSON selection with schema validation.
+- Added `public/boards/trivia-night-board.json` as a second selectable test board.
 
 ## In Progress
 

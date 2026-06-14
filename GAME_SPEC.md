@@ -74,6 +74,7 @@ The setup flow should keep the first page compact:
 
 The separate settings page should expose these v1 settings:
 
+- Board JSON file selection from the local machine.
 - Editable buzzer keys.
 - Buzz window timer from 3 to 8 seconds.
 - Response timer from 3 to 8 seconds.
@@ -83,6 +84,14 @@ The separate settings page should expose these v1 settings:
 
 Buzzer keys default from the settings file and can be changed on the setup screen.
 Inactive players should be hidden when the player count is reduced, but their names and key bindings should be remembered if the count increases again.
+
+Board selection:
+
+- The default board loads from `public/config/game-settings.json`.
+- The host may choose a local `.json` board file from the settings page.
+- Selected local boards are validated with the same board schema as bundled boards.
+- Invalid local board files should show a clear error and keep the current board active.
+- Local board selection does not persist after page reload in v1.
 
 V1 debug option:
 

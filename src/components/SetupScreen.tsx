@@ -6,6 +6,8 @@ type SetupScreenProps = {
   boardTitle?: string;
   boardStatus: 'loading' | 'ready' | 'error';
   boardError?: string;
+  boardFileError?: string;
+  onBoardFileSelect: (file: File) => void;
   onPlayerCountChange: (count: number) => void;
   onPlayerChange: (playerId: string, patch: Partial<Pick<Player, 'name' | 'buzzerKey'>>) => void;
   onBuzzModeChange: (buzzMode: BuzzMode) => void;
@@ -21,6 +23,8 @@ export function SetupScreen({
   boardTitle,
   boardStatus,
   boardError,
+  boardFileError,
+  onBoardFileSelect,
   onPlayerCountChange,
   onPlayerChange,
   onBuzzModeChange,
@@ -99,6 +103,32 @@ export function SetupScreen({
           </>
         ) : (
           <>
+            <fieldset className="form-section debug-section">
+              <legend>Board</legend>
+              <div className="board-picker">
+                <div>
+                  <span>Current board</span>
+                  <strong>{boardStatus === 'ready' ? boardTitle : boardStatus}</strong>
+                </div>
+                <label>
+                  <span>Select board JSON</span>
+                  <input
+                    type="file"
+                    accept=".json,application/json"
+                    onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      event.currentTarget.value = '';
+
+                      if (file) {
+                        onBoardFileSelect(file);
+                      }
+                    }}
+                  />
+                </label>
+              </div>
+              {boardFileError && <p className="notice notice--error">{boardFileError}</p>}
+            </fieldset>
+
             <div className="setup-grid">
               <fieldset className="form-section">
                 <legend>Buzzer Keys</legend>

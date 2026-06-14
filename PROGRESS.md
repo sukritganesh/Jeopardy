@@ -4,7 +4,7 @@ Lightweight project progress tracker. Keep this current as the app takes shape.
 
 ## Current Focus
 
-Polish setup/game timing controls and test the full setup-to-standings loop.
+Polish setup navigation and test the full setup-to-standings loop.
 
 ## Completed
 
@@ -41,6 +41,7 @@ Polish setup/game timing controls and test the full setup-to-standings loop.
 - Added editable buzzer key bindings.
 - Split clue timing into buzz-window and response-window sliders.
 - Added a Final Jeopardy timer slider.
+- Split setup into a compact player front page and a separate settings page.
 
 ## In Progress
 

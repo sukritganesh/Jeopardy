@@ -65,10 +65,15 @@ The settings file controls:
 - Text-to-speech enabled/rate/pitch.
 - Debug shortcuts such as one-clue round completion.
 
-The setup screen should expose these v1 settings:
+The setup flow should keep the first page compact:
 
 - Player count: 1 to 4, controlled by a slider.
 - Player names.
+- Start game action.
+- Settings navigation.
+
+The separate settings page should expose these v1 settings:
+
 - Editable buzzer keys.
 - Buzz window timer from 3 to 8 seconds.
 - Response timer from 3 to 8 seconds.

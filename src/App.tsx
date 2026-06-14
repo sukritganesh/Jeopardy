@@ -577,7 +577,6 @@ function App() {
         boardTitle={appData.board?.title}
         boardStatus={appData.status}
         boardError={appData.error}
-        settings={appData.settings}
         onPlayerCountChange={handlePlayerCountChange}
         onPlayerChange={handlePlayerChange}
         onBuzzModeChange={handleBuzzModeChange}

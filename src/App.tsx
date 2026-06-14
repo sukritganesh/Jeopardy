@@ -360,6 +360,7 @@ function App() {
     }
 
     finalTimesUpWasPlayedRef.current = true;
+    getAudio().stop('thinkingMusic');
     getAudio().play('timesUp');
   }, [finalClueIsBeingRead, finalResponseIsRevealed, finalTimerRemaining, getAudio, screen]);
 

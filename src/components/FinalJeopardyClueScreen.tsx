@@ -7,6 +7,7 @@ type FinalJeopardyClueScreenProps = {
   eligiblePlayers: Player[];
   timerRemaining: number;
   finalTimeSeconds: number;
+  finalClueIsBeingRead: boolean;
   responseIsRevealed: boolean;
   ttsUnavailable: boolean;
   onRevealResponse: () => void;
@@ -20,6 +21,7 @@ export function FinalJeopardyClueScreen({
   eligiblePlayers,
   timerRemaining,
   finalTimeSeconds,
+  finalClueIsBeingRead,
   responseIsRevealed,
   ttsUnavailable,
   onRevealResponse,
@@ -37,7 +39,9 @@ export function FinalJeopardyClueScreen({
         </div>
         <div className="control-pill">
           <span>Timer</span>
-          <strong>{responseIsRevealed ? 'Stopped' : `${timerRemaining}s`}</strong>
+          <strong>
+            {responseIsRevealed ? 'Stopped' : finalClueIsBeingRead ? 'Reading' : `${timerRemaining}s`}
+          </strong>
         </div>
       </header>
 
@@ -62,7 +66,9 @@ export function FinalJeopardyClueScreen({
           <p>
             {responseIsRevealed
               ? 'Mark each eligible player correct or incorrect.'
-              : timerRemaining === 0
+              : finalClueIsBeingRead
+                ? 'The countdown starts after the clue is read.'
+                : timerRemaining === 0
                 ? 'Time expired. Reveal when ready.'
                 : 'Reveal early once everyone has written their response.'}
           </p>

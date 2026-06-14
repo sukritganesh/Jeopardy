@@ -254,7 +254,7 @@ Flow:
 2. Collect wagers from eligible players.
 3. Validate wagers.
 4. Reveal and read the clue.
-5. Start the Final Jeopardy timer.
+5. Start the Final Jeopardy timer after clue reading finishes.
 6. Reveal the correct response when the timer expires or when the host chooses to reveal early.
 7. Host marks each eligible player Correct or Incorrect.
 8. Apply scoring.

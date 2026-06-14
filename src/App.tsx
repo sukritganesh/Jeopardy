@@ -63,6 +63,7 @@ function App() {
   const [finalJudgments, setFinalJudgments] = useState<FinalJudgments>({});
   const [finalTimerRemaining, setFinalTimerRemaining] = useState(DEFAULT_SETTINGS.finalJeopardyTimeSeconds);
   const [finalResponseIsRevealed, setFinalResponseIsRevealed] = useState(false);
+  const [finalClueIsBeingRead, setFinalClueIsBeingRead] = useState(false);
   const speechRunRef = useRef(0);
   const finalSpeechRunRef = useRef(0);
 
@@ -222,6 +223,7 @@ function App() {
     finalSpeechRunRef.current = runId;
     setTtsUnavailable(false);
     setFinalResponseIsRevealed(false);
+    setFinalClueIsBeingRead(true);
     setFinalTimerRemaining(appData.settings.finalJeopardyTimeSeconds);
 
     speakClue(appData.board.final.clue, {
@@ -231,6 +233,8 @@ function App() {
         if (finalSpeechRunRef.current !== runId) {
           return;
         }
+
+        setFinalClueIsBeingRead(false);
       },
     });
 
@@ -241,7 +245,12 @@ function App() {
   }, [appData, screen]);
 
   useEffect(() => {
-    if (screen !== 'finalClue' || finalResponseIsRevealed || finalTimerRemaining <= 0) {
+    if (
+      screen !== 'finalClue' ||
+      finalClueIsBeingRead ||
+      finalResponseIsRevealed ||
+      finalTimerRemaining <= 0
+    ) {
       return;
     }
 
@@ -250,7 +259,7 @@ function App() {
     }, 1000);
 
     return () => window.clearTimeout(timerId);
-  }, [finalResponseIsRevealed, finalTimerRemaining, screen]);
+  }, [finalClueIsBeingRead, finalResponseIsRevealed, finalTimerRemaining, screen]);
 
   function handlePlayerCountChange(count: number) {
     setSetup((current) => ({
@@ -290,6 +299,7 @@ function App() {
     setFinalWagers({});
     setFinalJudgments({});
     setFinalResponseIsRevealed(false);
+    setFinalClueIsBeingRead(false);
     setScreen('board');
   }
 
@@ -352,6 +362,7 @@ function App() {
       setFinalWagers({});
       setFinalJudgments({});
       setFinalResponseIsRevealed(false);
+      setFinalClueIsBeingRead(false);
       setFinalTimerRemaining(appData.settings.finalJeopardyTimeSeconds);
       setScreen('finalWager');
       return;
@@ -502,6 +513,7 @@ function App() {
     setFinalWagers(wagers);
     setFinalJudgments({});
     setFinalResponseIsRevealed(false);
+    setFinalClueIsBeingRead(false);
     setFinalTimerRemaining(appData.settings.finalJeopardyTimeSeconds);
     setScreen('finalClue');
   }
@@ -509,6 +521,7 @@ function App() {
   function handleRevealFinalResponse() {
     finalSpeechRunRef.current += 1;
     stopSpeech();
+    setFinalClueIsBeingRead(false);
     setFinalResponseIsRevealed(true);
   }
 
@@ -595,6 +608,7 @@ function App() {
         eligiblePlayers={finalEligiblePlayers}
         timerRemaining={finalTimerRemaining}
         finalTimeSeconds={appData.settings.finalJeopardyTimeSeconds}
+        finalClueIsBeingRead={finalClueIsBeingRead}
         responseIsRevealed={finalResponseIsRevealed}
         ttsUnavailable={ttsUnavailable}
         finalJudgments={finalJudgments}

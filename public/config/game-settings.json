@@ -10,6 +10,11 @@
     "rate": 1,
     "pitch": 1
   },
+  "audio": {
+    "isMuted": true,
+    "musicVolume": 0.45,
+    "effectsVolume": 0.8
+  },
   "debug": {
     "advanceAfterOneClue": true
   },

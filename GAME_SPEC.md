@@ -59,6 +59,7 @@ The settings file controls:
 - Buzz window timer length.
 - Response timer length.
 - Final Jeopardy timer length.
+- Audio mute state and volume levels.
 - Default buzzer mode.
 - Default player count.
 - Fixed player buzzer keys.
@@ -75,6 +76,9 @@ The setup flow should keep the first page compact:
 The separate settings page should expose these v1 settings:
 
 - Board JSON file selection from the local machine.
+- Audio mute state.
+- Music volume.
+- Sound effects volume.
 - Editable buzzer keys.
 - Buzz window timer from 3 to 8 seconds.
 - Response timer from 3 to 8 seconds.
@@ -354,6 +358,10 @@ V1 uses bundled audio files from `public/audio`.
 
 Audio behavior:
 
+- The game starts muted by default.
+- A global mute button should be visible in the corner on all screens.
+- Muting should pause active audio without resetting track position.
+- Music and sound effects have separate volume settings.
 - Play the Jeopardy theme on the setup front page and settings page once browser audio is unlocked.
 - Play the board fill sound when a normal round begins.
 - Play the Daily Double sound when a Daily Double is selected.

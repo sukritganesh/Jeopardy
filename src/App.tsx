@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { BoardScreen } from './components/BoardScreen';
 import { ClueScreen } from './components/ClueScreen';
 import { DailyDoubleWagerScreen } from './components/DailyDoubleWagerScreen';
@@ -21,6 +21,7 @@ import { loadSettings } from './game/settingsLoader';
 import { speakClue, stopSpeech } from './game/speech';
 import type {
   AppScreen,
+  AudioSettings,
   Board,
   BuzzMode,
   CluePhase,
@@ -43,6 +44,7 @@ function cloneDefaultSetup(): SetupConfig {
     buzzWindowSeconds: DEFAULT_SETUP.buzzWindowSeconds,
     responseTimeSeconds: DEFAULT_SETUP.responseTimeSeconds,
     finalJeopardyTimeSeconds: DEFAULT_SETUP.finalJeopardyTimeSeconds,
+    audio: { ...DEFAULT_SETUP.audio },
     debugAdvanceAfterOneClue: DEFAULT_SETUP.debugAdvanceAfterOneClue,
     players: DEFAULT_SETUP.players.map((player) => ({ ...player })),
   };
@@ -125,6 +127,11 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const audio = getAudio();
+    audio.setSettings(setup.audio);
+  }, [getAudio, setup.audio]);
+
   const activePlayers = useMemo(
     () => setup.players.filter((player) => player.isActive),
     [setup.players],
@@ -151,7 +158,7 @@ function App() {
   const finalEligiblePlayers = useMemo(() => getFinalJeopardyPlayers(players), [players]);
 
   useEffect(() => {
-    if (!audioIsUnlocked) {
+    if (!audioIsUnlocked || setup.audio.isMuted) {
       return;
     }
 
@@ -171,7 +178,15 @@ function App() {
     }
 
     audio.stop('thinkingMusic');
-  }, [appData.status, audioIsUnlocked, finalClueIsBeingRead, finalResponseIsRevealed, getAudio, screen]);
+  }, [
+    appData.status,
+    audioIsUnlocked,
+    finalClueIsBeingRead,
+    finalResponseIsRevealed,
+    getAudio,
+    screen,
+    setup.audio.isMuted,
+  ]);
 
   useEffect(() => {
     if (screen !== 'clue' || appData.status !== 'ready' || currentClue === null) {
@@ -397,6 +412,18 @@ function App() {
   function handleFinalJeopardyTimeChange(finalJeopardyTimeSeconds: number) {
     setSetup((current) => ({ ...current, finalJeopardyTimeSeconds }));
     setFinalTimerRemaining(finalJeopardyTimeSeconds);
+  }
+
+  function handleAudioChange(patch: Partial<AudioSettings>) {
+    setSetup((current) => ({ ...current, audio: { ...current.audio, ...patch } }));
+  }
+
+  function handleToggleAudioMute() {
+    setAudioIsUnlocked(true);
+    setSetup((current) => ({
+      ...current,
+      audio: { ...current.audio, isMuted: !current.audio.isMuted },
+    }));
   }
 
   function handleDebugAdvanceChange(enabled: boolean) {
@@ -705,8 +732,24 @@ function App() {
     }
   }
 
-  if (screen === 'setup' || appData.status !== 'ready') {
+  function withMuteButton(content: ReactNode) {
     return (
+      <>
+        <button
+          className={setup.audio.isMuted ? 'mute-button mute-button--muted' : 'mute-button'}
+          type="button"
+          aria-pressed={!setup.audio.isMuted}
+          onClick={handleToggleAudioMute}
+        >
+          {setup.audio.isMuted ? 'Muted' : 'Sound On'}
+        </button>
+        {content}
+      </>
+    );
+  }
+
+  if (screen === 'setup' || appData.status !== 'ready') {
+    return withMuteButton(
       <SetupScreen
         setup={setup}
         boardTitle={appData.board?.title}
@@ -720,9 +763,10 @@ function App() {
         onBuzzWindowChange={handleBuzzWindowChange}
         onResponseTimeChange={handleResponseTimeChange}
         onFinalJeopardyTimeChange={handleFinalJeopardyTimeChange}
+        onAudioChange={handleAudioChange}
         onDebugAdvanceChange={handleDebugAdvanceChange}
         onStartGame={handleStartGame}
-      />
+      />,
     );
   }
 
@@ -731,7 +775,7 @@ function App() {
     const round = appData.board.rounds[selectedClue.roundIndex];
 
     if (selectingPlayer !== undefined) {
-      return (
+      return withMuteButton(
         <DailyDoubleWagerScreen
           board={appData.board}
           selection={selectedClue}
@@ -740,7 +784,7 @@ function App() {
           maxWager={getDailyDoubleMaxWager(selectingPlayer.score, round)}
           onSubmitWager={handleSubmitDailyDoubleWager}
           onCancel={handleCancelDailyDouble}
-        />
+        />,
       );
     }
   }
@@ -750,7 +794,7 @@ function App() {
     const nextControlPlayer = getLowestScoringPlayer(players);
 
     if (nextControlPlayer !== undefined && nextRoundIndex < appData.board.rounds.length) {
-      return (
+      return withMuteButton(
         <RoundTransitionScreen
           board={appData.board}
           completedRoundIndex={completedRoundIndex}
@@ -759,24 +803,24 @@ function App() {
           controllingPlayerId={controllingPlayerId}
           nextControlPlayer={nextControlPlayer}
           onStartNextRound={handleStartNextRound}
-        />
+        />,
       );
     }
   }
 
   if (screen === 'finalWager') {
-    return (
+    return withMuteButton(
       <FinalJeopardyWagerScreen
         board={appData.board}
         players={players}
         eligiblePlayers={finalEligiblePlayers}
         onSubmitWagers={handleSubmitFinalWagers}
-      />
+      />,
     );
   }
 
   if (screen === 'finalClue') {
-    return (
+    return withMuteButton(
       <FinalJeopardyClueScreen
         board={appData.board}
         players={players}
@@ -789,16 +833,16 @@ function App() {
         finalJudgments={finalJudgments}
         onRevealResponse={handleRevealFinalResponse}
         onMarkPlayer={handleMarkFinalPlayer}
-      />
+      />,
     );
   }
 
   if (screen === 'finalStandings') {
-    return <FinalStandingsScreen board={appData.board} players={players} />;
+    return withMuteButton(<FinalStandingsScreen board={appData.board} players={players} />);
   }
 
   if (screen === 'clue' && selectedClue !== null) {
-    return (
+    return withMuteButton(
       <ClueScreen
         board={appData.board}
         selection={selectedClue}
@@ -818,11 +862,11 @@ function App() {
         onIncorrect={handleIncorrect}
         onEndClue={handleEndClue}
         onReplayClue={handleReplayClue}
-      />
+      />,
     );
   }
 
-  return (
+  return withMuteButton(
     <BoardScreen
       board={appData.board}
       currentRoundIndex={currentRoundIndex}
@@ -830,7 +874,7 @@ function App() {
       controllingPlayerId={controllingPlayerId}
       selectedClueKeys={selectedClueKeys}
       onSelectClue={handleSelectClue}
-    />
+    />,
   );
 }
 

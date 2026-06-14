@@ -15,6 +15,10 @@ function readNumber(value: unknown, fallback: number): number {
   return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
 }
 
+function readVolume(value: unknown, fallback: number): number {
+  return Math.max(0, Math.min(1, readNumber(value, fallback)));
+}
+
 function parsePlayers(value: unknown): SettingsPlayer[] {
   if (!Array.isArray(value)) {
     return DEFAULT_SETTINGS.players;
@@ -41,6 +45,7 @@ export function validateSettings(value: unknown): GameSettings {
   }
 
   const tts = isRecord(value.tts) ? value.tts : {};
+  const audio = isRecord(value.audio) ? value.audio : {};
   const debug = isRecord(value.debug) ? value.debug : {};
   const defaultPlayerCount = Math.min(4, Math.max(1, readNumber(value.defaultPlayerCount, 2)));
 
@@ -66,6 +71,11 @@ export function validateSettings(value: unknown): GameSettings {
       enabled: typeof tts.enabled === 'boolean' ? tts.enabled : DEFAULT_SETTINGS.tts.enabled,
       rate: Math.max(0.5, Math.min(2, readNumber(tts.rate, DEFAULT_SETTINGS.tts.rate))),
       pitch: Math.max(0, Math.min(2, readNumber(tts.pitch, DEFAULT_SETTINGS.tts.pitch))),
+    },
+    audio: {
+      isMuted: typeof audio.isMuted === 'boolean' ? audio.isMuted : DEFAULT_SETTINGS.audio.isMuted,
+      musicVolume: readVolume(audio.musicVolume, DEFAULT_SETTINGS.audio.musicVolume),
+      effectsVolume: readVolume(audio.effectsVolume, DEFAULT_SETTINGS.audio.effectsVolume),
     },
     debug: {
       advanceAfterOneClue:

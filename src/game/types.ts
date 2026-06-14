@@ -67,12 +67,19 @@ export type SelectedClue = {
 };
 
 /** Setup choices become live game state when the host starts a game. */
+export type AudioSettings = {
+  isMuted: boolean;
+  musicVolume: number;
+  effectsVolume: number;
+};
+
 export type SetupConfig = {
   players: Player[];
   buzzMode: BuzzMode;
   buzzWindowSeconds: number;
   responseTimeSeconds: number;
   finalJeopardyTimeSeconds: number;
+  audio: AudioSettings;
   debugAdvanceAfterOneClue: boolean;
 };
 
@@ -91,6 +98,7 @@ export type GameSettings = {
     rate: number;
     pitch: number;
   };
+  audio: AudioSettings;
   debug: {
     advanceAfterOneClue: boolean;
   };
@@ -110,6 +118,11 @@ export const DEFAULT_SETUP: SetupConfig = {
   buzzWindowSeconds: 5,
   responseTimeSeconds: 5,
   finalJeopardyTimeSeconds: 30,
+  audio: {
+    isMuted: true,
+    musicVolume: 0.45,
+    effectsVolume: 0.8,
+  },
   debugAdvanceAfterOneClue: true,
 };
 
@@ -124,6 +137,11 @@ export const DEFAULT_SETTINGS: GameSettings = {
     enabled: true,
     rate: 1,
     pitch: 1,
+  },
+  audio: {
+    isMuted: true,
+    musicVolume: 0.45,
+    effectsVolume: 0.8,
   },
   debug: {
     advanceAfterOneClue: true,
@@ -142,6 +160,7 @@ export function setupFromSettings(settings: GameSettings): SetupConfig {
     buzzWindowSeconds: settings.buzzWindowSeconds,
     responseTimeSeconds: settings.responseTimeSeconds,
     finalJeopardyTimeSeconds: settings.finalJeopardyTimeSeconds,
+    audio: settings.audio,
     debugAdvanceAfterOneClue: settings.debug.advanceAfterOneClue,
     players: settings.players.map((player, index) => ({
       ...player,

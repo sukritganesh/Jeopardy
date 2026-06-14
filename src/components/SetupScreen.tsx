@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { BuzzMode, Player, SetupConfig } from '../game/types';
+import type { AudioSettings, BuzzMode, Player, SetupConfig } from '../game/types';
 
 type SetupScreenProps = {
   setup: SetupConfig;
@@ -14,6 +14,7 @@ type SetupScreenProps = {
   onBuzzWindowChange: (seconds: number) => void;
   onResponseTimeChange: (seconds: number) => void;
   onFinalJeopardyTimeChange: (seconds: number) => void;
+  onAudioChange: (patch: Partial<AudioSettings>) => void;
   onDebugAdvanceChange: (enabled: boolean) => void;
   onStartGame: () => void;
 };
@@ -31,6 +32,7 @@ export function SetupScreen({
   onBuzzWindowChange,
   onResponseTimeChange,
   onFinalJeopardyTimeChange,
+  onAudioChange,
   onDebugAdvanceChange,
   onStartGame,
 }: SetupScreenProps) {
@@ -127,6 +129,45 @@ export function SetupScreen({
                 </label>
               </div>
               {boardFileError && <p className="notice notice--error">{boardFileError}</p>}
+            </fieldset>
+
+            <fieldset className="form-section debug-section">
+              <legend>Audio</legend>
+              <label className="radio-card">
+                <input
+                  type="checkbox"
+                  checked={setup.audio.isMuted}
+                  onChange={(event) => onAudioChange({ isMuted: event.target.checked })}
+                />
+                <span>
+                  <strong>Muted</strong>
+                  <small>The game starts muted by default.</small>
+                </span>
+              </label>
+              <label className="field-label timer-field-label" htmlFor="music-volume">
+                Music volume: {Math.round(setup.audio.musicVolume * 100)}%
+              </label>
+              <input
+                id="music-volume"
+                type="range"
+                min={0}
+                max={100}
+                step={5}
+                value={Math.round(setup.audio.musicVolume * 100)}
+                onChange={(event) => onAudioChange({ musicVolume: Number(event.target.value) / 100 })}
+              />
+              <label className="field-label timer-field-label" htmlFor="effects-volume">
+                Sound effects: {Math.round(setup.audio.effectsVolume * 100)}%
+              </label>
+              <input
+                id="effects-volume"
+                type="range"
+                min={0}
+                max={100}
+                step={5}
+                value={Math.round(setup.audio.effectsVolume * 100)}
+                onChange={(event) => onAudioChange({ effectsVolume: Number(event.target.value) / 100 })}
+              />
             </fieldset>
 
             <div className="setup-grid">

@@ -92,5 +92,8 @@ Avoid overbuilding the landing page. The first screen should quickly lead into a
 - Preserve a playable vertical slice as the app evolves.
 - Prefer explicit game states over scattered boolean flags.
 - Add tests where game rules or scoring logic become nontrivial.
+- Document exported game logic and shared types with short, useful comments.
+- Prefer comments that explain intent or edge cases; avoid restating obvious code.
 - Do not introduce online dependencies for board generation or answer checking in v1.
 - Use future docs such as `GAME_SPEC.md` for detailed rules, flows, and board templates.
+- Keep `PROGRESS.md` current when meaningful project milestones, active focus, or next steps change.

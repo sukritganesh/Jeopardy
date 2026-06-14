@@ -2,8 +2,8 @@
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  color: #f7f0d8;
-  background: #071044;
+  color: #fbf2d2;
+  background: #160c2a;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -27,23 +27,52 @@ textarea {
   font: inherit;
 }
 
-.app-shell {
+button {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.app-shell,
+.game-shell {
   min-height: 100vh;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 214, 88, 0.12), transparent 34%),
+    linear-gradient(225deg, rgba(27, 122, 93, 0.18), transparent 38%),
+    #160c2a;
+}
+
+.app-shell--setup {
   display: grid;
   place-items: center;
-  padding: 32px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 40%),
-    #071044;
+}
+
+.setup-panel,
+.game-shell {
+  width: min(1180px, 100%);
+  margin: 0 auto;
 }
 
 .setup-panel {
-  width: min(960px, 100%);
   border: 2px solid rgba(255, 214, 88, 0.42);
   border-radius: 8px;
-  padding: clamp(24px, 5vw, 56px);
-  background: #10218a;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+  padding: clamp(24px, 4vw, 48px);
+  background: #0d2583;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+}
+
+.setup-heading,
+.game-header,
+.host-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 .eyebrow {
@@ -55,59 +84,386 @@ textarea {
   text-transform: uppercase;
 }
 
+h1,
+h2,
+p {
+  overflow-wrap: anywhere;
+}
+
 h1 {
-  max-width: 14ch;
   margin: 0;
-  color: #fff7cf;
-  font-size: clamp(3rem, 8vw, 6rem);
-  line-height: 0.9;
+  color: #fff8d6;
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  line-height: 0.94;
 }
 
-.intro {
-  max-width: 68ch;
-  margin: 24px 0 0;
-  color: #e5e9ff;
-  font-size: 1.1rem;
-  line-height: 1.6;
+h2 {
+  margin: 0;
 }
 
-.decision-grid {
+.board-loadout,
+.control-pill,
+.daily-double-badge {
+  min-width: 150px;
+  border: 1px solid rgba(255, 214, 88, 0.45);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.board-loadout span,
+.control-pill span {
+  display: block;
+  color: #cdd7ff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.board-loadout strong,
+.control-pill strong {
+  display: block;
+  margin-top: 4px;
+  color: #fff8d6;
+}
+
+.notice {
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #fff8d6;
+  color: #321127;
+}
+
+.notice--error {
+  background: #ffe1e1;
+  color: #6e1026;
+}
+
+.setup-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 18px;
+  margin-top: 32px;
+}
+
+.form-section,
+.host-panel,
+.clue-card {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.form-section {
+  min-width: 0;
+  margin: 0;
+  padding: 20px;
+}
+
+.form-section legend {
+  padding: 0 6px;
+  color: #ffd658;
+  font-weight: 900;
+}
+
+.field-label,
+.player-config span,
+.radio-card small {
+  color: #dfe6ff;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+select,
+input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #fff8d6;
+  color: #241526;
+}
+
+.player-config-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.player-config {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92px;
+  gap: 12px;
+}
+
+.player-config label,
+.radio-card {
+  display: grid;
+  gap: 6px;
+}
+
+.radio-card {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.radio-card input {
+  width: auto;
+  margin-top: 4px;
+}
+
+.radio-card strong,
+.radio-card small {
+  display: block;
+}
+
+.primary-action,
+.secondary-action,
+.ghost-action,
+.host-player-row button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: 900;
+}
+
+.primary-action {
+  width: 100%;
+  margin-top: 24px;
+  background: #ffd658;
+  color: #23120a;
+}
+
+.secondary-action {
+  background: #9b1c45;
+  color: #fff8d6;
+}
+
+.ghost-action {
+  width: 100%;
+  margin-top: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: transparent;
+  color: #fff8d6;
+}
+
+.scoreboard {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  margin-top: 36px;
+  margin: 22px 0;
 }
 
-.decision-grid article {
-  min-height: 130px;
-  padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+.score-card {
+  display: flex;
+  min-height: 92px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.22);
+  padding: 16px;
+  background: #123d56;
 }
 
-.decision-grid h2 {
-  margin: 0 0 10px;
+.score-card--control {
+  border-color: #ffd658;
+  box-shadow: inset 0 0 0 2px rgba(255, 214, 88, 0.2);
+}
+
+.score-card h2 {
+  color: #fff8d6;
+  font-size: 1.12rem;
+}
+
+.score-card p {
+  margin: 4px 0 0;
+  color: #bfe8dc;
+}
+
+.score-card strong {
   color: #ffd658;
-  font-size: 1rem;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
 }
 
-.decision-grid p {
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.category-header,
+.clue-tile {
+  border-radius: 6px;
+  text-align: center;
+}
+
+.category-header {
+  display: grid;
+  min-height: 76px;
+  place-items: center;
+  border: 1px solid rgba(255, 214, 88, 0.38);
+  padding: 10px;
+  background: #0d2583;
+  color: #fff8d6;
+  font-size: clamp(0.82rem, 1.3vw, 1rem);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.clue-tile {
+  display: grid;
+  min-height: 96px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: #1b4aa5;
+  color: #ffd658;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 950;
+}
+
+.clue-tile:disabled {
+  background: #241526;
+  color: #a8adc8;
+}
+
+.clue-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.daily-double-badge {
+  min-width: auto;
+  background: #ffd658;
+  color: #23120a;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.clue-card {
+  padding: clamp(24px, 4vw, 44px);
+}
+
+.clue-text {
+  max-width: 980px;
   margin: 0;
-  color: #f0f3ff;
-  line-height: 1.45;
+  color: #fff8d6;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.12;
 }
 
-code {
-  color: #fff0a0;
+.response-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  padding-top: 18px;
+  color: #dfe6ff;
 }
 
-@media (max-width: 720px) {
-  .app-shell {
-    padding: 16px;
+.response-strip strong {
+  color: #ffd658;
+  font-size: 1.25rem;
+}
+
+.host-panel {
+  padding: 18px;
+}
+
+.host-panel-heading p {
+  margin: 4px 0 0;
+  color: #cdd7ff;
+}
+
+.host-action-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.host-player-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.host-player-row strong span {
+  display: block;
+  margin-top: 4px;
+  color: #ffb1c5;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.host-player-row div {
+  display: flex;
+  gap: 8px;
+}
+
+.host-player-row button:first-child {
+  background: #1b7a5d;
+  color: #fff8d6;
+}
+
+@media (max-width: 900px) {
+  .setup-heading,
+  .game-header,
+  .host-panel-heading,
+  .response-strip {
+    display: grid;
   }
 
-  .decision-grid {
+  .setup-grid,
+  .scoreboard {
     grid-template-columns: 1fr;
+  }
+
+  .board-grid {
+    grid-template-columns: repeat(3, minmax(90px, 1fr));
+  }
+
+  .category-header {
+    min-height: 64px;
+  }
+
+  .clue-tile {
+    min-height: 84px;
+  }
+}
+
+@media (max-width: 560px) {
+  .app-shell,
+  .game-shell {
+    padding: 14px;
+  }
+
+  .player-config,
+  .host-player-row {
+    grid-template-columns: 1fr;
+  }
+
+  .board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .host-player-row div {
+    display: grid;
   }
 }

@@ -4,7 +4,7 @@ Lightweight project progress tracker. Keep this current as the app takes shape.
 
 ## Current Focus
 
-Prepare the setup screen and board-loading path for the first playable slice.
+Turn the setup -> board -> clue vertical slice into full Jeopardy gameplay.
 
 ## Completed
 
@@ -15,17 +15,24 @@ Prepare the setup screen and board-loading path for the first playable slice.
 - Scaffolded the Vite app.
 - Added `public/boards/sample-board.json`.
 - Validated the sample board structure: 2 rounds, 12 categories, 60 normal clues, 3 Daily Doubles, and Final Jeopardy.
+- Added shared game types, board loading, and board validation helpers.
+- Built the initial setup screen.
+- Built the first board screen with player scores, control indicator, and clue tiles.
+- Built the first clue screen with temporary host-scoring controls.
+- Added basic score updates, selected-clue tracking, and incorrect-answer lockouts for the vertical slice.
 
 ## In Progress
 
-- Planning the initial setup screen and sample-board loading flow.
+- Expanding the first playable slice toward real buzzer, text-to-speech, and round flow behavior.
 
 ## Next Up
 
-- Build the initial setup screen.
-- Load and validate the sample board JSON.
-- Add shared game types for players, rounds, categories, and clues.
-- Add basic board display after setup.
+- Add keyboard buzzer handling.
+- Add text-to-speech clue reading.
+- Add the 5-second answer timer.
+- Add Daily Double wager flow.
+- Add round completion and Double Jeopardy transition.
+- Add Final Jeopardy screens.
 
 ## Notes
 

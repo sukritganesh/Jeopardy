@@ -42,6 +42,7 @@ Polish setup navigation and test the full setup-to-standings loop.
 - Split clue timing into buzz-window and response-window sliders.
 - Added a Final Jeopardy timer slider.
 - Split setup into a compact player front page and a separate settings page.
+- Compacted the clue screen and moved response reveal into the hidden-response strip.
 
 ## In Progress
 

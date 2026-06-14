@@ -120,8 +120,16 @@ export function ClueScreen({
         </p>
         <p className="clue-text">{clue.clue}</p>
         <div className={responseIsRevealed ? 'response-strip' : 'response-strip response-strip--hidden'}>
-          <span>{responseIsRevealed ? 'Correct response' : 'Response hidden'}</span>
-          <strong>{responseIsRevealed ? clue.correctResponse : 'Reveal when ready'}</strong>
+          {responseIsRevealed ? (
+            <>
+              <span>Correct response</span>
+              <strong>{clue.correctResponse}</strong>
+            </>
+          ) : (
+            <button className="response-reveal-button" type="button" onClick={() => setResponseIsRevealed(true)}>
+              Reveal Response
+            </button>
+          )}
         </div>
       </section>
 
@@ -170,15 +178,14 @@ export function ClueScreen({
           })}
         </div>
 
-        <button className="ghost-action" type="button" onClick={onReplayClue}>
-          Replay Clue
-        </button>
-        <button className="ghost-action" type="button" onClick={() => setResponseIsRevealed(true)}>
-          Reveal Response
-        </button>
-        <button className="ghost-action" type="button" onClick={onEndClue}>
-          End Clue
-        </button>
+        <div className="host-footer-actions">
+          <button className="ghost-action" type="button" onClick={onReplayClue}>
+            Replay Clue
+          </button>
+          <button className="ghost-action" type="button" onClick={onEndClue}>
+            End Clue
+          </button>
+        </div>
       </section>
     </main>
   );

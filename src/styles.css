@@ -178,6 +178,10 @@ h2 {
   font-weight: 700;
 }
 
+.timer-field-label {
+  margin-top: 18px;
+}
+
 select,
 input {
   width: 100%;
@@ -186,6 +190,11 @@ input {
   padding: 10px 12px;
   background: #fff8d6;
   color: #241526;
+}
+
+input[type="range"] {
+  accent-color: #ffd658;
+  cursor: pointer;
 }
 
 .player-config-list {
@@ -250,7 +259,7 @@ input {
 
 .settings-summary {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
   margin: 18px 0 0;
 }
@@ -290,7 +299,7 @@ input {
 
 .scoreboard {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
   margin: 22px 0;
 }

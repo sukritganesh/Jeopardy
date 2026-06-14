@@ -38,6 +38,9 @@ type AppDataState =
 function cloneDefaultSetup(): SetupConfig {
   return {
     buzzMode: DEFAULT_SETUP.buzzMode,
+    buzzWindowSeconds: DEFAULT_SETUP.buzzWindowSeconds,
+    responseTimeSeconds: DEFAULT_SETUP.responseTimeSeconds,
+    finalJeopardyTimeSeconds: DEFAULT_SETUP.finalJeopardyTimeSeconds,
     debugAdvanceAfterOneClue: DEFAULT_SETUP.debugAdvanceAfterOneClue,
     players: DEFAULT_SETUP.players.map((player) => ({ ...player })),
   };
@@ -57,7 +60,7 @@ function App() {
   const [cluePhase, setCluePhase] = useState<CluePhase>('reading');
   const [buzzedPlayerId, setBuzzedPlayerId] = useState<string | null>(null);
   const [dailyDoubleWager, setDailyDoubleWager] = useState<number | null>(null);
-  const [timerRemaining, setTimerRemaining] = useState(DEFAULT_SETTINGS.answerTimeSeconds);
+  const [timerRemaining, setTimerRemaining] = useState(DEFAULT_SETTINGS.buzzWindowSeconds);
   const [clueIsBeingRead, setClueIsBeingRead] = useState(false);
   const [ttsUnavailable, setTtsUnavailable] = useState(false);
   const [finalWagers, setFinalWagers] = useState<FinalWagers>({});
@@ -77,7 +80,7 @@ function App() {
 
         if (isCurrent) {
           setSetup(setupFromSettings(settings));
-          setTimerRemaining(settings.answerTimeSeconds);
+          setTimerRemaining(settings.buzzWindowSeconds);
           setAppData({ status: 'ready', board, settings });
         }
       })
@@ -110,8 +113,10 @@ function App() {
     ];
   }, [appData, selectedClue]);
 
-  const answerTimeSeconds =
-    appData.status === 'ready' ? appData.settings.answerTimeSeconds : DEFAULT_SETTINGS.answerTimeSeconds;
+  const buzzWindowSeconds =
+    appData.status === 'ready' ? setup.buzzWindowSeconds : DEFAULT_SETTINGS.buzzWindowSeconds;
+  const responseTimeSeconds =
+    appData.status === 'ready' ? setup.responseTimeSeconds : DEFAULT_SETTINGS.responseTimeSeconds;
 
   const scoringValue =
     currentClue?.dailyDouble && dailyDoubleWager !== null ? dailyDoubleWager : (currentClue?.value ?? 0);
@@ -128,7 +133,7 @@ function App() {
     setTtsUnavailable(false);
     setClueIsBeingRead(true);
     setBuzzedPlayerId(null);
-    setTimerRemaining(appData.settings.answerTimeSeconds);
+    setTimerRemaining(buzzWindowSeconds);
     setCluePhase(setup.buzzMode === 'early' && !currentClue.dailyDouble ? 'buzzing' : 'reading');
 
     speakClue(currentClue.clue, {
@@ -142,13 +147,13 @@ function App() {
         if (currentClue.dailyDouble) {
           setClueIsBeingRead(false);
           setBuzzedPlayerId(controllingPlayerId);
-          setTimerRemaining(answerTimeSeconds);
+          setTimerRemaining(responseTimeSeconds);
           setCluePhase('answering');
           return;
         }
 
         setClueIsBeingRead(false);
-        setTimerRemaining(answerTimeSeconds);
+        setTimerRemaining(buzzWindowSeconds);
         setCluePhase('buzzing');
       },
     });
@@ -157,7 +162,7 @@ function App() {
       speechRunRef.current += 1;
       stopSpeech();
     };
-  }, [answerTimeSeconds, appData, controllingPlayerId, currentClue, screen, setup.buzzMode]);
+  }, [appData, buzzWindowSeconds, controllingPlayerId, currentClue, responseTimeSeconds, screen, setup.buzzMode]);
 
   useEffect(() => {
     if (screen !== 'clue' || cluePhase !== 'buzzing' || currentClue?.dailyDouble) {
@@ -186,13 +191,13 @@ function App() {
       stopSpeech();
       setClueIsBeingRead(false);
       setBuzzedPlayerId(buzzingPlayer.id);
-      setTimerRemaining(answerTimeSeconds);
+      setTimerRemaining(responseTimeSeconds);
       setCluePhase('answering');
     }
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [answerTimeSeconds, attemptedPlayerIds, cluePhase, currentClue, players, screen]);
+  }, [attemptedPlayerIds, cluePhase, currentClue, players, responseTimeSeconds, screen]);
 
   useEffect(() => {
     const timerIsActive =
@@ -225,7 +230,7 @@ function App() {
     setTtsUnavailable(false);
     setFinalResponseIsRevealed(false);
     setFinalClueIsBeingRead(true);
-    setFinalTimerRemaining(appData.settings.finalJeopardyTimeSeconds);
+    setFinalTimerRemaining(setup.finalJeopardyTimeSeconds);
 
     speakClue(appData.board.final.clue, {
       settings: appData.settings.tts,
@@ -243,7 +248,7 @@ function App() {
       finalSpeechRunRef.current += 1;
       stopSpeech();
     };
-  }, [appData, screen]);
+  }, [appData, screen, setup.finalJeopardyTimeSeconds]);
 
   useEffect(() => {
     if (
@@ -280,6 +285,21 @@ function App() {
 
   function handleBuzzModeChange(buzzMode: BuzzMode) {
     setSetup((current) => ({ ...current, buzzMode }));
+  }
+
+  function handleBuzzWindowChange(buzzWindowSeconds: number) {
+    setSetup((current) => ({ ...current, buzzWindowSeconds }));
+    setTimerRemaining(buzzWindowSeconds);
+  }
+
+  function handleResponseTimeChange(responseTimeSeconds: number) {
+    setSetup((current) => ({ ...current, responseTimeSeconds }));
+    setTimerRemaining(responseTimeSeconds);
+  }
+
+  function handleFinalJeopardyTimeChange(finalJeopardyTimeSeconds: number) {
+    setSetup((current) => ({ ...current, finalJeopardyTimeSeconds }));
+    setFinalTimerRemaining(finalJeopardyTimeSeconds);
   }
 
   function handleDebugAdvanceChange(enabled: boolean) {
@@ -323,7 +343,7 @@ function App() {
     setDailyDoubleWager(null);
     setClueIsBeingRead(false);
     setCluePhase('reading');
-    setTimerRemaining(answerTimeSeconds);
+    setTimerRemaining(buzzWindowSeconds);
     setScreen(clue.dailyDouble ? 'dailyDoubleWager' : 'clue');
   }
 
@@ -378,7 +398,7 @@ function App() {
       setFinalJudgments({});
       setFinalResponseIsRevealed(false);
       setFinalClueIsBeingRead(false);
-      setFinalTimerRemaining(appData.settings.finalJeopardyTimeSeconds);
+      setFinalTimerRemaining(setup.finalJeopardyTimeSeconds);
       setScreen('finalWager');
       return;
     }
@@ -411,7 +431,7 @@ function App() {
     nextAttempted.add(playerId);
     setAttemptedPlayerIds(nextAttempted);
     setBuzzedPlayerId(null);
-    setTimerRemaining(answerTimeSeconds);
+    setTimerRemaining(buzzWindowSeconds);
     setClueIsBeingRead(false);
 
     const eligiblePlayers = currentClue.dailyDouble
@@ -465,7 +485,7 @@ function App() {
     setAttemptedPlayerIds(new Set());
     setBuzzedPlayerId(null);
     setClueIsBeingRead(false);
-    setTimerRemaining(answerTimeSeconds);
+    setTimerRemaining(buzzWindowSeconds);
     setCluePhase('reading');
     setScreen('clue');
   }
@@ -508,13 +528,13 @@ function App() {
         if (currentClue.dailyDouble) {
           setClueIsBeingRead(false);
           setBuzzedPlayerId(controllingPlayerId);
-          setTimerRemaining(answerTimeSeconds);
+          setTimerRemaining(responseTimeSeconds);
           setCluePhase('answering');
           return;
         }
 
         setClueIsBeingRead(false);
-        setTimerRemaining(answerTimeSeconds);
+        setTimerRemaining(buzzWindowSeconds);
         setCluePhase('buzzing');
       },
     });
@@ -529,7 +549,7 @@ function App() {
     setFinalJudgments({});
     setFinalResponseIsRevealed(false);
     setFinalClueIsBeingRead(false);
-    setFinalTimerRemaining(appData.settings.finalJeopardyTimeSeconds);
+    setFinalTimerRemaining(setup.finalJeopardyTimeSeconds);
     setScreen('finalClue');
   }
 
@@ -561,6 +581,9 @@ function App() {
         onPlayerCountChange={handlePlayerCountChange}
         onPlayerChange={handlePlayerChange}
         onBuzzModeChange={handleBuzzModeChange}
+        onBuzzWindowChange={handleBuzzWindowChange}
+        onResponseTimeChange={handleResponseTimeChange}
+        onFinalJeopardyTimeChange={handleFinalJeopardyTimeChange}
         onDebugAdvanceChange={handleDebugAdvanceChange}
         onStartGame={handleStartGame}
       />
@@ -623,7 +646,7 @@ function App() {
         players={players}
         eligiblePlayers={finalEligiblePlayers}
         timerRemaining={finalTimerRemaining}
-        finalTimeSeconds={appData.settings.finalJeopardyTimeSeconds}
+        finalTimeSeconds={setup.finalJeopardyTimeSeconds}
         finalClueIsBeingRead={finalClueIsBeingRead}
         responseIsRevealed={finalResponseIsRevealed}
         ttsUnavailable={ttsUnavailable}
@@ -649,7 +672,8 @@ function App() {
         cluePhase={cluePhase}
         buzzedPlayerId={buzzedPlayerId}
         timerRemaining={timerRemaining}
-        answerTimeSeconds={appData.settings.answerTimeSeconds}
+        buzzWindowSeconds={setup.buzzWindowSeconds}
+        responseTimeSeconds={setup.responseTimeSeconds}
         clueIsBeingRead={clueIsBeingRead}
         scoringValue={scoringValue}
         buzzMode={setup.buzzMode}

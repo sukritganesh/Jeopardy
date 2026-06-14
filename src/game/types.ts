@@ -70,6 +70,9 @@ export type SelectedClue = {
 export type SetupConfig = {
   players: Player[];
   buzzMode: BuzzMode;
+  buzzWindowSeconds: number;
+  responseTimeSeconds: number;
+  finalJeopardyTimeSeconds: number;
   debugAdvanceAfterOneClue: boolean;
 };
 
@@ -78,7 +81,8 @@ export type SettingsPlayer = Omit<Player, 'score'>;
 /** Local-first app settings loaded before the board. */
 export type GameSettings = {
   boardPath: string;
-  answerTimeSeconds: number;
+  buzzWindowSeconds: number;
+  responseTimeSeconds: number;
   finalJeopardyTimeSeconds: number;
   defaultBuzzMode: BuzzMode;
   defaultPlayerCount: number;
@@ -97,17 +101,22 @@ export const DEFAULT_PLAYERS: Player[] = [
   { id: 'player-1', name: 'Player 1', buzzerKey: 'A', score: 0, isActive: true },
   { id: 'player-2', name: 'Player 2', buzzerKey: 'K', score: 0, isActive: true },
   { id: 'player-3', name: 'Player 3', buzzerKey: 'L', score: 0, isActive: false },
+  { id: 'player-4', name: 'Player 4', buzzerKey: ';', score: 0, isActive: false },
 ];
 
 export const DEFAULT_SETUP: SetupConfig = {
   players: DEFAULT_PLAYERS,
   buzzMode: 'afterRead',
+  buzzWindowSeconds: 5,
+  responseTimeSeconds: 5,
+  finalJeopardyTimeSeconds: 30,
   debugAdvanceAfterOneClue: true,
 };
 
 export const DEFAULT_SETTINGS: GameSettings = {
   boardPath: '/boards/sample-board.json',
-  answerTimeSeconds: 5,
+  buzzWindowSeconds: 5,
+  responseTimeSeconds: 5,
   finalJeopardyTimeSeconds: 30,
   defaultBuzzMode: 'afterRead',
   defaultPlayerCount: 2,
@@ -130,6 +139,9 @@ export const DEFAULT_SETTINGS: GameSettings = {
 export function setupFromSettings(settings: GameSettings): SetupConfig {
   return {
     buzzMode: settings.defaultBuzzMode,
+    buzzWindowSeconds: settings.buzzWindowSeconds,
+    responseTimeSeconds: settings.responseTimeSeconds,
+    finalJeopardyTimeSeconds: settings.finalJeopardyTimeSeconds,
     debugAdvanceAfterOneClue: settings.debug.advanceAfterOneClue,
     players: settings.players.map((player, index) => ({
       ...player,

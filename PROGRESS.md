@@ -4,7 +4,7 @@ Lightweight project progress tracker. Keep this current as the app takes shape.
 
 ## Current Focus
 
-Turn the normal clue loop into complete round flow, then add Daily Double and Final Jeopardy screens.
+Polish setup/game timing controls and test the full setup-to-standings loop.
 
 ## Completed
 
@@ -20,7 +20,7 @@ Turn the normal clue loop into complete round flow, then add Daily Double and Fi
 - Built the first board screen with player scores, control indicator, and clue tiles.
 - Built the first clue screen with temporary host-scoring controls.
 - Added basic score updates, selected-clue tracking, and incorrect-answer lockouts for the vertical slice.
-- Added `public/config/game-settings.json` for board path, timer, TTS, buzz mode, player count, and fixed buzzer keys.
+- Added `public/config/game-settings.json` for board path, timers, TTS, buzz mode, player count, and fixed buzzer keys.
 - Added keyboard buzzer handling for fixed player keys.
 - Added browser text-to-speech clue reading with replay and unavailable-browser fallback.
 - Added the 5-second answer timer from settings.
@@ -37,6 +37,10 @@ Turn the normal clue loop into complete round flow, then add Daily Double and Fi
 - Added early reveal for the Final Jeopardy correct response.
 - Added Final Jeopardy host scoring and final standings.
 - Added a committed Host Lab debug option for advancing rounds after one clue.
+- Added 1-4 player setup with a player-count slider.
+- Added editable buzzer key bindings.
+- Split clue timing into buzz-window and response-window sliders.
+- Added a Final Jeopardy timer slider.
 
 ## In Progress
 

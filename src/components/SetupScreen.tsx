@@ -7,8 +7,11 @@ type SetupScreenProps = {
   boardError?: string;
   settings?: GameSettings;
   onPlayerCountChange: (count: number) => void;
-  onPlayerChange: (playerId: string, patch: Partial<Pick<Player, 'name'>>) => void;
+  onPlayerChange: (playerId: string, patch: Partial<Pick<Player, 'name' | 'buzzerKey'>>) => void;
   onBuzzModeChange: (buzzMode: BuzzMode) => void;
+  onBuzzWindowChange: (seconds: number) => void;
+  onResponseTimeChange: (seconds: number) => void;
+  onFinalJeopardyTimeChange: (seconds: number) => void;
   onDebugAdvanceChange: (enabled: boolean) => void;
   onStartGame: () => void;
 };
@@ -22,6 +25,9 @@ export function SetupScreen({
   onPlayerCountChange,
   onPlayerChange,
   onBuzzModeChange,
+  onBuzzWindowChange,
+  onResponseTimeChange,
+  onFinalJeopardyTimeChange,
   onDebugAdvanceChange,
   onStartGame,
 }: SetupScreenProps) {
@@ -48,17 +54,17 @@ export function SetupScreen({
           <fieldset className="form-section">
             <legend>Players</legend>
             <label className="field-label" htmlFor="player-count">
-              Player count
+              Player count: {activePlayers.length}
             </label>
-            <select
+            <input
               id="player-count"
+              type="range"
+              min={1}
+              max={4}
+              step={1}
               value={activePlayers.length}
               onChange={(event) => onPlayerCountChange(Number(event.target.value))}
-            >
-              <option value={1}>1 player</option>
-              <option value={2}>2 players</option>
-              <option value={3}>3 players</option>
-            </select>
+            />
 
             <div className="player-config-list">
               {setup.players.map((player, index) => (
@@ -72,7 +78,16 @@ export function SetupScreen({
                   </label>
                   <label>
                     <span>Buzzer</span>
-                    <input value={player.buzzerKey} readOnly aria-label={`${player.name} buzzer key`} />
+                    <input
+                      maxLength={1}
+                      value={player.buzzerKey}
+                      aria-label={`${player.name} buzzer key`}
+                      onChange={(event) =>
+                        onPlayerChange(player.id, {
+                          buzzerKey: event.target.value.toUpperCase(),
+                        })
+                      }
+                    />
                   </label>
                 </div>
               ))}
@@ -110,6 +125,42 @@ export function SetupScreen({
 
         <fieldset className="form-section debug-section">
           <legend>Host Lab</legend>
+          <label className="field-label" htmlFor="buzz-window-timer">
+            Buzz window: {setup.buzzWindowSeconds}s
+          </label>
+          <input
+            id="buzz-window-timer"
+            type="range"
+            min={3}
+            max={8}
+            step={1}
+            value={setup.buzzWindowSeconds}
+            onChange={(event) => onBuzzWindowChange(Number(event.target.value))}
+          />
+          <label className="field-label timer-field-label" htmlFor="response-timer">
+            Response window: {setup.responseTimeSeconds}s
+          </label>
+          <input
+            id="response-timer"
+            type="range"
+            min={3}
+            max={8}
+            step={1}
+            value={setup.responseTimeSeconds}
+            onChange={(event) => onResponseTimeChange(Number(event.target.value))}
+          />
+          <label className="field-label timer-field-label" htmlFor="final-jeopardy-timer">
+            Final Jeopardy: {setup.finalJeopardyTimeSeconds}s
+          </label>
+          <input
+            id="final-jeopardy-timer"
+            type="range"
+            min={15}
+            max={60}
+            step={5}
+            value={setup.finalJeopardyTimeSeconds}
+            onChange={(event) => onFinalJeopardyTimeChange(Number(event.target.value))}
+          />
           <label className="radio-card">
             <input
               type="checkbox"
@@ -125,16 +176,8 @@ export function SetupScreen({
 
         <dl className="settings-summary">
           <div>
-            <dt>Timer</dt>
-            <dd>{settings?.answerTimeSeconds ?? 5}s</dd>
-          </div>
-          <div>
             <dt>Speech</dt>
             <dd>{settings?.tts.enabled === false ? 'Off' : 'On'}</dd>
-          </div>
-          <div>
-            <dt>Keys</dt>
-            <dd>{setup.players.map((player) => player.buzzerKey).join(' / ')}</dd>
           </div>
         </dl>
 

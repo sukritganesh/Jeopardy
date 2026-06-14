@@ -11,7 +11,8 @@ type ClueScreenProps = {
   cluePhase: CluePhase;
   buzzedPlayerId: string | null;
   timerRemaining: number;
-  answerTimeSeconds: number;
+  buzzWindowSeconds: number;
+  responseTimeSeconds: number;
   clueIsBeingRead: boolean;
   scoringValue: number;
   buzzMode: BuzzMode;
@@ -31,7 +32,8 @@ export function ClueScreen({
   cluePhase,
   buzzedPlayerId,
   timerRemaining,
-  answerTimeSeconds,
+  buzzWindowSeconds,
+  responseTimeSeconds,
   clueIsBeingRead,
   scoringValue,
   buzzMode,
@@ -59,6 +61,7 @@ export function ClueScreen({
         : `${buzzedPlayer?.name ?? 'Player'} answering`;
   const shouldShowCountdown =
     cluePhase === 'answering' || (cluePhase === 'buzzing' && !clueIsBeingRead);
+  const waitingTimerSeconds = clue.dailyDouble ? responseTimeSeconds : buzzWindowSeconds;
 
   useEffect(() => {
     setResponseIsRevealed(false);
@@ -99,7 +102,7 @@ export function ClueScreen({
         </div>
         <div>
           <span>Timer</span>
-          <strong>{shouldShowCountdown ? `${timerRemaining}s` : `${answerTimeSeconds}s`}</strong>
+          <strong>{shouldShowCountdown ? `${timerRemaining}s` : `${waitingTimerSeconds}s`}</strong>
         </div>
         <div>
           <span>{clue.dailyDouble ? 'Scoring' : 'Buzz mode'}</span>

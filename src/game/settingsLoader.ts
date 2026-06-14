@@ -32,7 +32,7 @@ function parsePlayers(value: unknown): SettingsPlayer[] {
       isActive: index < DEFAULT_SETTINGS.defaultPlayerCount,
     }));
 
-  return players.length > 0 ? players.slice(0, 3) : DEFAULT_SETTINGS.players;
+  return players.length > 0 ? players.slice(0, 4) : DEFAULT_SETTINGS.players;
 }
 
 export function validateSettings(value: unknown): GameSettings {
@@ -42,11 +42,18 @@ export function validateSettings(value: unknown): GameSettings {
 
   const tts = isRecord(value.tts) ? value.tts : {};
   const debug = isRecord(value.debug) ? value.debug : {};
-  const defaultPlayerCount = Math.min(3, Math.max(1, readNumber(value.defaultPlayerCount, 2)));
+  const defaultPlayerCount = Math.min(4, Math.max(1, readNumber(value.defaultPlayerCount, 2)));
 
   return {
     boardPath: typeof value.boardPath === 'string' ? value.boardPath : DEFAULT_SETTINGS.boardPath,
-    answerTimeSeconds: Math.max(1, readNumber(value.answerTimeSeconds, 5)),
+    buzzWindowSeconds: Math.max(
+      1,
+      readNumber(value.buzzWindowSeconds, readNumber(value.answerTimeSeconds, DEFAULT_SETTINGS.buzzWindowSeconds)),
+    ),
+    responseTimeSeconds: Math.max(
+      1,
+      readNumber(value.responseTimeSeconds, readNumber(value.answerTimeSeconds, DEFAULT_SETTINGS.responseTimeSeconds)),
+    ),
     finalJeopardyTimeSeconds: Math.max(
       1,
       readNumber(value.finalJeopardyTimeSeconds, DEFAULT_SETTINGS.finalJeopardyTimeSeconds),

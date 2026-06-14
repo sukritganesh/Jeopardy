@@ -1,6 +1,7 @@
 {
   "boardPath": "/boards/sample-board.json",
-  "answerTimeSeconds": 5,
+  "buzzWindowSeconds": 5,
+  "responseTimeSeconds": 5,
   "finalJeopardyTimeSeconds": 30,
   "defaultBuzzMode": "afterRead",
   "defaultPlayerCount": 2,
@@ -29,6 +30,12 @@
       "id": "player-3",
       "name": "Player 3",
       "buzzerKey": "L",
+      "isActive": false
+    },
+    {
+      "id": "player-4",
+      "name": "Player 4",
+      "buzzerKey": ";",
       "isActive": false
     }
   ]

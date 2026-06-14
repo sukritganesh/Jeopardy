@@ -6,7 +6,7 @@ This is a living document. Keep it focused on the current playable version, and 
 
 ## V1 Goal
 
-Build a local browser-based Jeopardy-style party game that can be played on one laptop by 1 to 3 players.
+Build a local browser-based Jeopardy-style party game that can be played on one laptop by 1 to 4 players.
 
 The app should make the game flow smooth and reliable:
 
@@ -30,7 +30,7 @@ V1 should feel playable before it feels clever.
 
 ## Players
 
-V1 supports 1 to 3 players.
+V1 supports 1 to 4 players.
 
 Each player has:
 
@@ -45,6 +45,7 @@ Default players:
 - Player 1: key `A`
 - Player 2: key `K`
 - Player 3: key `L`
+- Player 4: key `;`
 
 The setup screen should allow the host to change player names, enabled players, and buzzer keys.
 
@@ -55,7 +56,8 @@ Default game settings live in `public/config/game-settings.json`.
 The settings file controls:
 
 - Board JSON path.
-- Answer timer length.
+- Buzz window timer length.
+- Response timer length.
 - Final Jeopardy timer length.
 - Default buzzer mode.
 - Default player count.
@@ -65,12 +67,17 @@ The settings file controls:
 
 The setup screen should expose these v1 settings:
 
-- Player count: 1, 2, or 3.
+- Player count: 1 to 4, controlled by a slider.
 - Player names.
+- Editable buzzer keys.
+- Buzz window timer from 3 to 8 seconds.
+- Response timer from 3 to 8 seconds.
+- Final Jeopardy timer.
 - Buzzer mode.
 - Host Lab debug toggles.
 
-Buzzer keys are fixed by the settings file for v1 and shown on the setup screen.
+Buzzer keys default from the settings file and can be changed on the setup screen.
+Inactive players should be hidden when the player count is reduced, but their names and key bindings should be remembered if the count increases again.
 
 V1 debug option:
 
@@ -206,19 +213,23 @@ In `afterRead` mode:
 - Buzzing is disabled while text-to-speech is reading.
 - Buzzing opens when text-to-speech ends.
 
-## Answer Timer
+## Timers
 
-The answer timer is 5 seconds in v1.
+V1 has three timers:
+
+- `buzzWindowSeconds`: starts when clue reading finishes and no player has buzzed.
+- `responseTimeSeconds`: starts when a player buzzes or when a Daily Double response begins.
+- `finalJeopardyTimeSeconds`: starts when Final Jeopardy clue reading finishes.
 
 V1 behavior:
 
-- Timer starts when clue reading finishes and buzzers are open.
-- Timer resets to the full answer time when a player successfully buzzes.
-- Timer resets again if an incorrect response reopens buzzing.
+- The buzz window timer starts when clue reading finishes and buzzers are open.
+- The response timer starts when a player successfully buzzes.
+- The buzz window timer resets if an incorrect response reopens buzzing.
 - Timer reaching zero does not automatically score the response.
 - Timer reaching zero does not prevent late buzzes in v1.
 - Host remains responsible for marking Incorrect or ending the attempt.
-- Timer length comes from `public/config/game-settings.json`.
+- Timer defaults come from `public/config/game-settings.json`.
 
 This keeps v1 forgiving during real play.
 
@@ -231,7 +242,7 @@ When the selected clue is a Daily Double:
 3. Prompt the selecting player for a wager.
 4. Validate the wager.
 5. Show and read the clue.
-6. Start a 5-second answer timer after reading completes.
+6. Start the response timer after reading completes.
 7. Host marks Correct or Incorrect.
 
 Daily Double scoring:

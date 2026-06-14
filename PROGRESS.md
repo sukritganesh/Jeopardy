@@ -27,14 +27,17 @@ Turn the normal clue loop into complete round flow, then add Daily Double and Fi
 - Added Daily Double detection from `dailyDouble: true` board JSON markers.
 - Added Daily Double wager screen and wager-based scoring.
 - Relaxed board validation so any number of marked Daily Doubles is allowed.
+- Confirmed `sample-board.json` contains both Jeopardy and Double Jeopardy rounds.
+- Added round completion detection.
+- Added transition from Jeopardy to Double Jeopardy.
+- Added lowest-score player control for starting Double Jeopardy.
 
 ## In Progress
 
-- Expanding the first-round game flow toward round completion and Double Jeopardy.
+- Expanding Double Jeopardy completion toward Final Jeopardy.
 
 ## Next Up
 
-- Add round completion and Double Jeopardy transition.
 - Add Final Jeopardy screens.
 - Add stricter validation for duplicate buzzer keys in settings/setup.
 

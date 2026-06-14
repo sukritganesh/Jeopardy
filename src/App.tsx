@@ -2,8 +2,10 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { BoardScreen } from './components/BoardScreen';
 import { ClueScreen } from './components/ClueScreen';
 import { DailyDoubleWagerScreen } from './components/DailyDoubleWagerScreen';
+import { RoundTransitionScreen } from './components/RoundTransitionScreen';
 import { SetupScreen } from './components/SetupScreen';
 import { loadBoard } from './game/boardLoader';
+import { getLowestScoringPlayer, isRoundComplete } from './game/rounds';
 import { loadSettings } from './game/settingsLoader';
 import { speakClue, stopSpeech } from './game/speech';
 import type {
@@ -36,7 +38,8 @@ function App() {
   const [appData, setAppData] = useState<AppDataState>({ status: 'loading' });
   const [setup, setSetup] = useState<SetupConfig>(() => cloneDefaultSetup());
   const [players, setPlayers] = useState<Player[]>([]);
-  const [currentRoundIndex] = useState(0);
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
+  const [completedRoundIndex, setCompletedRoundIndex] = useState<number | null>(null);
   const [controllingPlayerId, setControllingPlayerId] = useState(DEFAULT_SETUP.players[0].id);
   const [selectedClue, setSelectedClue] = useState<SelectedClue | null>(null);
   const [selectedClueKeys, setSelectedClueKeys] = useState<Set<string>>(() => new Set());
@@ -238,19 +241,38 @@ function App() {
   }
 
   function markSelectedClueDone(selection: SelectedClue) {
-    setSelectedClueKeys((current) => {
-      const next = new Set(current);
-      next.add(clueKey(selection));
-      return next;
-    });
+    const next = new Set(selectedClueKeys);
+    next.add(clueKey(selection));
+    setSelectedClueKeys(next);
+    return next;
   }
 
-  function scorePlayer(playerId: string, delta: number) {
-    setPlayers((current) =>
-      current.map((player) =>
-        player.id === playerId ? { ...player, score: player.score + delta } : player,
-      ),
+  function getPlayersAfterScore(playerId: string, delta: number) {
+    return players.map((player) =>
+      player.id === playerId ? { ...player, score: player.score + delta } : player,
     );
+  }
+
+  function finishSelectedClue() {
+    if (appData.status !== 'ready' || selectedClue === null) {
+      setScreen('board');
+      return;
+    }
+
+    const nextSelectedClueKeys = markSelectedClueDone(selectedClue);
+    setBuzzedPlayerId(null);
+    setDailyDoubleWager(null);
+
+    if (
+      isRoundComplete(appData.board, currentRoundIndex, nextSelectedClueKeys) &&
+      currentRoundIndex < appData.board.rounds.length - 1
+    ) {
+      setCompletedRoundIndex(currentRoundIndex);
+      setScreen('roundTransition');
+      return;
+    }
+
+    setScreen('board');
   }
 
   function handleCorrect(playerId: string) {
@@ -260,12 +282,10 @@ function App() {
 
     speechRunRef.current += 1;
     stopSpeech();
-    scorePlayer(playerId, scoringValue);
+    const nextPlayers = getPlayersAfterScore(playerId, scoringValue);
+    setPlayers(nextPlayers);
     setControllingPlayerId(playerId);
-    markSelectedClueDone(selectedClue);
-    setBuzzedPlayerId(null);
-    setDailyDoubleWager(null);
-    setScreen('board');
+    finishSelectedClue();
   }
 
   function handleIncorrect(playerId: string) {
@@ -273,7 +293,8 @@ function App() {
       return;
     }
 
-    scorePlayer(playerId, -scoringValue);
+    const nextPlayers = getPlayersAfterScore(playerId, -scoringValue);
+    setPlayers(nextPlayers);
 
     const nextAttempted = new Set(attemptedPlayerIds);
     nextAttempted.add(playerId);
@@ -286,9 +307,7 @@ function App() {
       : players.filter((player) => player.isActive);
 
     if (eligiblePlayers.every((player) => nextAttempted.has(player.id))) {
-      markSelectedClueDone(selectedClue);
-      setDailyDoubleWager(null);
-      setScreen('board');
+      finishSelectedClue();
       return;
     }
 
@@ -300,11 +319,30 @@ function App() {
     stopSpeech();
 
     if (selectedClue !== null) {
-      markSelectedClueDone(selectedClue);
+      finishSelectedClue();
+      return;
     }
 
     setBuzzedPlayerId(null);
     setDailyDoubleWager(null);
+    setScreen('board');
+  }
+
+  function handleStartNextRound() {
+    if (appData.status !== 'ready') {
+      return;
+    }
+
+    const nextRoundIndex = currentRoundIndex + 1;
+    const nextControlPlayer = getLowestScoringPlayer(players);
+
+    setCurrentRoundIndex(nextRoundIndex);
+    setCompletedRoundIndex(null);
+    setSelectedClue(null);
+    setAttemptedPlayerIds(new Set());
+    setBuzzedPlayerId(null);
+    setDailyDoubleWager(null);
+    setControllingPlayerId(nextControlPlayer?.id ?? players[0]?.id ?? DEFAULT_SETUP.players[0].id);
     setScreen('board');
   }
 
@@ -386,6 +424,25 @@ function App() {
           maxWager={getDailyDoubleMaxWager(selectingPlayer.score, round)}
           onSubmitWager={handleSubmitDailyDoubleWager}
           onCancel={handleCancelDailyDouble}
+        />
+      );
+    }
+  }
+
+  if (screen === 'roundTransition' && completedRoundIndex !== null) {
+    const nextRoundIndex = completedRoundIndex + 1;
+    const nextControlPlayer = getLowestScoringPlayer(players);
+
+    if (nextControlPlayer !== undefined && nextRoundIndex < appData.board.rounds.length) {
+      return (
+        <RoundTransitionScreen
+          board={appData.board}
+          completedRoundIndex={completedRoundIndex}
+          nextRoundIndex={nextRoundIndex}
+          players={players}
+          controllingPlayerId={controllingPlayerId}
+          nextControlPlayer={nextControlPlayer}
+          onStartNextRound={handleStartNextRound}
         />
       );
     }

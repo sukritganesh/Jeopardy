@@ -1,6 +1,6 @@
 export type BuzzMode = 'early' | 'afterRead';
 
-export type AppScreen = 'setup' | 'board' | 'dailyDoubleWager' | 'clue';
+export type AppScreen = 'setup' | 'board' | 'dailyDoubleWager' | 'clue' | 'roundTransition';
 
 export type CluePhase = 'reading' | 'buzzing' | 'answering';
 

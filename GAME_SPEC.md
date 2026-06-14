@@ -87,6 +87,7 @@ The game has three phases:
 3. Final Jeopardy.
 
 The normal rounds use board categories and clue values. Final Jeopardy uses a single category and clue.
+The board JSON should contain both normal rounds in one file under `rounds`.
 
 ## Round Structure
 
@@ -132,6 +133,13 @@ V1 control rules:
 - If there is a tie for lowest score, choose the tied player closest to Player 1 order.
 
 The UI should clearly show who currently controls the board.
+
+When the Jeopardy round is complete:
+
+- Show a round transition screen.
+- Display current scores.
+- Show who will control Double Jeopardy.
+- Start Double Jeopardy only after the host confirms.
 
 ## Normal Clue Flow
 

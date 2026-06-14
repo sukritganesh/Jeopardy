@@ -1,0 +1,505 @@
+{
+  "title": "Sample Game",
+  "rounds": [
+    {
+      "id": "jeopardy",
+      "name": "Jeopardy",
+      "values": [200, 400, 600, 800, 1000],
+      "categories": [
+        {
+          "title": "World Capitals",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This city is the capital of France.",
+              "correctResponse": "Paris",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This city is the capital of Japan.",
+              "correctResponse": "Tokyo",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This city is the capital of Egypt.",
+              "correctResponse": "Cairo",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This city is the capital of Canada.",
+              "correctResponse": "Ottawa",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This city is the capital of New Zealand.",
+              "correctResponse": "Wellington",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Science Basics",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This force pulls objects toward Earth.",
+              "correctResponse": "Gravity",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This is the gas humans breathe in to survive.",
+              "correctResponse": "Oxygen",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This organ pumps blood through the human body.",
+              "correctResponse": "Heart",
+              "acceptedResponses": ["The heart"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This process lets plants use sunlight to make food.",
+              "correctResponse": "Photosynthesis",
+              "acceptedResponses": [],
+              "dailyDouble": true
+            },
+            {
+              "value": 1000,
+              "clue": "This is the center part of an atom.",
+              "correctResponse": "Nucleus",
+              "acceptedResponses": ["The nucleus"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Movie Night",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This 1995 animated movie features Woody and Buzz Lightyear.",
+              "correctResponse": "Toy Story",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This movie series follows a young wizard at Hogwarts.",
+              "correctResponse": "Harry Potter",
+              "acceptedResponses": ["The Harry Potter films"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This 1982 science fiction film features a stranded alien who wants to phone home.",
+              "correctResponse": "E.T.",
+              "acceptedResponses": ["E.T. the Extra-Terrestrial", "ET"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This 1975 film made audiences nervous about swimming in the ocean.",
+              "correctResponse": "Jaws",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This 1942 film stars Humphrey Bogart and Ingrid Bergman in Morocco.",
+              "correctResponse": "Casablanca",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Wordplay",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This word means the opposite of hot.",
+              "correctResponse": "Cold",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This is a word that has the same meaning as another word.",
+              "correctResponse": "Synonym",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This is a word that has the opposite meaning of another word.",
+              "correctResponse": "Antonym",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This figure of speech compares two unlike things using like or as.",
+              "correctResponse": "Simile",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This word describes a word that is spelled the same forward and backward.",
+              "correctResponse": "Palindrome",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "U.S. History",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This president was the first president of the United States.",
+              "correctResponse": "George Washington",
+              "acceptedResponses": ["Washington"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This document declared the American colonies independent in 1776.",
+              "correctResponse": "Declaration of Independence",
+              "acceptedResponses": ["The Declaration of Independence"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This war was fought between the Union and the Confederacy.",
+              "correctResponse": "Civil War",
+              "acceptedResponses": ["The American Civil War", "U.S. Civil War"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This purchase from France doubled the size of the United States in 1803.",
+              "correctResponse": "Louisiana Purchase",
+              "acceptedResponses": ["The Louisiana Purchase"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This amendment abolished slavery in the United States.",
+              "correctResponse": "Thirteenth Amendment",
+              "acceptedResponses": ["13th Amendment"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Food & Drink",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This fruit is traditionally used to make guacamole.",
+              "correctResponse": "Avocado",
+              "acceptedResponses": ["Avocados"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This Italian dish is made from dough, tomato sauce, and cheese.",
+              "correctResponse": "Pizza",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This drink is made by steeping leaves from the Camellia sinensis plant.",
+              "correctResponse": "Tea",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This Japanese dish often features vinegared rice and raw fish.",
+              "correctResponse": "Sushi",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This French term names a small baked custard dish with a caramelized sugar top.",
+              "correctResponse": "Creme brulee",
+              "acceptedResponses": ["Creme brulee"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "doubleJeopardy",
+      "name": "Double Jeopardy",
+      "values": [400, 800, 1200, 1600, 2000],
+      "categories": [
+        {
+          "title": "Ancient World",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This ancient civilization built pyramids at Giza.",
+              "correctResponse": "Egyptians",
+              "acceptedResponses": ["Ancient Egyptians", "Egypt"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This city-state was famous for its military society in ancient Greece.",
+              "correctResponse": "Sparta",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This Macedonian king created an empire stretching from Greece to India.",
+              "correctResponse": "Alexander the Great",
+              "acceptedResponses": ["Alexander"],
+              "dailyDouble": true
+            },
+            {
+              "value": 1600,
+              "clue": "This Roman emperor was assassinated on the Ides of March.",
+              "correctResponse": "Julius Caesar",
+              "acceptedResponses": ["Caesar"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This ancient Mesopotamian law code is associated with a Babylonian king.",
+              "correctResponse": "Code of Hammurabi",
+              "acceptedResponses": ["Hammurabi's Code", "Hammurabi"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Space",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This planet is known as the Red Planet.",
+              "correctResponse": "Mars",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This is the closest star to Earth.",
+              "correctResponse": "The Sun",
+              "acceptedResponses": ["Sun"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This galaxy is home to our solar system.",
+              "correctResponse": "Milky Way",
+              "acceptedResponses": ["The Milky Way"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This scientist described three laws of planetary motion.",
+              "correctResponse": "Johannes Kepler",
+              "acceptedResponses": ["Kepler"],
+              "dailyDouble": true
+            },
+            {
+              "value": 2000,
+              "clue": "This boundary marks the point beyond which light cannot escape a black hole.",
+              "correctResponse": "Event horizon",
+              "acceptedResponses": ["The event horizon"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Literature",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This author wrote The Cat in the Hat.",
+              "correctResponse": "Dr. Seuss",
+              "acceptedResponses": ["Doctor Seuss", "Theodor Geisel"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This Shakespeare play features the characters Romeo and Juliet.",
+              "correctResponse": "Romeo and Juliet",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This novel follows Scout Finch in the fictional town of Maycomb.",
+              "correctResponse": "To Kill a Mockingbird",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This author wrote Pride and Prejudice.",
+              "correctResponse": "Jane Austen",
+              "acceptedResponses": ["Austen"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This epic poem tells of Odysseus's long journey home after the Trojan War.",
+              "correctResponse": "The Odyssey",
+              "acceptedResponses": ["Odyssey"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Computer Terms",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This three-letter abbreviation names the central processor of a computer.",
+              "correctResponse": "CPU",
+              "acceptedResponses": ["Central processing unit"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This type of memory usually disappears when the computer is turned off.",
+              "correctResponse": "RAM",
+              "acceptedResponses": ["Random access memory"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This term names a reusable block of code that performs a task.",
+              "correctResponse": "Function",
+              "acceptedResponses": ["A function"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This version control system is commonly used with GitHub.",
+              "correctResponse": "Git",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This acronym names the style of web request often used to fetch JSON data.",
+              "correctResponse": "AJAX",
+              "acceptedResponses": ["Asynchronous JavaScript and XML"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Music Makers",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This instrument has 88 keys on a standard modern model.",
+              "correctResponse": "Piano",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This composer wrote the Ninth Symphony and Moonlight Sonata.",
+              "correctResponse": "Ludwig van Beethoven",
+              "acceptedResponses": ["Beethoven"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This family of instruments includes the violin, viola, cello, and bass.",
+              "correctResponse": "Strings",
+              "acceptedResponses": ["String instruments"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This genre grew from African American communities in New Orleans.",
+              "correctResponse": "Jazz",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This Italian word tells musicians to play loudly.",
+              "correctResponse": "Forte",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Geography",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This is the largest ocean on Earth.",
+              "correctResponse": "Pacific Ocean",
+              "acceptedResponses": ["The Pacific", "Pacific"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This river is often described as the longest river in the world.",
+              "correctResponse": "Nile River",
+              "acceptedResponses": ["The Nile", "Nile"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This desert covers much of northern Africa.",
+              "correctResponse": "Sahara Desert",
+              "acceptedResponses": ["The Sahara", "Sahara"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This mountain range separates Europe and Asia in Russia.",
+              "correctResponse": "Ural Mountains",
+              "acceptedResponses": ["The Urals", "Urals"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This imaginary line circles Earth halfway between the North and South Poles.",
+              "correctResponse": "Equator",
+              "acceptedResponses": ["The equator"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "category": "Classic Novels",
+    "clue": "This Herman Melville novel follows Captain Ahab's hunt for a white whale.",
+    "correctResponse": "Moby-Dick",
+    "acceptedResponses": ["Moby Dick"]
+  }
+}

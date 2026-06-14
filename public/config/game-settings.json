@@ -9,6 +9,9 @@
     "rate": 1,
     "pitch": 1
   },
+  "debug": {
+    "advanceAfterOneClue": true
+  },
   "players": [
     {
       "id": "player-1",

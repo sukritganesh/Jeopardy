@@ -9,6 +9,7 @@ type SetupScreenProps = {
   onPlayerCountChange: (count: number) => void;
   onPlayerChange: (playerId: string, patch: Partial<Pick<Player, 'name'>>) => void;
   onBuzzModeChange: (buzzMode: BuzzMode) => void;
+  onDebugAdvanceChange: (enabled: boolean) => void;
   onStartGame: () => void;
 };
 
@@ -21,6 +22,7 @@ export function SetupScreen({
   onPlayerCountChange,
   onPlayerChange,
   onBuzzModeChange,
+  onDebugAdvanceChange,
   onStartGame,
 }: SetupScreenProps) {
   const activePlayers = setup.players.filter((player) => player.isActive);
@@ -105,6 +107,21 @@ export function SetupScreen({
             </label>
           </fieldset>
         </div>
+
+        <fieldset className="form-section debug-section">
+          <legend>Host Lab</legend>
+          <label className="radio-card">
+            <input
+              type="checkbox"
+              checked={setup.debugAdvanceAfterOneClue}
+              onChange={(event) => onDebugAdvanceChange(event.target.checked)}
+            />
+            <span>
+              <strong>One-clue rounds</strong>
+              <small>Debug shortcut: advance after one clue so Final Jeopardy is easy to test.</small>
+            </span>
+          </label>
+        </fieldset>
 
         <dl className="settings-summary">
           <div>

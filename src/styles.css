@@ -226,6 +226,10 @@ input {
   display: block;
 }
 
+.debug-section {
+  margin-top: 18px;
+}
+
 .primary-action,
 .secondary-action,
 .ghost-action,

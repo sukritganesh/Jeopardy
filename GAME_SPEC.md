@@ -61,14 +61,23 @@ The settings file controls:
 - Default player count.
 - Fixed player buzzer keys.
 - Text-to-speech enabled/rate/pitch.
+- Debug shortcuts such as one-clue round completion.
 
 The setup screen should expose these v1 settings:
 
 - Player count: 1, 2, or 3.
 - Player names.
 - Buzzer mode.
+- Host Lab debug toggles.
 
 Buzzer keys are fixed by the settings file for v1 and shown on the setup screen.
+
+V1 debug option:
+
+- `advanceAfterOneClue` advances each normal round after one completed clue.
+- This exists to make Double Jeopardy and Final Jeopardy testing fast.
+- It is configured in `public/config/game-settings.json` and exposed on the setup screen.
+- Remove this option when full-game testing no longer needs the shortcut.
 
 V1 buzzer modes:
 

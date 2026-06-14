@@ -1,9 +1,31 @@
 import type { Board, Player } from './types';
 import { clueKey } from './types';
 
-/** A round is complete when every clue coordinate in that round has been marked played. */
-export function isRoundComplete(board: Board, roundIndex: number, selectedClueKeys: Set<string>): boolean {
+/** Debug shortcut keeps full-game testing fast without changing board data. */
+const DEBUG_ROUND_COMPLETION_TARGET = 1;
+
+/** A round is complete when all clues are played, unless the debug shortcut is enabled. */
+export function isRoundComplete(
+  board: Board,
+  roundIndex: number,
+  selectedClueKeys: Set<string>,
+  debugAdvanceAfterOneClue = false,
+): boolean {
   const round = board.rounds[roundIndex];
+
+  if (debugAdvanceAfterOneClue) {
+    let playedClues = 0;
+
+    for (const [categoryIndex, category] of round.categories.entries()) {
+      for (const [clueIndex] of category.clues.entries()) {
+        if (selectedClueKeys.has(clueKey({ roundIndex, categoryIndex, clueIndex }))) {
+          playedClues += 1;
+        }
+      }
+    }
+
+    return playedClues >= DEBUG_ROUND_COMPLETION_TARGET;
+  }
 
   return round.categories.every((category, categoryIndex) =>
     category.clues.every((_, clueIndex) =>

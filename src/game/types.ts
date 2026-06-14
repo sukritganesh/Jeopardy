@@ -70,6 +70,7 @@ export type SelectedClue = {
 export type SetupConfig = {
   players: Player[];
   buzzMode: BuzzMode;
+  debugAdvanceAfterOneClue: boolean;
 };
 
 export type SettingsPlayer = Omit<Player, 'score'>;
@@ -86,6 +87,9 @@ export type GameSettings = {
     rate: number;
     pitch: number;
   };
+  debug: {
+    advanceAfterOneClue: boolean;
+  };
   players: SettingsPlayer[];
 };
 
@@ -98,6 +102,7 @@ export const DEFAULT_PLAYERS: Player[] = [
 export const DEFAULT_SETUP: SetupConfig = {
   players: DEFAULT_PLAYERS,
   buzzMode: 'afterRead',
+  debugAdvanceAfterOneClue: true,
 };
 
 export const DEFAULT_SETTINGS: GameSettings = {
@@ -111,6 +116,9 @@ export const DEFAULT_SETTINGS: GameSettings = {
     rate: 1,
     pitch: 1,
   },
+  debug: {
+    advanceAfterOneClue: true,
+  },
   players: DEFAULT_PLAYERS.map((player) => ({
     id: player.id,
     name: player.name,
@@ -122,6 +130,7 @@ export const DEFAULT_SETTINGS: GameSettings = {
 export function setupFromSettings(settings: GameSettings): SetupConfig {
   return {
     buzzMode: settings.defaultBuzzMode,
+    debugAdvanceAfterOneClue: settings.debug.advanceAfterOneClue,
     players: settings.players.map((player, index) => ({
       ...player,
       score: 0,

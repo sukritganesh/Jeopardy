@@ -41,6 +41,7 @@ export function validateSettings(value: unknown): GameSettings {
   }
 
   const tts = isRecord(value.tts) ? value.tts : {};
+  const debug = isRecord(value.debug) ? value.debug : {};
   const defaultPlayerCount = Math.min(3, Math.max(1, readNumber(value.defaultPlayerCount, 2)));
 
   return {
@@ -58,6 +59,12 @@ export function validateSettings(value: unknown): GameSettings {
       enabled: typeof tts.enabled === 'boolean' ? tts.enabled : DEFAULT_SETTINGS.tts.enabled,
       rate: Math.max(0.5, Math.min(2, readNumber(tts.rate, DEFAULT_SETTINGS.tts.rate))),
       pitch: Math.max(0, Math.min(2, readNumber(tts.pitch, DEFAULT_SETTINGS.tts.pitch))),
+    },
+    debug: {
+      advanceAfterOneClue:
+        typeof debug.advanceAfterOneClue === 'boolean'
+          ? debug.advanceAfterOneClue
+          : DEFAULT_SETTINGS.debug.advanceAfterOneClue,
     },
     players: parsePlayers(value.players),
   };

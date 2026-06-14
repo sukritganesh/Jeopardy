@@ -38,6 +38,7 @@ type AppDataState =
 function cloneDefaultSetup(): SetupConfig {
   return {
     buzzMode: DEFAULT_SETUP.buzzMode,
+    debugAdvanceAfterOneClue: DEFAULT_SETUP.debugAdvanceAfterOneClue,
     players: DEFAULT_SETUP.players.map((player) => ({ ...player })),
   };
 }
@@ -281,6 +282,10 @@ function App() {
     setSetup((current) => ({ ...current, buzzMode }));
   }
 
+  function handleDebugAdvanceChange(enabled: boolean) {
+    setSetup((current) => ({ ...current, debugAdvanceAfterOneClue: enabled }));
+  }
+
   function handleStartGame() {
     const startingPlayers = activePlayers.map((player) => ({
       ...player,
@@ -347,7 +352,12 @@ function App() {
     setClueIsBeingRead(false);
 
     if (
-      isRoundComplete(appData.board, currentRoundIndex, nextSelectedClueKeys) &&
+      isRoundComplete(
+        appData.board,
+        currentRoundIndex,
+        nextSelectedClueKeys,
+        setup.debugAdvanceAfterOneClue,
+      ) &&
       currentRoundIndex < appData.board.rounds.length - 1
     ) {
       setCompletedRoundIndex(currentRoundIndex);
@@ -356,7 +366,12 @@ function App() {
     }
 
     if (
-      isRoundComplete(appData.board, currentRoundIndex, nextSelectedClueKeys) &&
+      isRoundComplete(
+        appData.board,
+        currentRoundIndex,
+        nextSelectedClueKeys,
+        setup.debugAdvanceAfterOneClue,
+      ) &&
       currentRoundIndex === appData.board.rounds.length - 1
     ) {
       setFinalWagers({});
@@ -546,6 +561,7 @@ function App() {
         onPlayerCountChange={handlePlayerCountChange}
         onPlayerChange={handlePlayerChange}
         onBuzzModeChange={handleBuzzModeChange}
+        onDebugAdvanceChange={handleDebugAdvanceChange}
         onStartGame={handleStartGame}
       />
     );

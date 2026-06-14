@@ -36,6 +36,7 @@ Turn the normal clue loop into complete round flow, then add Daily Double and Fi
 - Added Final Jeopardy clue reading with a 30-second timer.
 - Added early reveal for the Final Jeopardy correct response.
 - Added Final Jeopardy host scoring and final standings.
+- Added a committed Host Lab debug option for advancing rounds after one clue.
 
 ## In Progress
 
@@ -44,7 +45,7 @@ Turn the normal clue loop into complete round flow, then add Daily Double and Fi
 ## Next Up
 
 - Add stricter validation for duplicate buzzer keys in settings/setup.
-- Remove the temporary 2-clue round-completion testing shortcut.
+- Remove the one-clue round-completion debug option once full-game testing no longer needs it.
 
 ## Notes
 

@@ -1,0 +1,31 @@
+{
+  "boardPath": "/boards/sample-board.json",
+  "answerTimeSeconds": 5,
+  "defaultBuzzMode": "afterRead",
+  "defaultPlayerCount": 2,
+  "tts": {
+    "enabled": true,
+    "rate": 1,
+    "pitch": 1
+  },
+  "players": [
+    {
+      "id": "player-1",
+      "name": "Player 1",
+      "buzzerKey": "A",
+      "isActive": true
+    },
+    {
+      "id": "player-2",
+      "name": "Player 2",
+      "buzzerKey": "K",
+      "isActive": true
+    },
+    {
+      "id": "player-3",
+      "name": "Player 3",
+      "buzzerKey": "L",
+      "isActive": false
+    }
+  ]
+}

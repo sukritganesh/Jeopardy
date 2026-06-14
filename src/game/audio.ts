@@ -4,6 +4,7 @@ export type SoundName =
   | 'dailyDouble'
   | 'incorrectAnswer'
   | 'jeopardyTheme'
+  | 'outroMusic'
   | 'thinkingMusic'
   | 'timesUp';
 
@@ -19,12 +20,13 @@ const SOUND_PATHS: Record<SoundName, string> = {
   dailyDouble: '/audio/dailyDouble.mp3',
   incorrectAnswer: '/audio/incorrectAnswer.mp3',
   jeopardyTheme: '/audio/jeopardyTheme80s.mp3',
+  outroMusic: '/audio/outroMusic.mp3',
   thinkingMusic: '/audio/thinkingMusic.mp3',
   timesUp: '/audio/timesUp.mp3',
 };
 
 const LOOPING_SOUNDS = new Set<SoundName>(['jeopardyTheme', 'thinkingMusic']);
-const MUSIC_SOUNDS = new Set<SoundName>(['jeopardyTheme', 'thinkingMusic']);
+const MUSIC_SOUNDS = new Set<SoundName>(['jeopardyTheme', 'outroMusic', 'thinkingMusic']);
 
 function isBrowserAudioAvailable() {
   return typeof Audio !== 'undefined';

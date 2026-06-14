@@ -79,6 +79,7 @@ function App() {
   const audioRef = useRef<GameAudio | null>(null);
   const clueTimesUpKeyRef = useRef<string | null>(null);
   const finalTimesUpWasPlayedRef = useRef(false);
+  const outroWasPlayedRef = useRef(false);
 
   const getAudio = useCallback(() => {
     audioRef.current ??= new GameAudio();
@@ -189,6 +190,16 @@ function App() {
   ]);
 
   useEffect(() => {
+    if (screen !== 'finalStandings' || outroWasPlayedRef.current) {
+      return;
+    }
+
+    outroWasPlayedRef.current = true;
+    getAudio().stopAmbient();
+    getAudio().play('outroMusic');
+  }, [getAudio, screen]);
+
+  useEffect(() => {
     if (screen !== 'clue' || appData.status !== 'ready' || currentClue === null) {
       return;
     }
@@ -289,6 +300,7 @@ function App() {
     const timerIsExpired =
       screen === 'clue' &&
       timerRemaining === 0 &&
+      currentClue?.dailyDouble !== true &&
       ((cluePhase === 'answering' && buzzedPlayerId !== null) ||
         (cluePhase === 'buzzing' && !clueIsBeingRead));
 
@@ -309,6 +321,7 @@ function App() {
     buzzedPlayerId,
     clueIsBeingRead,
     cluePhase,
+    currentClue,
     getAudio,
     screen,
     selectedClue,
@@ -376,7 +389,6 @@ function App() {
 
     finalTimesUpWasPlayedRef.current = true;
     getAudio().stop('thinkingMusic');
-    getAudio().play('timesUp');
   }, [finalClueIsBeingRead, finalResponseIsRevealed, finalTimerRemaining, getAudio, screen]);
 
   function handlePlayerCountChange(count: number) {
@@ -474,6 +486,7 @@ function App() {
     setFinalJudgments({});
     setFinalResponseIsRevealed(false);
     setFinalClueIsBeingRead(false);
+    outroWasPlayedRef.current = false;
     getAudio().stopAmbient();
     getAudio().play('boardFill');
     setScreen('board');

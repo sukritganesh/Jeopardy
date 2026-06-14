@@ -50,6 +50,7 @@ Polish setup navigation and test the full setup-to-standings loop.
 - Added `docs/BOARD_GENERATION.md` to guide future Codex-generated board creation.
 - Generated `public/boards/geography-night-board.json` as a medium geography-themed board.
 - Moved long-form project docs into `docs/` and linked them from `README.md`.
+- Refined audio cues: one-shot outro on standings, no Final Jeopardy times-up effect, and no Daily Double times-up effect.
 
 ## In Progress
 

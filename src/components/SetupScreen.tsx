@@ -133,18 +133,7 @@ export function SetupScreen({
 
             <fieldset className="form-section debug-section">
               <legend>Audio</legend>
-              <label className="radio-card">
-                <input
-                  type="checkbox"
-                  checked={setup.audio.isMuted}
-                  onChange={(event) => onAudioChange({ isMuted: event.target.checked })}
-                />
-                <span>
-                  <strong>Muted</strong>
-                  <small>The game starts muted by default.</small>
-                </span>
-              </label>
-              <label className="field-label timer-field-label" htmlFor="music-volume">
+              <label className="field-label" htmlFor="music-volume">
                 Music volume: {Math.round(setup.audio.musicVolume * 100)}%
               </label>
               <input

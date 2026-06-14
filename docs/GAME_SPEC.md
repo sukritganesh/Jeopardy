@@ -76,7 +76,6 @@ The setup flow should keep the first page compact:
 The separate settings page should expose these v1 settings:
 
 - Board JSON file selection from the local machine.
-- Audio mute state.
 - Music volume.
 - Sound effects volume.
 - Editable buzzer keys.
@@ -263,6 +262,12 @@ When the selected clue is a Daily Double:
 6. Start the response timer after reading completes.
 7. Host marks Correct or Incorrect.
 
+Daily Double timing:
+
+- There is only one post-reading countdown.
+- Buzzer keys do not affect Daily Double timing.
+- Countdown expiration does not play the times-up sound in v1.
+
 Daily Double scoring:
 
 - Correct: add the wager to the selecting player's score.
@@ -360,14 +365,17 @@ Audio behavior:
 
 - The game starts muted by default.
 - A global mute button should be visible in the corner on all screens.
+- Do not duplicate the mute control in the settings page.
 - Muting should pause active audio without resetting track position.
 - Music and sound effects have separate volume settings.
 - Play the Jeopardy theme on the setup front page and settings page once browser audio is unlocked.
 - Play the board fill sound when a normal round begins.
 - Play the Daily Double sound when a Daily Double is selected.
 - Play the thinking music after Final Jeopardy clue reading finishes.
-- Stop Final Jeopardy thinking music when the correct response is revealed.
-- Play the times-up sound whenever a clue or Final Jeopardy countdown reaches zero.
+- Stop Final Jeopardy thinking music when the timer reaches zero or the correct response is revealed.
+- Play outro music once on the final standings screen.
+- Play the times-up sound when normal clue buzz/response countdowns reach zero.
+- Do not play the times-up sound for Daily Double or Final Jeopardy countdown expiration.
 - Play the correct-answer sound when the host marks a response correct.
 - Play the incorrect-answer sound when the host marks a response incorrect.
 

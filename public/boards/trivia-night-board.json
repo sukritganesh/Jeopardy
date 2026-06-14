@@ -1,0 +1,505 @@
+{
+  "title": "Trivia Night",
+  "rounds": [
+    {
+      "id": "jeopardy",
+      "name": "Jeopardy",
+      "values": [200, 400, 600, 800, 1000],
+      "categories": [
+        {
+          "title": "Movie Quotes",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "In The Wizard of Oz, Dorothy says there is no place like this.",
+              "correctResponse": "Home",
+              "acceptedResponses": ["There's no place like home"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "In Star Wars, this is what Darth Vader says Luke should join.",
+              "correctResponse": "The dark side",
+              "acceptedResponses": ["Dark side"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This shark movie made the line 'You're gonna need a bigger boat' famous.",
+              "correctResponse": "Jaws",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "In Casablanca, Rick tells the band to play this song.",
+              "correctResponse": "As Time Goes By",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This 1976 boxing film includes the shouted name 'Adrian'.",
+              "correctResponse": "Rocky",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Food Facts",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This fruit is the main ingredient in guacamole.",
+              "correctResponse": "Avocado",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "Sushi is traditionally served with this green spicy paste.",
+              "correctResponse": "Wasabi",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This Italian cheese is commonly grated over pasta.",
+              "correctResponse": "Parmesan",
+              "acceptedResponses": ["Parmigiano Reggiano"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This grain is the base of traditional risotto.",
+              "correctResponse": "Arborio rice",
+              "acceptedResponses": ["Rice", "Arborio"],
+              "dailyDouble": true
+            },
+            {
+              "value": 1000,
+              "clue": "This French term means foods cooked in a vacuum-sealed bag in warm water.",
+              "correctResponse": "Sous vide",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "U.S. Places",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This state is home to the Grand Canyon.",
+              "correctResponse": "Arizona",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This city is known as the Big Easy.",
+              "correctResponse": "New Orleans",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "Mount Rushmore is located in this state.",
+              "correctResponse": "South Dakota",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This river forms much of the border between Texas and Mexico.",
+              "correctResponse": "Rio Grande",
+              "acceptedResponses": ["The Rio Grande"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This national park contains Old Faithful.",
+              "correctResponse": "Yellowstone",
+              "acceptedResponses": ["Yellowstone National Park"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Tech Talk",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This three-letter term means central processing unit.",
+              "correctResponse": "CPU",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "A URL usually begins with HTTP or this secure version.",
+              "correctResponse": "HTTPS",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This company created the Windows operating system.",
+              "correctResponse": "Microsoft",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This data format uses key-value pairs and is common in web APIs.",
+              "correctResponse": "JSON",
+              "acceptedResponses": ["JavaScript Object Notation"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This version control system was created by Linus Torvalds.",
+              "correctResponse": "Git",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Book Shelf",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This Dr. Seuss character wears a tall striped hat.",
+              "correctResponse": "The Cat in the Hat",
+              "acceptedResponses": ["Cat in the Hat"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This author wrote The Hobbit.",
+              "correctResponse": "J. R. R. Tolkien",
+              "acceptedResponses": ["Tolkien"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This novel features Scout, Jem, and Atticus Finch.",
+              "correctResponse": "To Kill a Mockingbird",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This dystopian novel features Big Brother.",
+              "correctResponse": "1984",
+              "acceptedResponses": ["Nineteen Eighty-Four"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This Mary Shelley novel is subtitled The Modern Prometheus.",
+              "correctResponse": "Frankenstein",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Sports Stuff",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This sport uses a puck on ice.",
+              "correctResponse": "Hockey",
+              "acceptedResponses": ["Ice hockey"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "In baseball, this many strikes makes an out.",
+              "correctResponse": "Three",
+              "acceptedResponses": ["3"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This international soccer tournament is held every four years.",
+              "correctResponse": "The World Cup",
+              "acceptedResponses": ["World Cup", "FIFA World Cup"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This tennis term means a score of zero.",
+              "correctResponse": "Love",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This race is the first leg of horse racing's Triple Crown.",
+              "correctResponse": "Kentucky Derby",
+              "acceptedResponses": ["The Kentucky Derby"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "doubleJeopardy",
+      "name": "Double Jeopardy",
+      "values": [400, 800, 1200, 1600, 2000],
+      "categories": [
+        {
+          "title": "World Landmarks",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This tower in Paris was completed for the 1889 World's Fair.",
+              "correctResponse": "Eiffel Tower",
+              "acceptedResponses": ["The Eiffel Tower"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This ancient amphitheater stands in the center of Rome.",
+              "correctResponse": "Colosseum",
+              "acceptedResponses": ["The Colosseum"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This marble mausoleum in Agra was built by Shah Jahan.",
+              "correctResponse": "Taj Mahal",
+              "acceptedResponses": ["The Taj Mahal"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This Incan site sits high in the Andes above Peru's Urubamba Valley.",
+              "correctResponse": "Machu Picchu",
+              "acceptedResponses": [],
+              "dailyDouble": true
+            },
+            {
+              "value": 2000,
+              "clue": "This prehistoric monument in Wiltshire, England is arranged in a stone circle.",
+              "correctResponse": "Stonehenge",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Science Names",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This scientist developed the theory of relativity.",
+              "correctResponse": "Albert Einstein",
+              "acceptedResponses": ["Einstein"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This scientist is known for work with radioactivity and won two Nobel Prizes.",
+              "correctResponse": "Marie Curie",
+              "acceptedResponses": ["Curie"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This naturalist published On the Origin of Species.",
+              "correctResponse": "Charles Darwin",
+              "acceptedResponses": ["Darwin"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This astronomer defended heliocentrism and was tried by the Roman Inquisition.",
+              "correctResponse": "Galileo Galilei",
+              "acceptedResponses": ["Galileo"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This chemist arranged the periodic table by atomic weight trends.",
+              "correctResponse": "Dmitri Mendeleev",
+              "acceptedResponses": ["Mendeleev"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Music Makers",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This singer released the album Thriller.",
+              "correctResponse": "Michael Jackson",
+              "acceptedResponses": ["Jackson"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This composer wrote the Ninth Symphony and Moonlight Sonata.",
+              "correctResponse": "Ludwig van Beethoven",
+              "acceptedResponses": ["Beethoven"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This band released Abbey Road.",
+              "correctResponse": "The Beatles",
+              "acceptedResponses": ["Beatles"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This jazz trumpeter recorded Kind of Blue.",
+              "correctResponse": "Miles Davis",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This Austrian composer wrote The Magic Flute.",
+              "correctResponse": "Wolfgang Amadeus Mozart",
+              "acceptedResponses": ["Mozart"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Mythology",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "In Greek myth, this god rules the sea.",
+              "correctResponse": "Poseidon",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This Norse god carries a hammer named Mjolnir.",
+              "correctResponse": "Thor",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This Greek hero slew Medusa.",
+              "correctResponse": "Perseus",
+              "acceptedResponses": [],
+              "dailyDouble": true
+            },
+            {
+              "value": 1600,
+              "clue": "This Egyptian god is often shown with a jackal head.",
+              "correctResponse": "Anubis",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This Roman goddess of wisdom corresponds to the Greek Athena.",
+              "correctResponse": "Minerva",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Word Origins",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This word for a fake name comes from Greek for false name.",
+              "correctResponse": "Pseudonym",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This word meaning all-powerful comes from Latin for all and able.",
+              "correctResponse": "Omnipotent",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This word for fear of spiders combines Greek roots for spider and fear.",
+              "correctResponse": "Arachnophobia",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This word for writing about one's own life combines Greek roots for self, life, and writing.",
+              "correctResponse": "Autobiography",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This word for a mistake in print comes from Greek for impression.",
+              "correctResponse": "Typo",
+              "acceptedResponses": ["Typographical error"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Space",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This planet is known as the Red Planet.",
+              "correctResponse": "Mars",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This is the largest planet in our solar system.",
+              "correctResponse": "Jupiter",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This galaxy contains our solar system.",
+              "correctResponse": "Milky Way",
+              "acceptedResponses": ["The Milky Way"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This NASA telescope launched in 1990 and orbits Earth.",
+              "correctResponse": "Hubble Space Telescope",
+              "acceptedResponses": ["Hubble"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This boundary marks the edge beyond which light cannot escape a black hole.",
+              "correctResponse": "Event horizon",
+              "acceptedResponses": ["The event horizon"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "category": "Famous Firsts",
+    "clue": "In 1969, this astronaut became the first person to walk on the Moon.",
+    "correctResponse": "Neil Armstrong",
+    "acceptedResponses": ["Armstrong"]
+  }
+}

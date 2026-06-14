@@ -31,6 +31,7 @@ Turn the normal clue loop into complete round flow, then add Daily Double and Fi
 - Added round completion detection.
 - Added transition from Jeopardy to Double Jeopardy.
 - Added lowest-score player control for starting Double Jeopardy.
+- Added the post-reading buzz grace timer and reset behavior after incorrect responses.
 
 ## In Progress
 

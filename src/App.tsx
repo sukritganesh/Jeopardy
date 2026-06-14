@@ -48,6 +48,7 @@ function App() {
   const [buzzedPlayerId, setBuzzedPlayerId] = useState<string | null>(null);
   const [dailyDoubleWager, setDailyDoubleWager] = useState<number | null>(null);
   const [timerRemaining, setTimerRemaining] = useState(DEFAULT_SETTINGS.answerTimeSeconds);
+  const [clueIsBeingRead, setClueIsBeingRead] = useState(false);
   const [ttsUnavailable, setTtsUnavailable] = useState(false);
   const speechRunRef = useRef(0);
 
@@ -107,6 +108,7 @@ function App() {
     const runId = speechRunRef.current + 1;
     speechRunRef.current = runId;
     setTtsUnavailable(false);
+    setClueIsBeingRead(true);
     setBuzzedPlayerId(null);
     setTimerRemaining(appData.settings.answerTimeSeconds);
     setCluePhase(setup.buzzMode === 'early' && !currentClue.dailyDouble ? 'buzzing' : 'reading');
@@ -120,11 +122,15 @@ function App() {
         }
 
         if (currentClue.dailyDouble) {
+          setClueIsBeingRead(false);
           setBuzzedPlayerId(controllingPlayerId);
+          setTimerRemaining(answerTimeSeconds);
           setCluePhase('answering');
           return;
         }
 
+        setClueIsBeingRead(false);
+        setTimerRemaining(answerTimeSeconds);
         setCluePhase('buzzing');
       },
     });
@@ -133,7 +139,7 @@ function App() {
       speechRunRef.current += 1;
       stopSpeech();
     };
-  }, [appData, controllingPlayerId, currentClue, screen, setup.buzzMode]);
+  }, [answerTimeSeconds, appData, controllingPlayerId, currentClue, screen, setup.buzzMode]);
 
   useEffect(() => {
     if (screen !== 'clue' || cluePhase !== 'buzzing' || currentClue?.dailyDouble) {
@@ -160,6 +166,7 @@ function App() {
       event.preventDefault();
       speechRunRef.current += 1;
       stopSpeech();
+      setClueIsBeingRead(false);
       setBuzzedPlayerId(buzzingPlayer.id);
       setTimerRemaining(answerTimeSeconds);
       setCluePhase('answering');
@@ -170,7 +177,12 @@ function App() {
   }, [answerTimeSeconds, attemptedPlayerIds, cluePhase, currentClue, players, screen]);
 
   useEffect(() => {
-    if (screen !== 'clue' || cluePhase !== 'answering' || buzzedPlayerId === null) {
+    const timerIsActive =
+      screen === 'clue' &&
+      ((cluePhase === 'answering' && buzzedPlayerId !== null) ||
+        (cluePhase === 'buzzing' && !clueIsBeingRead));
+
+    if (!timerIsActive) {
       return;
     }
 
@@ -183,7 +195,7 @@ function App() {
     }, 1000);
 
     return () => window.clearTimeout(timerId);
-  }, [buzzedPlayerId, cluePhase, screen, timerRemaining]);
+  }, [buzzedPlayerId, clueIsBeingRead, cluePhase, screen, timerRemaining]);
 
   function handlePlayerCountChange(count: number) {
     setSetup((current) => ({
@@ -219,6 +231,7 @@ function App() {
     setAttemptedPlayerIds(new Set());
     setBuzzedPlayerId(null);
     setDailyDoubleWager(null);
+    setClueIsBeingRead(false);
     setScreen('board');
   }
 
@@ -235,6 +248,7 @@ function App() {
     setAttemptedPlayerIds(new Set());
     setBuzzedPlayerId(null);
     setDailyDoubleWager(null);
+    setClueIsBeingRead(false);
     setCluePhase('reading');
     setTimerRemaining(answerTimeSeconds);
     setScreen(clue.dailyDouble ? 'dailyDoubleWager' : 'clue');
@@ -262,6 +276,7 @@ function App() {
     const nextSelectedClueKeys = markSelectedClueDone(selectedClue);
     setBuzzedPlayerId(null);
     setDailyDoubleWager(null);
+    setClueIsBeingRead(false);
 
     if (
       isRoundComplete(appData.board, currentRoundIndex, nextSelectedClueKeys) &&
@@ -301,6 +316,7 @@ function App() {
     setAttemptedPlayerIds(nextAttempted);
     setBuzzedPlayerId(null);
     setTimerRemaining(answerTimeSeconds);
+    setClueIsBeingRead(false);
 
     const eligiblePlayers = currentClue.dailyDouble
       ? players.filter((player) => player.id === controllingPlayerId)
@@ -317,6 +333,7 @@ function App() {
   function handleEndClue() {
     speechRunRef.current += 1;
     stopSpeech();
+    setClueIsBeingRead(false);
 
     if (selectedClue !== null) {
       finishSelectedClue();
@@ -342,6 +359,7 @@ function App() {
     setAttemptedPlayerIds(new Set());
     setBuzzedPlayerId(null);
     setDailyDoubleWager(null);
+    setClueIsBeingRead(false);
     setControllingPlayerId(nextControlPlayer?.id ?? players[0]?.id ?? DEFAULT_SETUP.players[0].id);
     setScreen('board');
   }
@@ -350,6 +368,7 @@ function App() {
     setDailyDoubleWager(wager);
     setAttemptedPlayerIds(new Set());
     setBuzzedPlayerId(null);
+    setClueIsBeingRead(false);
     setTimerRemaining(answerTimeSeconds);
     setCluePhase('reading');
     setScreen('clue');
@@ -358,6 +377,7 @@ function App() {
   function handleCancelDailyDouble() {
     setSelectedClue(null);
     setDailyDoubleWager(null);
+    setClueIsBeingRead(false);
     setScreen('board');
   }
 
@@ -367,10 +387,12 @@ function App() {
     }
 
     const runId = speechRunRef.current + 1;
+    const replayDuringAnswer = cluePhase === 'answering';
     speechRunRef.current = runId;
     setTtsUnavailable(false);
+    setClueIsBeingRead(!replayDuringAnswer);
 
-    if (cluePhase !== 'answering') {
+    if (!replayDuringAnswer) {
       setCluePhase(setup.buzzMode === 'early' && !currentClue.dailyDouble ? 'buzzing' : 'reading');
     }
 
@@ -378,17 +400,25 @@ function App() {
       settings: appData.settings.tts,
       onUnavailable: () => setTtsUnavailable(true),
       onEnd: () => {
-        if (speechRunRef.current !== runId || cluePhase === 'answering') {
+        if (speechRunRef.current !== runId) {
+          return;
+        }
+
+        if (replayDuringAnswer) {
+          setClueIsBeingRead(false);
           return;
         }
 
         if (currentClue.dailyDouble) {
+          setClueIsBeingRead(false);
           setBuzzedPlayerId(controllingPlayerId);
           setTimerRemaining(answerTimeSeconds);
           setCluePhase('answering');
           return;
         }
 
+        setClueIsBeingRead(false);
+        setTimerRemaining(answerTimeSeconds);
         setCluePhase('buzzing');
       },
     });
@@ -460,6 +490,7 @@ function App() {
         buzzedPlayerId={buzzedPlayerId}
         timerRemaining={timerRemaining}
         answerTimeSeconds={appData.settings.answerTimeSeconds}
+        clueIsBeingRead={clueIsBeingRead}
         scoringValue={scoringValue}
         buzzMode={setup.buzzMode}
         ttsUnavailable={ttsUnavailable}

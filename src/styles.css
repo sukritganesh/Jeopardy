@@ -497,6 +497,10 @@ input {
   font-size: 1.25rem;
 }
 
+.response-strip--hidden strong {
+  color: #a8adc8;
+}
+
 .host-panel {
   padding: 18px;
 }

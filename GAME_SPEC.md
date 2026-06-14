@@ -202,8 +202,11 @@ The answer timer is 5 seconds in v1.
 
 V1 behavior:
 
-- Timer starts when a player successfully buzzes.
+- Timer starts when clue reading finishes and buzzers are open.
+- Timer resets to the full answer time when a player successfully buzzes.
+- Timer resets again if an incorrect response reopens buzzing.
 - Timer reaching zero does not automatically score the response.
+- Timer reaching zero does not prevent late buzzes in v1.
 - Host remains responsible for marking Incorrect or ending the attempt.
 - Timer length comes from `public/config/game-settings.json`.
 

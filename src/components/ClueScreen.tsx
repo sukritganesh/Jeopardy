@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import type { Board, BuzzMode, CluePhase, Player, SelectedClue } from '../game/types';
 import { PlayerScoreboard } from './PlayerScoreboard';
 
@@ -11,6 +12,7 @@ type ClueScreenProps = {
   buzzedPlayerId: string | null;
   timerRemaining: number;
   answerTimeSeconds: number;
+  clueIsBeingRead: boolean;
   scoringValue: number;
   buzzMode: BuzzMode;
   ttsUnavailable: boolean;
@@ -30,6 +32,7 @@ export function ClueScreen({
   buzzedPlayerId,
   timerRemaining,
   answerTimeSeconds,
+  clueIsBeingRead,
   scoringValue,
   buzzMode,
   ttsUnavailable,
@@ -38,6 +41,7 @@ export function ClueScreen({
   onEndClue,
   onReplayClue,
 }: ClueScreenProps) {
+  const [responseIsRevealed, setResponseIsRevealed] = useState(false);
   const round = board.rounds[selection.roundIndex];
   const category = round.categories[selection.categoryIndex];
   const clue = category.clues[selection.clueIndex];
@@ -49,8 +53,32 @@ export function ClueScreen({
     cluePhase === 'reading'
       ? 'Reading clue'
       : cluePhase === 'buzzing'
-        ? 'Buzzers open'
+        ? timerRemaining === 0 && !clueIsBeingRead
+          ? 'Time expired'
+          : 'Buzzers open'
         : `${buzzedPlayer?.name ?? 'Player'} answering`;
+  const shouldShowCountdown =
+    cluePhase === 'answering' || (cluePhase === 'buzzing' && !clueIsBeingRead);
+
+  useEffect(() => {
+    setResponseIsRevealed(false);
+  }, [selection]);
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.repeat || event.altKey || event.ctrlKey || event.metaKey) {
+        return;
+      }
+
+      if (event.key.toUpperCase() === 'R') {
+        event.preventDefault();
+        setResponseIsRevealed(true);
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <main className="game-shell clue-shell">
@@ -71,7 +99,7 @@ export function ClueScreen({
         </div>
         <div>
           <span>Timer</span>
-          <strong>{cluePhase === 'answering' ? `${timerRemaining}s` : `${answerTimeSeconds}s`}</strong>
+          <strong>{shouldShowCountdown ? `${timerRemaining}s` : `${answerTimeSeconds}s`}</strong>
         </div>
         <div>
           <span>{clue.dailyDouble ? 'Scoring' : 'Buzz mode'}</span>
@@ -88,9 +116,9 @@ export function ClueScreen({
           Clue
         </p>
         <p className="clue-text">{clue.clue}</p>
-        <div className="response-strip">
-          <span>Correct response</span>
-          <strong>{clue.correctResponse}</strong>
+        <div className={responseIsRevealed ? 'response-strip' : 'response-strip response-strip--hidden'}>
+          <span>{responseIsRevealed ? 'Correct response' : 'Response hidden'}</span>
+          <strong>{responseIsRevealed ? clue.correctResponse : 'Reveal when ready'}</strong>
         </div>
       </section>
 
@@ -100,7 +128,9 @@ export function ClueScreen({
           <p>
             {cluePhase === 'answering'
               ? 'Mark the active player response.'
-              : 'Waiting for reading or buzz.'}
+              : timerRemaining === 0 && cluePhase === 'buzzing' && !clueIsBeingRead
+                ? 'Time expired. End the clue or allow a late buzz.'
+                : 'Waiting for reading or buzz.'}
           </p>
         </div>
 
@@ -139,6 +169,9 @@ export function ClueScreen({
 
         <button className="ghost-action" type="button" onClick={onReplayClue}>
           Replay Clue
+        </button>
+        <button className="ghost-action" type="button" onClick={() => setResponseIsRevealed(true)}>
+          Reveal Response
         </button>
         <button className="ghost-action" type="button" onClick={onEndClue}>
           End Clue

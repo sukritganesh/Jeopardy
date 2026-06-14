@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BoardScreen } from './components/BoardScreen';
 import { ClueScreen } from './components/ClueScreen';
 import { DailyDoubleWagerScreen } from './components/DailyDoubleWagerScreen';
@@ -7,6 +7,7 @@ import { FinalJeopardyWagerScreen } from './components/FinalJeopardyWagerScreen'
 import { FinalStandingsScreen } from './components/FinalStandingsScreen';
 import { RoundTransitionScreen } from './components/RoundTransitionScreen';
 import { SetupScreen } from './components/SetupScreen';
+import { GameAudio } from './game/audio';
 import { loadBoard } from './game/boardLoader';
 import { validateBoard } from './game/boardValidation';
 import {
@@ -70,8 +71,17 @@ function App() {
   const [finalTimerRemaining, setFinalTimerRemaining] = useState(DEFAULT_SETTINGS.finalJeopardyTimeSeconds);
   const [finalResponseIsRevealed, setFinalResponseIsRevealed] = useState(false);
   const [finalClueIsBeingRead, setFinalClueIsBeingRead] = useState(false);
+  const [audioIsUnlocked, setAudioIsUnlocked] = useState(false);
   const speechRunRef = useRef(0);
   const finalSpeechRunRef = useRef(0);
+  const audioRef = useRef<GameAudio | null>(null);
+  const clueTimesUpKeyRef = useRef<string | null>(null);
+  const finalTimesUpWasPlayedRef = useRef(false);
+
+  const getAudio = useCallback(() => {
+    audioRef.current ??= new GameAudio();
+    return audioRef.current;
+  }, []);
 
   useEffect(() => {
     let isCurrent = true;
@@ -101,6 +111,20 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    function unlockAudio() {
+      setAudioIsUnlocked(true);
+    }
+
+    window.addEventListener('pointerdown', unlockAudio, { once: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
+
+    return () => {
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+    };
+  }, []);
+
   const activePlayers = useMemo(
     () => setup.players.filter((player) => player.isActive),
     [setup.players],
@@ -125,6 +149,29 @@ function App() {
     currentClue?.dailyDouble && dailyDoubleWager !== null ? dailyDoubleWager : (currentClue?.value ?? 0);
 
   const finalEligiblePlayers = useMemo(() => getFinalJeopardyPlayers(players), [players]);
+
+  useEffect(() => {
+    if (!audioIsUnlocked) {
+      return;
+    }
+
+    const audio = getAudio();
+
+    if (screen === 'setup' || appData.status !== 'ready') {
+      audio.stop('thinkingMusic');
+      audio.loop('jeopardyTheme');
+      return;
+    }
+
+    audio.stop('jeopardyTheme');
+
+    if (screen === 'finalClue' && !finalClueIsBeingRead && !finalResponseIsRevealed) {
+      audio.loop('thinkingMusic');
+      return;
+    }
+
+    audio.stop('thinkingMusic');
+  }, [appData.status, audioIsUnlocked, finalClueIsBeingRead, finalResponseIsRevealed, getAudio, screen]);
 
   useEffect(() => {
     if (screen !== 'clue' || appData.status !== 'ready' || currentClue === null) {
@@ -224,6 +271,36 @@ function App() {
   }, [buzzedPlayerId, clueIsBeingRead, cluePhase, screen, timerRemaining]);
 
   useEffect(() => {
+    const timerIsExpired =
+      screen === 'clue' &&
+      timerRemaining === 0 &&
+      ((cluePhase === 'answering' && buzzedPlayerId !== null) ||
+        (cluePhase === 'buzzing' && !clueIsBeingRead));
+
+    if (!timerIsExpired || selectedClue === null) {
+      return;
+    }
+
+    const timesUpKey = `${clueKey(selectedClue)}:${cluePhase}:${buzzedPlayerId ?? 'none'}:${attemptedPlayerIds.size}`;
+
+    if (clueTimesUpKeyRef.current === timesUpKey) {
+      return;
+    }
+
+    clueTimesUpKeyRef.current = timesUpKey;
+    getAudio().play('timesUp');
+  }, [
+    attemptedPlayerIds.size,
+    buzzedPlayerId,
+    clueIsBeingRead,
+    cluePhase,
+    getAudio,
+    screen,
+    selectedClue,
+    timerRemaining,
+  ]);
+
+  useEffect(() => {
     if (screen !== 'finalClue' || appData.status !== 'ready') {
       return;
     }
@@ -234,6 +311,7 @@ function App() {
     setFinalResponseIsRevealed(false);
     setFinalClueIsBeingRead(true);
     setFinalTimerRemaining(setup.finalJeopardyTimeSeconds);
+    finalTimesUpWasPlayedRef.current = false;
 
     speakClue(appData.board.final.clue, {
       settings: appData.settings.tts,
@@ -269,6 +347,21 @@ function App() {
 
     return () => window.clearTimeout(timerId);
   }, [finalClueIsBeingRead, finalResponseIsRevealed, finalTimerRemaining, screen]);
+
+  useEffect(() => {
+    if (
+      screen !== 'finalClue' ||
+      finalClueIsBeingRead ||
+      finalResponseIsRevealed ||
+      finalTimerRemaining !== 0 ||
+      finalTimesUpWasPlayedRef.current
+    ) {
+      return;
+    }
+
+    finalTimesUpWasPlayedRef.current = true;
+    getAudio().play('timesUp');
+  }, [finalClueIsBeingRead, finalResponseIsRevealed, finalTimerRemaining, getAudio, screen]);
 
   function handlePlayerCountChange(count: number) {
     setSetup((current) => ({
@@ -353,6 +446,8 @@ function App() {
     setFinalJudgments({});
     setFinalResponseIsRevealed(false);
     setFinalClueIsBeingRead(false);
+    getAudio().stopAmbient();
+    getAudio().play('boardFill');
     setScreen('board');
   }
 
@@ -372,6 +467,11 @@ function App() {
     setClueIsBeingRead(false);
     setCluePhase('reading');
     setTimerRemaining(buzzWindowSeconds);
+
+    if (clue.dailyDouble) {
+      getAudio().play('dailyDouble');
+    }
+
     setScreen(clue.dailyDouble ? 'dailyDoubleWager' : 'clue');
   }
 
@@ -441,6 +541,7 @@ function App() {
 
     speechRunRef.current += 1;
     stopSpeech();
+    getAudio().play('correctAnswer');
     const nextPlayers = getPlayersAfterScore(playerId, scoringValue);
     setPlayers(nextPlayers);
     setControllingPlayerId(playerId);
@@ -452,6 +553,7 @@ function App() {
       return;
     }
 
+    getAudio().play('incorrectAnswer');
     const nextPlayers = getPlayersAfterScore(playerId, -scoringValue);
     setPlayers(nextPlayers);
 
@@ -505,6 +607,7 @@ function App() {
     setDailyDoubleWager(null);
     setClueIsBeingRead(false);
     setControllingPlayerId(nextControlPlayer?.id ?? players[0]?.id ?? DEFAULT_SETUP.players[0].id);
+    getAudio().play('boardFill');
     setScreen('board');
   }
 
@@ -578,17 +681,20 @@ function App() {
     setFinalResponseIsRevealed(false);
     setFinalClueIsBeingRead(false);
     setFinalTimerRemaining(setup.finalJeopardyTimeSeconds);
+    finalTimesUpWasPlayedRef.current = false;
     setScreen('finalClue');
   }
 
   function handleRevealFinalResponse() {
     finalSpeechRunRef.current += 1;
     stopSpeech();
+    getAudio().stop('thinkingMusic');
     setFinalClueIsBeingRead(false);
     setFinalResponseIsRevealed(true);
   }
 
   function handleMarkFinalPlayer(playerId: string, isCorrect: boolean) {
+    getAudio().play(isCorrect ? 'correctAnswer' : 'incorrectAnswer');
     const nextJudgments = { ...finalJudgments, [playerId]: isCorrect };
     setFinalJudgments(nextJudgments);
 

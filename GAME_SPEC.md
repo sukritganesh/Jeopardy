@@ -348,6 +348,25 @@ If TTS is unavailable:
 - The app should still be playable.
 - Show a clear non-blocking message that speech is unavailable.
 
+## Audio Cues
+
+V1 uses bundled audio files from `public/audio`.
+
+Audio behavior:
+
+- Play the Jeopardy theme on the setup front page and settings page once browser audio is unlocked.
+- Play the board fill sound when a normal round begins.
+- Play the Daily Double sound when a Daily Double is selected.
+- Play the thinking music after Final Jeopardy clue reading finishes.
+- Stop Final Jeopardy thinking music when the correct response is revealed.
+- Play the times-up sound whenever a clue or Final Jeopardy countdown reaches zero.
+- Play the correct-answer sound when the host marks a response correct.
+- Play the incorrect-answer sound when the host marks a response incorrect.
+
+Browser note:
+
+- Ambient audio may not start until the first user click or key press because of browser autoplay rules.
+
 ## Screens
 
 V1 screens:

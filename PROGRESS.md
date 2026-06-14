@@ -45,6 +45,7 @@ Polish setup navigation and test the full setup-to-standings loop.
 - Compacted the clue screen and moved response reveal into the hidden-response strip.
 - Added settings-page local board JSON selection with schema validation.
 - Added `public/boards/trivia-night-board.json` as a second selectable test board.
+- Added bundled Jeopardy-style audio cues for setup, round starts, Daily Doubles, timers, and scoring.
 
 ## In Progress
 

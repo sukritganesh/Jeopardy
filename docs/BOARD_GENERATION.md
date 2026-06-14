@@ -8,8 +8,8 @@ This is not app runtime documentation. It is a working prompt guide for future b
 
 When asked to generate a board, Codex should first read:
 
-- `BOARD_GENERATION.md`
-- `GAME_SPEC.md`
+- `docs/BOARD_GENERATION.md`
+- `docs/GAME_SPEC.md`
 - One existing board, usually `public/boards/sample-board.json` or `public/boards/trivia-night-board.json`
 
 Then Codex should ask the host a few setup questions and wait for the next user reply before generating the board.

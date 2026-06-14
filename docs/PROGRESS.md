@@ -10,7 +10,7 @@ Polish setup navigation and test the full setup-to-standings loop.
 
 - Created `AGENTS.md` with agent-facing project guidance.
 - Added `.gitignore` and explicitly ignored `githubToken.txt`.
-- Created `GAME_SPEC.md` for v1 rules, flow, and board structure.
+- Created `docs/GAME_SPEC.md` for v1 rules, flow, and board structure.
 - Chose the frontend stack: React, TypeScript, Vite, and plain CSS.
 - Scaffolded the Vite app.
 - Added `public/boards/sample-board.json`.
@@ -47,8 +47,9 @@ Polish setup navigation and test the full setup-to-standings loop.
 - Added `public/boards/trivia-night-board.json` as a second selectable test board.
 - Added bundled Jeopardy-style audio cues for setup, round starts, Daily Doubles, timers, and scoring.
 - Added audio settings for muted default state, music volume, effects volume, and a global mute button.
-- Added `BOARD_GENERATION.md` to guide future Codex-generated board creation.
+- Added `docs/BOARD_GENERATION.md` to guide future Codex-generated board creation.
 - Generated `public/boards/geography-night-board.json` as a medium geography-themed board.
+- Moved long-form project docs into `docs/` and linked them from `README.md`.
 
 ## In Progress
 
@@ -63,4 +64,4 @@ Polish setup navigation and test the full setup-to-standings loop.
 
 - Keep v1 frontend-only and local-first.
 - Use host-controlled correctness before adding any automatic grading.
-- Generated boards should follow the schema in `GAME_SPEC.md`.
+- Generated boards should follow the schema in `docs/GAME_SPEC.md`.

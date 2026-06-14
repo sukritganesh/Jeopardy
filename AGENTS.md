@@ -12,7 +12,7 @@ Build toward a playable, reliable game-night experience before adding advanced a
 
 The first version should support:
 
-- 1 to 3 players.
+- 1 to 4 players.
 - Player names and keyboard buzzer keys.
 - A setup screen for basic game settings.
 - A sample board loaded from JSON.
@@ -69,7 +69,7 @@ A normal board should include:
 - Two Daily Doubles in the Double Jeopardy round.
 - One Final Jeopardy clue.
 
-Detailed schema and generation instructions belong in `GAME_SPEC.md`, not here.
+Detailed app schema belongs in `docs/GAME_SPEC.md`; board-generation workflow belongs in `docs/BOARD_GENERATION.md`.
 
 ## UI Direction
 
@@ -95,5 +95,5 @@ Avoid overbuilding the landing page. The first screen should quickly lead into a
 - Document exported game logic and shared types with short, useful comments.
 - Prefer comments that explain intent or edge cases; avoid restating obvious code.
 - Do not introduce online dependencies for board generation or answer checking in v1.
-- Use future docs such as `GAME_SPEC.md` for detailed rules, flows, and board templates.
-- Keep `PROGRESS.md` current when meaningful project milestones, active focus, or next steps change.
+- Use docs such as `docs/GAME_SPEC.md` for detailed rules, flows, and board templates.
+- Keep `docs/PROGRESS.md` current when meaningful project milestones, active focus, or next steps change.

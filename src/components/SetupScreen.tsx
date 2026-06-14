@@ -1,12 +1,13 @@
-import type { BuzzMode, Player, SetupConfig } from '../game/types';
+import type { BuzzMode, GameSettings, Player, SetupConfig } from '../game/types';
 
 type SetupScreenProps = {
   setup: SetupConfig;
   boardTitle?: string;
   boardStatus: 'loading' | 'ready' | 'error';
   boardError?: string;
+  settings?: GameSettings;
   onPlayerCountChange: (count: number) => void;
-  onPlayerChange: (playerId: string, patch: Partial<Pick<Player, 'name' | 'buzzerKey'>>) => void;
+  onPlayerChange: (playerId: string, patch: Partial<Pick<Player, 'name'>>) => void;
   onBuzzModeChange: (buzzMode: BuzzMode) => void;
   onStartGame: () => void;
 };
@@ -16,6 +17,7 @@ export function SetupScreen({
   boardTitle,
   boardStatus,
   boardError,
+  settings,
   onPlayerCountChange,
   onPlayerChange,
   onBuzzModeChange,
@@ -68,13 +70,7 @@ export function SetupScreen({
                   </label>
                   <label>
                     <span>Buzzer</span>
-                    <input
-                      maxLength={1}
-                      value={player.buzzerKey}
-                      onChange={(event) =>
-                        onPlayerChange(player.id, { buzzerKey: event.target.value.toUpperCase() })
-                      }
-                    />
+                    <input value={player.buzzerKey} readOnly aria-label={`${player.name} buzzer key`} />
                   </label>
                 </div>
               ))}
@@ -109,6 +105,21 @@ export function SetupScreen({
             </label>
           </fieldset>
         </div>
+
+        <dl className="settings-summary">
+          <div>
+            <dt>Timer</dt>
+            <dd>{settings?.answerTimeSeconds ?? 5}s</dd>
+          </div>
+          <div>
+            <dt>Speech</dt>
+            <dd>{settings?.tts.enabled === false ? 'Off' : 'On'}</dd>
+          </div>
+          <div>
+            <dt>Keys</dt>
+            <dd>{setup.players.map((player) => player.buzzerKey).join(' / ')}</dd>
+          </div>
+        </dl>
 
         <button className="primary-action" type="button" disabled={!canStart} onClick={onStartGame}>
           Start Game

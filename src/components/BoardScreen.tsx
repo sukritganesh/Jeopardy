@@ -58,7 +58,7 @@ export function BoardScreen({
                 disabled={isSelected}
                 onClick={() => onSelectClue(selection)}
               >
-                {isSelected ? <span>Done</span> : <span>${clue.value}</span>}
+                {isSelected ? <span>{clue.dailyDouble ? 'DD' : 'Done'}</span> : <span>${clue.value}</span>}
               </button>
             );
           }),

@@ -1,10 +1,5 @@
 import type { Board, Category, Clue, FinalJeopardy, Round } from './types';
 
-const EXPECTED_DAILY_DOUBLES = {
-  jeopardy: 1,
-  doubleJeopardy: 2,
-} as const;
-
 type JsonRecord = Record<string, unknown>;
 
 function isRecord(value: unknown): value is JsonRecord {
@@ -103,14 +98,6 @@ function parseRound(value: unknown, roundIndex: number): Round {
   round.categories = value.categories.map((category, categoryIndex) =>
     parseCategory(category, round, categoryIndex),
   );
-
-  const dailyDoubles = round.categories.flatMap((category) => category.clues).filter(
-    (clue) => clue.dailyDouble,
-  ).length;
-
-  if (dailyDoubles !== EXPECTED_DAILY_DOUBLES[round.id]) {
-    throw new Error(`${round.name} must have ${EXPECTED_DAILY_DOUBLES[round.id]} Daily Double(s).`);
-  }
 
   return round;
 }

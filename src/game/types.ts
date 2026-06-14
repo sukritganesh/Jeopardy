@@ -1,6 +1,8 @@
 export type BuzzMode = 'early' | 'afterRead';
 
-export type AppScreen = 'setup' | 'board' | 'clue';
+export type AppScreen = 'setup' | 'board' | 'dailyDoubleWager' | 'clue';
+
+export type CluePhase = 'reading' | 'buzzing' | 'answering';
 
 /** Player state used by setup, scoring, and upcoming buzzer logic. */
 export type Player = {
@@ -62,6 +64,22 @@ export type SetupConfig = {
   buzzMode: BuzzMode;
 };
 
+export type SettingsPlayer = Omit<Player, 'score'>;
+
+/** Local-first app settings loaded before the board. */
+export type GameSettings = {
+  boardPath: string;
+  answerTimeSeconds: number;
+  defaultBuzzMode: BuzzMode;
+  defaultPlayerCount: number;
+  tts: {
+    enabled: boolean;
+    rate: number;
+    pitch: number;
+  };
+  players: SettingsPlayer[];
+};
+
 export const DEFAULT_PLAYERS: Player[] = [
   { id: 'player-1', name: 'Player 1', buzzerKey: 'A', score: 0, isActive: true },
   { id: 'player-2', name: 'Player 2', buzzerKey: 'K', score: 0, isActive: true },
@@ -72,6 +90,36 @@ export const DEFAULT_SETUP: SetupConfig = {
   players: DEFAULT_PLAYERS,
   buzzMode: 'afterRead',
 };
+
+export const DEFAULT_SETTINGS: GameSettings = {
+  boardPath: '/boards/sample-board.json',
+  answerTimeSeconds: 5,
+  defaultBuzzMode: 'afterRead',
+  defaultPlayerCount: 2,
+  tts: {
+    enabled: true,
+    rate: 1,
+    pitch: 1,
+  },
+  players: DEFAULT_PLAYERS.map((player) => ({
+    id: player.id,
+    name: player.name,
+    buzzerKey: player.buzzerKey,
+    isActive: player.isActive,
+  })),
+};
+
+export function setupFromSettings(settings: GameSettings): SetupConfig {
+  return {
+    buzzMode: settings.defaultBuzzMode,
+    players: settings.players.map((player, index) => ({
+      ...player,
+      score: 0,
+      isActive: index < settings.defaultPlayerCount,
+      buzzerKey: player.buzzerKey.toUpperCase(),
+    })),
+  };
+}
 
 /** Stable key for storing per-clue UI state such as selected/finished. */
 export function clueKey(selection: SelectedClue): string {

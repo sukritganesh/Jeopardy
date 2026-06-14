@@ -50,12 +50,24 @@ The setup screen should allow the host to change player names, enabled players, 
 
 ## Game Settings
 
+Default game settings live in `public/config/game-settings.json`.
+
+The settings file controls:
+
+- Board JSON path.
+- Answer timer length.
+- Default buzzer mode.
+- Default player count.
+- Fixed player buzzer keys.
+- Text-to-speech enabled/rate/pitch.
+
 The setup screen should expose these v1 settings:
 
 - Player count: 1, 2, or 3.
 - Player names.
-- Buzzer keys.
 - Buzzer mode.
+
+Buzzer keys are fixed by the settings file for v1 and shown on the setup screen.
 
 V1 buzzer modes:
 
@@ -103,8 +115,9 @@ Double Jeopardy round values:
 
 Daily Doubles:
 
-- Jeopardy round has exactly 1 Daily Double.
-- Double Jeopardy round has exactly 2 Daily Doubles.
+- Any clue with `dailyDouble: true` is treated as a Daily Double.
+- The app should not reject a board because of the number of Daily Doubles.
+- Generated boards should usually follow the familiar pattern: 1 Daily Double in Jeopardy and 2 in Double Jeopardy.
 
 ## Board Control
 
@@ -184,6 +197,7 @@ V1 behavior:
 - Timer starts when a player successfully buzzes.
 - Timer reaching zero does not automatically score the response.
 - Host remains responsible for marking Incorrect or ending the attempt.
+- Timer length comes from `public/config/game-settings.json`.
 
 This keeps v1 forgiving during real play.
 
@@ -191,7 +205,7 @@ This keeps v1 forgiving during real play.
 
 When the selected clue is a Daily Double:
 
-1. Show the Daily Double screen.
+1. Show the Daily Double wager screen.
 2. Only the selecting player participates.
 3. Prompt the selecting player for a wager.
 4. Validate the wager.
@@ -364,8 +378,7 @@ Board validation expectations:
 - Each round must have exactly 6 categories.
 - Each category must have exactly 5 clues.
 - Each clue value should match one of the round values.
-- The Jeopardy round must have exactly 1 Daily Double.
-- The Double Jeopardy round must have exactly 2 Daily Doubles.
+- Any clue may be marked with `dailyDouble: true`.
 - Final Jeopardy must include a category, clue, and correct response.
 
 ## Board Generation Guidance
@@ -381,6 +394,7 @@ A generated board should:
 - Avoid repeated correct responses.
 - Use category titles that fit on the board.
 - Make higher-value clues harder than lower-value clues.
+- Usually include 1 Daily Double in Jeopardy and 2 in Double Jeopardy, unless a custom board intentionally differs.
 
 Board generation is outside the app in v1. The app only loads board JSON.
 

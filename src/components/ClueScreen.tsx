@@ -1,4 +1,4 @@
-import type { Board, Player, SelectedClue } from '../game/types';
+import type { Board, BuzzMode, CluePhase, Player, SelectedClue } from '../game/types';
 import { PlayerScoreboard } from './PlayerScoreboard';
 
 type ClueScreenProps = {
@@ -7,9 +7,17 @@ type ClueScreenProps = {
   players: Player[];
   controllingPlayerId: string;
   attemptedPlayerIds: Set<string>;
+  cluePhase: CluePhase;
+  buzzedPlayerId: string | null;
+  timerRemaining: number;
+  answerTimeSeconds: number;
+  scoringValue: number;
+  buzzMode: BuzzMode;
+  ttsUnavailable: boolean;
   onCorrect: (playerId: string) => void;
   onIncorrect: (playerId: string) => void;
   onEndClue: () => void;
+  onReplayClue: () => void;
 };
 
 export function ClueScreen({
@@ -18,28 +26,62 @@ export function ClueScreen({
   players,
   controllingPlayerId,
   attemptedPlayerIds,
+  cluePhase,
+  buzzedPlayerId,
+  timerRemaining,
+  answerTimeSeconds,
+  scoringValue,
+  buzzMode,
+  ttsUnavailable,
   onCorrect,
   onIncorrect,
   onEndClue,
+  onReplayClue,
 }: ClueScreenProps) {
   const round = board.rounds[selection.roundIndex];
   const category = round.categories[selection.categoryIndex];
   const clue = category.clues[selection.clueIndex];
+  const buzzedPlayer = players.find((player) => player.id === buzzedPlayerId);
   const activePlayers = clue.dailyDouble
     ? players.filter((player) => player.id === controllingPlayerId)
     : players.filter((player) => player.isActive);
+  const clueStatus =
+    cluePhase === 'reading'
+      ? 'Reading clue'
+      : cluePhase === 'buzzing'
+        ? 'Buzzers open'
+        : `${buzzedPlayer?.name ?? 'Player'} answering`;
 
   return (
     <main className="game-shell clue-shell">
       <header className="game-header">
         <div>
           <p className="eyebrow">{category.title}</p>
-          <h1>${clue.value}</h1>
+          <h1>{clue.dailyDouble ? `$${scoringValue} wager` : `$${clue.value}`}</h1>
         </div>
         {clue.dailyDouble && <div className="daily-double-badge">Daily Double</div>}
       </header>
 
       <PlayerScoreboard players={players} controllingPlayerId={controllingPlayerId} />
+
+      <section className="clue-status-panel" aria-live="polite">
+        <div>
+          <span>Status</span>
+          <strong>{clueStatus}</strong>
+        </div>
+        <div>
+          <span>Timer</span>
+          <strong>{cluePhase === 'answering' ? `${timerRemaining}s` : `${answerTimeSeconds}s`}</strong>
+        </div>
+        <div>
+          <span>{clue.dailyDouble ? 'Scoring' : 'Buzz mode'}</span>
+          <strong>
+            {clue.dailyDouble ? `Worth $${scoringValue}` : buzzMode === 'early' ? 'Early buzz' : 'After read'}
+          </strong>
+        </div>
+      </section>
+
+      {ttsUnavailable && <p className="notice">Speech is unavailable in this browser. Read the clue aloud.</p>}
 
       <section className="clue-card" aria-labelledby="clue-heading">
         <p className="eyebrow" id="clue-heading">
@@ -55,37 +97,49 @@ export function ClueScreen({
       <section className="host-panel" aria-label="Host scoring controls">
         <div className="host-panel-heading">
           <h2>Host Scoring</h2>
-          <p>Temporary controls until buzzer logic is wired.</p>
+          <p>
+            {cluePhase === 'answering'
+              ? 'Mark the active player response.'
+              : 'Waiting for reading or buzz.'}
+          </p>
         </div>
 
         <div className="host-action-grid">
-          {activePlayers.map((player) => (
-            <article className="host-player-row" key={player.id}>
-              <strong>
-                {player.name}
-                {attemptedPlayerIds.has(player.id) && <span>Locked out</span>}
-              </strong>
-              <div>
-                <button
-                  type="button"
-                  disabled={attemptedPlayerIds.has(player.id)}
-                  onClick={() => onCorrect(player.id)}
-                >
-                  Correct
-                </button>
-                <button
-                  type="button"
-                  className="secondary-action"
-                  disabled={attemptedPlayerIds.has(player.id)}
-                  onClick={() => onIncorrect(player.id)}
-                >
-                  Incorrect
-                </button>
-              </div>
-            </article>
-          ))}
+          {activePlayers.map((player) => {
+            const isLockedOut = attemptedPlayerIds.has(player.id);
+            const isActiveAnswer = cluePhase === 'answering' && buzzedPlayerId === player.id;
+
+            return (
+              <article
+                className={isActiveAnswer ? 'host-player-row host-player-row--active' : 'host-player-row'}
+                key={player.id}
+              >
+                <strong>
+                  {player.name}
+                  {isLockedOut && <span>Locked out</span>}
+                  {isActiveAnswer && timerRemaining === 0 && <span>Time expired</span>}
+                </strong>
+                <div>
+                  <button type="button" disabled={!isActiveAnswer} onClick={() => onCorrect(player.id)}>
+                    Correct
+                  </button>
+                  <button
+                    type="button"
+                    className="secondary-action"
+                    disabled={!isActiveAnswer}
+                    onClick={() => onIncorrect(player.id)}
+                  >
+                    Incorrect
+                  </button>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
+        <button className="ghost-action" type="button" onClick={onReplayClue}>
+          Replay Clue
+        </button>
         <button className="ghost-action" type="button" onClick={onEndClue}>
           End Clue
         </button>

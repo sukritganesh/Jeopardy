@@ -244,6 +244,33 @@ input {
   color: #23120a;
 }
 
+.settings-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0 0;
+}
+
+.settings-summary div {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.settings-summary dt {
+  color: #cdd7ff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.settings-summary dd {
+  margin: 4px 0 0;
+  color: #fff8d6;
+  font-weight: 900;
+}
+
 .secondary-action {
   background: #9b1c45;
   color: #fff8d6;
@@ -350,8 +377,75 @@ input {
   text-transform: uppercase;
 }
 
+.clue-status-panel {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 1fr;
+  gap: 12px;
+}
+
+.clue-status-panel div {
+  min-height: 76px;
+  border: 1px solid rgba(255, 214, 88, 0.32);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.clue-status-panel span {
+  display: block;
+  color: #cdd7ff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.clue-status-panel strong {
+  display: block;
+  margin-top: 4px;
+  color: #ffd658;
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+}
+
 .clue-card {
   padding: clamp(24px, 4vw, 44px);
+}
+
+.wager-panel {
+  border: 1px solid rgba(255, 214, 88, 0.36);
+  border-radius: 8px;
+  padding: clamp(24px, 4vw, 44px);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.wager-panel h2 {
+  color: #fff8d6;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1;
+}
+
+.wager-panel p {
+  max-width: 60ch;
+  color: #dfe6ff;
+  line-height: 1.5;
+}
+
+.wager-field {
+  display: grid;
+  gap: 8px;
+  max-width: 360px;
+  margin-top: 22px;
+}
+
+.wager-field span {
+  color: #ffd658;
+  font-weight: 900;
+}
+
+.wager-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 0.4fr);
+  gap: 12px;
+  align-items: end;
 }
 
 .clue-text {
@@ -404,6 +498,11 @@ input {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.host-player-row--active {
+  outline: 2px solid #ffd658;
+  background: rgba(255, 214, 88, 0.14);
+}
+
 .host-player-row strong span {
   display: block;
   margin-top: 4px;
@@ -431,7 +530,9 @@ input {
   }
 
   .setup-grid,
-  .scoreboard {
+  .scoreboard,
+  .settings-summary,
+  .clue-status-panel {
     grid-template-columns: 1fr;
   }
 

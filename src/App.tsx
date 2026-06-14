@@ -1,15 +1,28 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { BoardScreen } from './components/BoardScreen';
 import { ClueScreen } from './components/ClueScreen';
+import { DailyDoubleWagerScreen } from './components/DailyDoubleWagerScreen';
 import { SetupScreen } from './components/SetupScreen';
 import { loadBoard } from './game/boardLoader';
-import type { AppScreen, Board, BuzzMode, Player, SelectedClue, SetupConfig } from './game/types';
-import { DEFAULT_SETUP, clueKey } from './game/types';
+import { loadSettings } from './game/settingsLoader';
+import { speakClue, stopSpeech } from './game/speech';
+import type {
+  AppScreen,
+  Board,
+  BuzzMode,
+  CluePhase,
+  GameSettings,
+  Player,
+  SelectedClue,
+  SetupConfig,
+} from './game/types';
+import { DEFAULT_SETTINGS, DEFAULT_SETUP, clueKey, setupFromSettings } from './game/types';
+import { getDailyDoubleMaxWager } from './game/wagers';
 
-type BoardState =
-  | { status: 'loading'; board?: undefined; error?: undefined }
-  | { status: 'ready'; board: Board; error?: undefined }
-  | { status: 'error'; board?: undefined; error: string };
+type AppDataState =
+  | { status: 'loading'; board?: undefined; settings?: undefined; error?: undefined }
+  | { status: 'ready'; board: Board; settings: GameSettings; error?: undefined }
+  | { status: 'error'; board?: undefined; settings?: undefined; error: string };
 
 function cloneDefaultSetup(): SetupConfig {
   return {
@@ -20,7 +33,7 @@ function cloneDefaultSetup(): SetupConfig {
 
 function App() {
   const [screen, setScreen] = useState<AppScreen>('setup');
-  const [boardState, setBoardState] = useState<BoardState>({ status: 'loading' });
+  const [appData, setAppData] = useState<AppDataState>({ status: 'loading' });
   const [setup, setSetup] = useState<SetupConfig>(() => cloneDefaultSetup());
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentRoundIndex] = useState(0);
@@ -28,21 +41,31 @@ function App() {
   const [selectedClue, setSelectedClue] = useState<SelectedClue | null>(null);
   const [selectedClueKeys, setSelectedClueKeys] = useState<Set<string>>(() => new Set());
   const [attemptedPlayerIds, setAttemptedPlayerIds] = useState<Set<string>>(() => new Set());
+  const [cluePhase, setCluePhase] = useState<CluePhase>('reading');
+  const [buzzedPlayerId, setBuzzedPlayerId] = useState<string | null>(null);
+  const [dailyDoubleWager, setDailyDoubleWager] = useState<number | null>(null);
+  const [timerRemaining, setTimerRemaining] = useState(DEFAULT_SETTINGS.answerTimeSeconds);
+  const [ttsUnavailable, setTtsUnavailable] = useState(false);
+  const speechRunRef = useRef(0);
 
   useEffect(() => {
     let isCurrent = true;
 
-    loadBoard()
-      .then((board) => {
+    loadSettings()
+      .then(async (settings) => {
+        const board = await loadBoard(settings.boardPath);
+
         if (isCurrent) {
-          setBoardState({ status: 'ready', board });
+          setSetup(setupFromSettings(settings));
+          setTimerRemaining(settings.answerTimeSeconds);
+          setAppData({ status: 'ready', board, settings });
         }
       })
       .catch((error: unknown) => {
         if (isCurrent) {
-          setBoardState({
+          setAppData({
             status: 'error',
-            error: error instanceof Error ? error.message : 'Unknown board loading error.',
+            error: error instanceof Error ? error.message : 'Unknown app loading error.',
           });
         }
       });
@@ -56,6 +79,108 @@ function App() {
     () => setup.players.filter((player) => player.isActive),
     [setup.players],
   );
+
+  const currentClue = useMemo(() => {
+    if (appData.status !== 'ready' || selectedClue === null) {
+      return null;
+    }
+
+    return appData.board.rounds[selectedClue.roundIndex].categories[selectedClue.categoryIndex].clues[
+      selectedClue.clueIndex
+    ];
+  }, [appData, selectedClue]);
+
+  const answerTimeSeconds =
+    appData.status === 'ready' ? appData.settings.answerTimeSeconds : DEFAULT_SETTINGS.answerTimeSeconds;
+
+  const scoringValue =
+    currentClue?.dailyDouble && dailyDoubleWager !== null ? dailyDoubleWager : (currentClue?.value ?? 0);
+
+  useEffect(() => {
+    if (screen !== 'clue' || appData.status !== 'ready' || currentClue === null) {
+      return;
+    }
+
+    const runId = speechRunRef.current + 1;
+    speechRunRef.current = runId;
+    setTtsUnavailable(false);
+    setBuzzedPlayerId(null);
+    setTimerRemaining(appData.settings.answerTimeSeconds);
+    setCluePhase(setup.buzzMode === 'early' && !currentClue.dailyDouble ? 'buzzing' : 'reading');
+
+    speakClue(currentClue.clue, {
+      settings: appData.settings.tts,
+      onUnavailable: () => setTtsUnavailable(true),
+      onEnd: () => {
+        if (speechRunRef.current !== runId) {
+          return;
+        }
+
+        if (currentClue.dailyDouble) {
+          setBuzzedPlayerId(controllingPlayerId);
+          setCluePhase('answering');
+          return;
+        }
+
+        setCluePhase('buzzing');
+      },
+    });
+
+    return () => {
+      speechRunRef.current += 1;
+      stopSpeech();
+    };
+  }, [appData, controllingPlayerId, currentClue, screen, setup.buzzMode]);
+
+  useEffect(() => {
+    if (screen !== 'clue' || cluePhase !== 'buzzing' || currentClue?.dailyDouble) {
+      return;
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.repeat || event.altKey || event.ctrlKey || event.metaKey) {
+        return;
+      }
+
+      const key = event.key.toUpperCase();
+      const buzzingPlayer = players.find(
+        (player) =>
+          player.isActive &&
+          player.buzzerKey.toUpperCase() === key &&
+          !attemptedPlayerIds.has(player.id),
+      );
+
+      if (!buzzingPlayer) {
+        return;
+      }
+
+      event.preventDefault();
+      speechRunRef.current += 1;
+      stopSpeech();
+      setBuzzedPlayerId(buzzingPlayer.id);
+      setTimerRemaining(answerTimeSeconds);
+      setCluePhase('answering');
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [answerTimeSeconds, attemptedPlayerIds, cluePhase, currentClue, players, screen]);
+
+  useEffect(() => {
+    if (screen !== 'clue' || cluePhase !== 'answering' || buzzedPlayerId === null) {
+      return;
+    }
+
+    if (timerRemaining <= 0) {
+      return;
+    }
+
+    const timerId = window.setTimeout(() => {
+      setTimerRemaining((current) => Math.max(0, current - 1));
+    }, 1000);
+
+    return () => window.clearTimeout(timerId);
+  }, [buzzedPlayerId, cluePhase, screen, timerRemaining]);
 
   function handlePlayerCountChange(count: number) {
     setSetup((current) => ({
@@ -88,13 +213,28 @@ function App() {
     setPlayers(startingPlayers);
     setControllingPlayerId(startingPlayers[0]?.id ?? DEFAULT_SETUP.players[0].id);
     setSelectedClueKeys(new Set());
+    setAttemptedPlayerIds(new Set());
+    setBuzzedPlayerId(null);
+    setDailyDoubleWager(null);
     setScreen('board');
   }
 
   function handleSelectClue(selection: SelectedClue) {
+    if (appData.status !== 'ready') {
+      return;
+    }
+
+    const clue = appData.board.rounds[selection.roundIndex].categories[selection.categoryIndex].clues[
+      selection.clueIndex
+    ];
+
     setSelectedClue(selection);
     setAttemptedPlayerIds(new Set());
-    setScreen('clue');
+    setBuzzedPlayerId(null);
+    setDailyDoubleWager(null);
+    setCluePhase('reading');
+    setTimerRemaining(answerTimeSeconds);
+    setScreen(clue.dailyDouble ? 'dailyDoubleWager' : 'clue');
   }
 
   function markSelectedClueDone(selection: SelectedClue) {
@@ -114,59 +254,116 @@ function App() {
   }
 
   function handleCorrect(playerId: string) {
-    if (boardState.status !== 'ready' || selectedClue === null) {
+    if (currentClue === null || selectedClue === null) {
       return;
     }
 
-    const clue = boardState.board.rounds[selectedClue.roundIndex].categories[selectedClue.categoryIndex]
-      .clues[selectedClue.clueIndex];
-
-    scorePlayer(playerId, clue.value);
+    speechRunRef.current += 1;
+    stopSpeech();
+    scorePlayer(playerId, scoringValue);
     setControllingPlayerId(playerId);
     markSelectedClueDone(selectedClue);
+    setBuzzedPlayerId(null);
+    setDailyDoubleWager(null);
     setScreen('board');
   }
 
   function handleIncorrect(playerId: string) {
-    if (boardState.status !== 'ready' || selectedClue === null) {
+    if (currentClue === null || selectedClue === null) {
       return;
     }
 
-    const clue = boardState.board.rounds[selectedClue.roundIndex].categories[selectedClue.categoryIndex]
-      .clues[selectedClue.clueIndex];
+    scorePlayer(playerId, -scoringValue);
 
-    scorePlayer(playerId, -clue.value);
-
-    // This mirrors the eventual buzzer lockout rule before keyboard buzzers exist.
     const nextAttempted = new Set(attemptedPlayerIds);
     nextAttempted.add(playerId);
     setAttemptedPlayerIds(nextAttempted);
+    setBuzzedPlayerId(null);
+    setTimerRemaining(answerTimeSeconds);
 
-    const eligiblePlayers = clue.dailyDouble
+    const eligiblePlayers = currentClue.dailyDouble
       ? players.filter((player) => player.id === controllingPlayerId)
       : players.filter((player) => player.isActive);
 
     if (eligiblePlayers.every((player) => nextAttempted.has(player.id))) {
       markSelectedClueDone(selectedClue);
+      setDailyDoubleWager(null);
       setScreen('board');
+      return;
     }
+
+    setCluePhase('buzzing');
   }
 
   function handleEndClue() {
+    speechRunRef.current += 1;
+    stopSpeech();
+
     if (selectedClue !== null) {
       markSelectedClueDone(selectedClue);
     }
 
+    setBuzzedPlayerId(null);
+    setDailyDoubleWager(null);
     setScreen('board');
   }
 
-  if (screen === 'setup' || boardState.status !== 'ready') {
+  function handleSubmitDailyDoubleWager(wager: number) {
+    setDailyDoubleWager(wager);
+    setAttemptedPlayerIds(new Set());
+    setBuzzedPlayerId(null);
+    setTimerRemaining(answerTimeSeconds);
+    setCluePhase('reading');
+    setScreen('clue');
+  }
+
+  function handleCancelDailyDouble() {
+    setSelectedClue(null);
+    setDailyDoubleWager(null);
+    setScreen('board');
+  }
+
+  function handleReplayClue() {
+    if (appData.status !== 'ready' || currentClue === null) {
+      return;
+    }
+
+    const runId = speechRunRef.current + 1;
+    speechRunRef.current = runId;
+    setTtsUnavailable(false);
+
+    if (cluePhase !== 'answering') {
+      setCluePhase(setup.buzzMode === 'early' && !currentClue.dailyDouble ? 'buzzing' : 'reading');
+    }
+
+    speakClue(currentClue.clue, {
+      settings: appData.settings.tts,
+      onUnavailable: () => setTtsUnavailable(true),
+      onEnd: () => {
+        if (speechRunRef.current !== runId || cluePhase === 'answering') {
+          return;
+        }
+
+        if (currentClue.dailyDouble) {
+          setBuzzedPlayerId(controllingPlayerId);
+          setTimerRemaining(answerTimeSeconds);
+          setCluePhase('answering');
+          return;
+        }
+
+        setCluePhase('buzzing');
+      },
+    });
+  }
+
+  if (screen === 'setup' || appData.status !== 'ready') {
     return (
       <SetupScreen
         setup={setup}
-        boardTitle={boardState.board?.title}
-        boardStatus={boardState.status}
-        boardError={boardState.error}
+        boardTitle={appData.board?.title}
+        boardStatus={appData.status}
+        boardError={appData.error}
+        settings={appData.settings}
         onPlayerCountChange={handlePlayerCountChange}
         onPlayerChange={handlePlayerChange}
         onBuzzModeChange={handleBuzzModeChange}
@@ -175,24 +372,51 @@ function App() {
     );
   }
 
+  if (screen === 'dailyDoubleWager' && selectedClue !== null) {
+    const selectingPlayer = players.find((player) => player.id === controllingPlayerId);
+    const round = appData.board.rounds[selectedClue.roundIndex];
+
+    if (selectingPlayer !== undefined) {
+      return (
+        <DailyDoubleWagerScreen
+          board={appData.board}
+          selection={selectedClue}
+          player={selectingPlayer}
+          controllingPlayerId={controllingPlayerId}
+          maxWager={getDailyDoubleMaxWager(selectingPlayer.score, round)}
+          onSubmitWager={handleSubmitDailyDoubleWager}
+          onCancel={handleCancelDailyDouble}
+        />
+      );
+    }
+  }
+
   if (screen === 'clue' && selectedClue !== null) {
     return (
       <ClueScreen
-        board={boardState.board}
+        board={appData.board}
         selection={selectedClue}
         players={players}
         controllingPlayerId={controllingPlayerId}
         attemptedPlayerIds={attemptedPlayerIds}
+        cluePhase={cluePhase}
+        buzzedPlayerId={buzzedPlayerId}
+        timerRemaining={timerRemaining}
+        answerTimeSeconds={appData.settings.answerTimeSeconds}
+        scoringValue={scoringValue}
+        buzzMode={setup.buzzMode}
+        ttsUnavailable={ttsUnavailable}
         onCorrect={handleCorrect}
         onIncorrect={handleIncorrect}
         onEndClue={handleEndClue}
+        onReplayClue={handleReplayClue}
       />
     );
   }
 
   return (
     <BoardScreen
-      board={boardState.board}
+      board={appData.board}
       currentRoundIndex={currentRoundIndex}
       players={players}
       controllingPlayerId={controllingPlayerId}

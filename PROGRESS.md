@@ -4,7 +4,7 @@ Lightweight project progress tracker. Keep this current as the app takes shape.
 
 ## Current Focus
 
-Turn the setup -> board -> clue vertical slice into full Jeopardy gameplay.
+Turn the normal clue loop into complete round flow, then add Daily Double and Final Jeopardy screens.
 
 ## Completed
 
@@ -20,19 +20,23 @@ Turn the setup -> board -> clue vertical slice into full Jeopardy gameplay.
 - Built the first board screen with player scores, control indicator, and clue tiles.
 - Built the first clue screen with temporary host-scoring controls.
 - Added basic score updates, selected-clue tracking, and incorrect-answer lockouts for the vertical slice.
+- Added `public/config/game-settings.json` for board path, timer, TTS, buzz mode, player count, and fixed buzzer keys.
+- Added keyboard buzzer handling for fixed player keys.
+- Added browser text-to-speech clue reading with replay and unavailable-browser fallback.
+- Added the 5-second answer timer from settings.
+- Added Daily Double detection from `dailyDouble: true` board JSON markers.
+- Added Daily Double wager screen and wager-based scoring.
+- Relaxed board validation so any number of marked Daily Doubles is allowed.
 
 ## In Progress
 
-- Expanding the first playable slice toward real buzzer, text-to-speech, and round flow behavior.
+- Expanding the first-round game flow toward round completion and Double Jeopardy.
 
 ## Next Up
 
-- Add keyboard buzzer handling.
-- Add text-to-speech clue reading.
-- Add the 5-second answer timer.
-- Add Daily Double wager flow.
 - Add round completion and Double Jeopardy transition.
 - Add Final Jeopardy screens.
+- Add stricter validation for duplicate buzzer keys in settings/setup.
 
 ## Notes
 

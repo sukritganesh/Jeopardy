@@ -1,0 +1,505 @@
+{
+  "title": "Terra Incognita",
+  "rounds": [
+    {
+      "id": "jeopardy",
+      "name": "Jeopardy",
+      "values": [200, 400, 600, 800, 1000],
+      "categories": [
+        {
+          "title": "Earth Underfoot",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This rigid outer shell of Earth includes the crust and the uppermost mantle.",
+              "correctResponse": "Lithosphere",
+              "acceptedResponses": ["The lithosphere"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This California fault is the classic transform boundary where the Pacific and North American plates slide past each other.",
+              "correctResponse": "San Andreas Fault",
+              "acceptedResponses": ["The San Andreas Fault"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "Seismic waves speed up at this boundary between Earth's crust and mantle, usually shortened to 'Moho.'",
+              "correctResponse": "Mohorovicic discontinuity",
+              "acceptedResponses": ["Moho", "The Moho", "Mohorovicic boundary"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Bowen's reaction series describes the order in which minerals crystallize from this molten material.",
+              "correctResponse": "Magma",
+              "acceptedResponses": ["Molten rock"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "U-shaped valleys, striations, moraines, and drumlins are all calling cards of this slow-moving sculptor.",
+              "correctResponse": "Glaciers",
+              "acceptedResponses": ["Glacial ice", "A glacier"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Weather Words",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "Meteorologists watch this instrument because falling air pressure can warn of stormy weather.",
+              "correctResponse": "Barometer",
+              "acceptedResponses": ["A barometer"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "On the eastern slopes of the Rockies, this warm, dry downslope wind can make winter feel briefly negotiable.",
+              "correctResponse": "Chinook",
+              "acceptedResponses": ["Chinook wind", "A chinook"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "On a weather map, this line connects points of equal atmospheric pressure.",
+              "correctResponse": "Isobar",
+              "acceptedResponses": ["An isobar"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Storm chasers love this boundary where moist Gulf air meets much drier air over the southern Great Plains.",
+              "correctResponse": "Dryline",
+              "acceptedResponses": ["Dry line", "The dryline"],
+              "dailyDouble": true
+            },
+            {
+              "value": 1000,
+              "clue": "This ice-crystal growth process in mixed-phase clouds is named for two scientists, Bergeron and Findeisen.",
+              "correctResponse": "Bergeron-Findeisen process",
+              "acceptedResponses": ["Bergeron process", "Ice crystal process"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Watershed Moments",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This river is usually taught as Africa's longest, flowing north to the Mediterranean.",
+              "correctResponse": "Nile River",
+              "acceptedResponses": ["The Nile", "Nile"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This Siberian lake is the world's deepest and holds roughly one-fifth of Earth's unfrozen surface fresh water.",
+              "correctResponse": "Lake Baikal",
+              "acceptedResponses": ["Baikal"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This river leaves Lake Geneva and reaches the Mediterranean through the Camargue delta.",
+              "correctResponse": "Rhone River",
+              "acceptedResponses": ["The Rhone", "Rhone"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "The Okavango is unusual because it spreads into this kind of inland drainage basin rather than reaching the sea.",
+              "correctResponse": "Endorheic basin",
+              "acceptedResponses": ["Endorheic basin", "Closed basin", "Internal drainage basin"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "Lake Nyos and Lake Monoun are dangerous examples of this type of lake, where dissolved carbon dioxide can erupt suddenly.",
+              "correctResponse": "Meromictic lake",
+              "acceptedResponses": ["Exploding lake", "Limnic eruption lake", "A meromictic lake"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Capital Traps",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This capital on the Potomac is not part of any U.S. state.",
+              "correctResponse": "Washington, D.C.",
+              "acceptedResponses": ["Washington DC", "Washington"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "La Paz hosts Bolivia's government, but this city is the country's constitutional capital.",
+              "correctResponse": "Sucre",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "Pretoria, Cape Town, and Bloemfontein share capital duties in this country.",
+              "correctResponse": "South Africa",
+              "acceptedResponses": ["Republic of South Africa"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Ngerulmud replaced Koror as the capital of this Pacific island nation.",
+              "correctResponse": "Palau",
+              "acceptedResponses": ["Republic of Palau"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "Sri Jayawardenepura Kotte is the legislative capital of this island country.",
+              "correctResponse": "Sri Lanka",
+              "acceptedResponses": ["Democratic Socialist Republic of Sri Lanka"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Map Oddities",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This European country is the famous boot kicking Sicily across the central Mediterranean.",
+              "correctResponse": "Italy",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "Portugal's only land neighbor is this larger Iberian country.",
+              "correctResponse": "Spain",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "The Belgian town of Baarle-Hertog is famous for enclaves tangled inside Baarle-Nassau in this country.",
+              "correctResponse": "Netherlands",
+              "acceptedResponses": ["The Netherlands", "Holland"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This sea has no coastline; currents, not land, draw its loose border in the North Atlantic.",
+              "correctResponse": "Sargasso Sea",
+              "acceptedResponses": ["The Sargasso Sea"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "Bir Tawil remains unclaimed because of a border dispute between Egypt and this neighbor.",
+              "correctResponse": "Sudan",
+              "acceptedResponses": ["Republic of the Sudan"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Volcano Lore",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "Mount Vesuvius made this Roman city a frozen-in-ash archaeological celebrity.",
+              "correctResponse": "Pompeii",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "Krakatoa sits in the Sunda Strait between Java and this larger Indonesian island.",
+              "correctResponse": "Sumatra",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This volcano's 1815 eruption in Indonesia helped cause the Year Without a Summer.",
+              "correctResponse": "Mount Tambora",
+              "acceptedResponses": ["Tambora"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This Icelandic volcano's 2010 ash cloud grounded flights while broadcasters bravely attempted its name.",
+              "correctResponse": "Eyjafjallajokull",
+              "acceptedResponses": ["Eyjafjallajokull volcano"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "Saint-Pierre, Martinique was destroyed in 1902 by this fast, hot volcanic current of gas and debris.",
+              "correctResponse": "Pyroclastic flow",
+              "acceptedResponses": ["Pyroclastic density current", "Nuee ardente"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "doubleJeopardy",
+      "name": "Double Jeopardy",
+      "values": [400, 800, 1200, 1600, 2000],
+      "categories": [
+        {
+          "title": "Mountain Terms",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "From the Greek for mountain, this is the study of mountains.",
+              "correctResponse": "Orology",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This high line separates neighboring drainage basins; raindrops on opposite sides may never meet again.",
+              "correctResponse": "Drainage divide",
+              "acceptedResponses": ["Watershed divide", "Continental divide", "Divide"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This high Andean plateau spans parts of Bolivia and Peru and is often compared with Tibet.",
+              "correctResponse": "Altiplano",
+              "acceptedResponses": ["Andean Plateau", "Bolivian Altiplano"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "Gangkhar Puensum, often cited as the world's highest unclimbed mountain, rises in this Himalayan kingdom.",
+              "correctResponse": "Bhutan",
+              "acceptedResponses": ["Kingdom of Bhutan"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "Because of Earth's equatorial bulge, Chimborazo's summit in this country is farther from Earth's center than Everest's.",
+              "correctResponse": "Ecuador",
+              "acceptedResponses": ["Republic of Ecuador"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Climate Engines",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "In the Koppen system, broad 'B' climates are defined by this limiting condition.",
+              "correctResponse": "Dryness",
+              "acceptedResponses": ["Aridity", "Lack of precipitation", "Dry climate"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Mountains wring moisture from rising air, leaving the leeward side dry in this two-word effect.",
+              "correctResponse": "Rain shadow",
+              "acceptedResponses": ["Rain shadow effect"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This recurring pattern of North Pacific sea-surface temperature variation is often abbreviated PDO.",
+              "correctResponse": "Pacific Decadal Oscillation",
+              "acceptedResponses": ["PDO"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This global overturning circulation is driven by temperature and salinity differences in ocean water.",
+              "correctResponse": "Thermohaline circulation",
+              "acceptedResponses": ["Global conveyor belt", "Meridional overturning circulation"],
+              "dailyDouble": true
+            },
+            {
+              "value": 2000,
+              "clue": "ENSO disruptions tug at this east-west atmospheric circulation over the equatorial Pacific.",
+              "correctResponse": "Walker circulation",
+              "acceptedResponses": ["The Walker circulation"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Borders & Blobs",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "Much of the world's longest international land border follows the 49th parallel between these two countries.",
+              "correctResponse": "Canada and the United States",
+              "acceptedResponses": ["United States and Canada", "Canada-US border", "US-Canada border"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Kaliningrad is an exclave of this country, separated from its main territory by Lithuania and Poland.",
+              "correctResponse": "Russia",
+              "acceptedResponses": ["Russian Federation"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "Spain's enclaves Ceuta and Melilla sit on the Mediterranean coast of this country.",
+              "correctResponse": "Morocco",
+              "acceptedResponses": ["Kingdom of Morocco"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "The Gambia is almost surrounded by this country, making the map look like a river took a shortcut through it.",
+              "correctResponse": "Senegal",
+              "acceptedResponses": ["Republic of Senegal"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "Afghanistan's Wakhan Corridor forms a narrow finger reaching this country.",
+              "correctResponse": "China",
+              "acceptedResponses": ["People's Republic of China", "PRC"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Ocean Secrets",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "The Mariana Trench descends into this ocean.",
+              "correctResponse": "Pacific Ocean",
+              "acceptedResponses": ["The Pacific"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This warm Atlantic current helps give western Europe milder winters than its latitude alone would suggest.",
+              "correctResponse": "Gulf Stream",
+              "acceptedResponses": ["The Gulf Stream"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "In the ocean, this layer marks a rapid drop in temperature between mixed surface water and colder depths.",
+              "correctResponse": "Thermocline",
+              "acceptedResponses": ["The thermocline"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "Trade winds and the Coriolis effect help drive this westward-flowing Pacific current north of the equator.",
+              "correctResponse": "North Equatorial Current",
+              "acceptedResponses": ["Pacific North Equatorial Current"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "The South Pacific pole of inaccessibility, used as a spacecraft cemetery, is better known by this name.",
+              "correctResponse": "Point Nemo",
+              "acceptedResponses": ["Oceanic pole of inaccessibility"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Rocks & Time",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This broad rock family forms when magma or lava cools and solidifies.",
+              "correctResponse": "Igneous rock",
+              "acceptedResponses": ["Igneous rocks", "Igneous"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Ammonites are classic index fossils for this geologic era, the age of dinosaurs.",
+              "correctResponse": "Mesozoic Era",
+              "acceptedResponses": ["Mesozoic"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This stratigraphic principle says that in an undeformed sequence, older layers lie below younger layers.",
+              "correctResponse": "Law of superposition",
+              "acceptedResponses": ["Principle of superposition", "Superposition"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "When tilted strata are eroded and then covered by flat-lying layers, the gap is this kind of unconformity.",
+              "correctResponse": "Angular unconformity",
+              "acceptedResponses": ["An angular unconformity"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "Durable and uranium-friendly, this mineral is a favorite for U-Pb dating and deep-time detective work.",
+              "correctResponse": "Zircon",
+              "acceptedResponses": ["Zircon crystal"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Country Deep Cuts",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "Thanks to far-flung overseas territories, this country has more time zones than any other.",
+              "correctResponse": "France",
+              "acceptedResponses": ["French Republic"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Socotra, famous for dragon's blood trees and alien-looking landscapes, belongs to this country.",
+              "correctResponse": "Yemen",
+              "acceptedResponses": ["Republic of Yemen"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This landlocked country contains the Okavango Delta, where a river fans out into the Kalahari.",
+              "correctResponse": "Botswana",
+              "acceptedResponses": ["Republic of Botswana"],
+              "dailyDouble": true
+            },
+            {
+              "value": 1600,
+              "clue": "Once called Upper Volta, this West African country now has a name often translated as 'land of honest people.'",
+              "correctResponse": "Burkina Faso",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This is the only sovereign country in South America where Dutch is the official language.",
+              "correctResponse": "Suriname",
+              "acceptedResponses": ["Republic of Suriname"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "category": "Lines On The Map",
+    "clue": "Named for a British naturalist, this biogeographic boundary runs between Bali and Lombok and between Borneo and Sulawesi.",
+    "correctResponse": "Wallace Line",
+    "acceptedResponses": ["The Wallace Line"]
+  }
+}

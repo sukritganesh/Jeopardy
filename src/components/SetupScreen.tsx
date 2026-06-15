@@ -1,5 +1,11 @@
-import { useState } from 'react';
+import { useState, type KeyboardEvent } from 'react';
 import type { AudioSettings, BuzzMode, Player, SetupConfig } from '../game/types';
+import {
+  HOST_SHORTCUTS,
+  getBuzzerKeyProblems,
+  isReservedShortcutKey,
+  normalizeKeyboardKey,
+} from '../game/keyboard';
 
 type SetupScreenProps = {
   setup: SetupConfig;
@@ -38,8 +44,43 @@ export function SetupScreen({
 }: SetupScreenProps) {
   const [setupPage, setSetupPage] = useState<'players' | 'settings'>('players');
   const activePlayers = setup.players.filter((player) => player.isActive);
-  const canStart = boardStatus === 'ready' && activePlayers.length > 0;
+  const buzzerKeyProblems = getBuzzerKeyProblems(setup.players);
+  const canStart = boardStatus === 'ready' && activePlayers.length > 0 && buzzerKeyProblems.length === 0;
   const pageTitle = setupPage === 'players' ? 'Jeopardy Clone' : 'Game Settings';
+  const reservedShortcutText = HOST_SHORTCUTS.map((shortcut) => shortcut.key).join(' / ');
+
+  function handleBuzzerKeyInput(playerId: string, value: string) {
+    const key = normalizeKeyboardKey(value);
+
+    if (!key || isReservedShortcutKey(key)) {
+      return;
+    }
+
+    if (
+      activePlayers.some(
+        (player) => player.id !== playerId && normalizeKeyboardKey(player.buzzerKey) === key,
+      )
+    ) {
+      return;
+    }
+
+    onPlayerChange(playerId, { buzzerKey: key });
+  }
+
+  function handleBuzzerKeyDown(playerId: string, event: KeyboardEvent<HTMLInputElement>) {
+    if (event.altKey || event.ctrlKey || event.metaKey) {
+      return;
+    }
+
+    const key = normalizeKeyboardKey(event.key);
+
+    if (!key) {
+      return;
+    }
+
+    event.preventDefault();
+    handleBuzzerKeyInput(playerId, key);
+  }
 
   return (
     <main className="app-shell app-shell--setup">
@@ -162,6 +203,14 @@ export function SetupScreen({
             <div className="setup-grid">
               <fieldset className="form-section">
                 <legend>Buzzer Keys</legend>
+                <p className="field-help">Reserved host shortcut keys: {reservedShortcutText}</p>
+                {buzzerKeyProblems.length > 0 && (
+                  <div className="notice notice--error">
+                    {buzzerKeyProblems.map((problem) => (
+                      <p key={problem}>{problem}</p>
+                    ))}
+                  </div>
+                )}
                 <div className="player-config-list">
                   {setup.players.map((player, index) =>
                     player.isActive ? (
@@ -173,11 +222,8 @@ export function SetupScreen({
                             maxLength={1}
                             value={player.buzzerKey}
                             aria-label={`${player.name} buzzer key`}
-                            onChange={(event) =>
-                              onPlayerChange(player.id, {
-                                buzzerKey: event.target.value.toUpperCase(),
-                              })
-                            }
+                            onKeyDown={(event) => handleBuzzerKeyDown(player.id, event)}
+                            onChange={(event) => handleBuzzerKeyInput(player.id, event.target.value)}
                           />
                         </label>
                       </div>

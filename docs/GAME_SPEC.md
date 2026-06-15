@@ -49,6 +49,13 @@ Default players:
 
 The setup screen should allow the host to change player names, enabled players, and buzzer keys.
 
+Buzzer key constraints:
+
+- Active players cannot share the same buzzer key.
+- Buzzer keys cannot use reserved host shortcut keys.
+- Host shortcut keys are reserved globally: `C` for Correct, `I` for Incorrect, and `R` for Reveal Response.
+- The app should block invalid buzzer key edits and prevent game start if loaded settings already contain an invalid key.
+
 ## Game Settings
 
 Default game settings live in `public/config/game-settings.json`.
@@ -341,6 +348,14 @@ Required host actions:
 
 Host controls should be visible only when relevant to the current game state.
 
+Keyboard shortcuts:
+
+- `C`: mark the active normal-clue response Correct.
+- `I`: mark the active normal-clue response Incorrect.
+- `R`: reveal the correct response on normal clues and Final Jeopardy.
+- These shortcuts should not fire while typing in inputs or text fields.
+- A host shortcut legend should be visible on all screens, excluding player buzzer keys because those are shown beside player names.
+
 ## Text-To-Speech
 
 Use the browser Web Speech API for v1.
@@ -507,7 +522,6 @@ These are intentionally deferred:
 These are not blockers for v1 implementation, but may be revisited:
 
 - Should the host type normal-round responses, or should the app only show a response text box as an optional note?
-- Should the app include keyboard shortcuts for host actions?
 - Should Final Jeopardy responses be hidden after each player submits?
 - Should v1 include a simple board picker, or always load one default board?
 - Should the answer timer become strict in a later mode?

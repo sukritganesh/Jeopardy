@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { isEditableKeyboardTarget, normalizeKeyboardKey } from '../game/keyboard';
 import type { Board, Player } from '../game/types';
 import { PlayerScoreboard } from './PlayerScoreboard';
 
@@ -6,7 +8,6 @@ type FinalJeopardyClueScreenProps = {
   players: Player[];
   eligiblePlayers: Player[];
   timerRemaining: number;
-  finalTimeSeconds: number;
   finalClueIsBeingRead: boolean;
   responseIsRevealed: boolean;
   ttsUnavailable: boolean;
@@ -20,7 +21,6 @@ export function FinalJeopardyClueScreen({
   players,
   eligiblePlayers,
   timerRemaining,
-  finalTimeSeconds,
   finalClueIsBeingRead,
   responseIsRevealed,
   ttsUnavailable,
@@ -29,6 +29,26 @@ export function FinalJeopardyClueScreen({
   finalJudgments,
 }: FinalJeopardyClueScreenProps) {
   const allJudged = eligiblePlayers.every((player) => player.id in finalJudgments);
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.repeat || event.altKey || event.ctrlKey || event.metaKey) {
+        return;
+      }
+
+      if (isEditableKeyboardTarget(event.target)) {
+        return;
+      }
+
+      if (!responseIsRevealed && normalizeKeyboardKey(event.key) === 'R') {
+        event.preventDefault();
+        onRevealResponse();
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onRevealResponse, responseIsRevealed]);
 
   return (
     <main className="game-shell final-shell">
@@ -55,8 +75,16 @@ export function FinalJeopardyClueScreen({
         </p>
         <p className="clue-text">{board.final.clue}</p>
         <div className={responseIsRevealed ? 'response-strip' : 'response-strip response-strip--hidden'}>
-          <span>{responseIsRevealed ? 'Correct response' : 'Response hidden'}</span>
-          <strong>{responseIsRevealed ? board.final.correctResponse : `${finalTimeSeconds}s to answer`}</strong>
+          {responseIsRevealed ? (
+            <>
+              <span>Correct response</span>
+              <strong>{board.final.correctResponse}</strong>
+            </>
+          ) : (
+            <button className="response-reveal-button" type="button" onClick={onRevealResponse}>
+              Reveal Response (R)
+            </button>
+          )}
         </div>
       </section>
 
@@ -73,13 +101,6 @@ export function FinalJeopardyClueScreen({
                 : 'Reveal early once everyone has written their response.'}
           </p>
         </div>
-
-        {!responseIsRevealed && (
-          <button className="primary-action" type="button" onClick={onRevealResponse}>
-            Reveal Response
-          </button>
-        )}
-
         {responseIsRevealed && (
           <div className="host-action-grid">
             {eligiblePlayers.map((player) => (

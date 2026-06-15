@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { Board, BuzzMode, CluePhase, Player, SelectedClue } from '../game/types';
+import { isEditableKeyboardTarget, normalizeKeyboardKey } from '../game/keyboard';
 import { PlayerScoreboard } from './PlayerScoreboard';
 
 type ClueScreenProps = {
@@ -73,15 +74,37 @@ export function ClueScreen({
         return;
       }
 
-      if (event.key.toUpperCase() === 'R') {
+      if (isEditableKeyboardTarget(event.target)) {
+        return;
+      }
+
+      const key = normalizeKeyboardKey(event.key);
+
+      if (key === 'R') {
         event.preventDefault();
         setResponseIsRevealed(true);
+        return;
+      }
+
+      if (cluePhase !== 'answering' || buzzedPlayerId === null) {
+        return;
+      }
+
+      if (key === 'C') {
+        event.preventDefault();
+        onCorrect(buzzedPlayerId);
+        return;
+      }
+
+      if (key === 'I') {
+        event.preventDefault();
+        onIncorrect(buzzedPlayerId);
       }
     }
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [buzzedPlayerId, cluePhase, onCorrect, onIncorrect]);
 
   return (
     <main className="game-shell clue-shell">
@@ -127,7 +150,7 @@ export function ClueScreen({
             </>
           ) : (
             <button className="response-reveal-button" type="button" onClick={() => setResponseIsRevealed(true)}>
-              Reveal Response
+              Reveal Response (R)
             </button>
           )}
         </div>
@@ -162,7 +185,7 @@ export function ClueScreen({
                 </strong>
                 <div>
                   <button type="button" disabled={!isActiveAnswer} onClick={() => onCorrect(player.id)}>
-                    Correct
+                    Correct (C)
                   </button>
                   <button
                     type="button"
@@ -170,7 +193,7 @@ export function ClueScreen({
                     disabled={!isActiveAnswer}
                     onClick={() => onIncorrect(player.id)}
                   >
-                    Incorrect
+                    Incorrect (I)
                   </button>
                 </div>
               </article>

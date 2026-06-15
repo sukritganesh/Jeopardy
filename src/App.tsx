@@ -6,6 +6,7 @@ import { FinalJeopardyClueScreen } from './components/FinalJeopardyClueScreen';
 import { FinalJeopardyWagerScreen } from './components/FinalJeopardyWagerScreen';
 import { FinalStandingsScreen } from './components/FinalStandingsScreen';
 import { RoundTransitionScreen } from './components/RoundTransitionScreen';
+import { ShortcutLegend } from './components/ShortcutLegend';
 import { SetupScreen } from './components/SetupScreen';
 import { GameAudio } from './game/audio';
 import { loadBoard } from './game/boardLoader';
@@ -16,6 +17,7 @@ import {
   type FinalWagers,
   getFinalJeopardyPlayers,
 } from './game/finalJeopardy';
+import { getBuzzerKeyProblems, isEditableKeyboardTarget, normalizeKeyboardKey } from './game/keyboard';
 import { getLowestScoringPlayer, isRoundComplete } from './game/rounds';
 import { loadSettings } from './game/settingsLoader';
 import { speakClue, stopSpeech } from './game/speech';
@@ -250,11 +252,15 @@ function App() {
         return;
       }
 
-      const key = event.key.toUpperCase();
+      if (isEditableKeyboardTarget(event.target)) {
+        return;
+      }
+
+      const key = normalizeKeyboardKey(event.key);
       const buzzingPlayer = players.find(
         (player) =>
           player.isActive &&
-          player.buzzerKey.toUpperCase() === key &&
+          normalizeKeyboardKey(player.buzzerKey) === key &&
           !attemptedPlayerIds.has(player.id),
       );
 
@@ -468,6 +474,10 @@ function App() {
   }
 
   function handleStartGame() {
+    if (getBuzzerKeyProblems(setup.players).length > 0) {
+      return;
+    }
+
     const startingPlayers = activePlayers.map((player) => ({
       ...player,
       name: player.name.trim() || player.id,
@@ -748,6 +758,7 @@ function App() {
   function withMuteButton(content: ReactNode) {
     return (
       <>
+        <ShortcutLegend />
         <button
           className={setup.audio.isMuted ? 'mute-button mute-button--muted' : 'mute-button'}
           type="button"
@@ -839,7 +850,6 @@ function App() {
         players={players}
         eligiblePlayers={finalEligiblePlayers}
         timerRemaining={finalTimerRemaining}
-        finalTimeSeconds={setup.finalJeopardyTimeSeconds}
         finalClueIsBeingRead={finalClueIsBeingRead}
         responseIsRevealed={finalResponseIsRevealed}
         ttsUnavailable={ttsUnavailable}

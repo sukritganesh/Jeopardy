@@ -4,7 +4,7 @@ Lightweight project progress tracker. Keep this current as the app takes shape.
 
 ## Current Focus
 
-Polish setup navigation and test the full setup-to-standings loop.
+Polish keyboard controls and test the full setup-to-standings loop.
 
 ## Completed
 
@@ -51,6 +51,7 @@ Polish setup navigation and test the full setup-to-standings loop.
 - Generated `public/boards/geography-night-board.json` as a medium geography-themed board.
 - Moved long-form project docs into `docs/` and linked them from `README.md`.
 - Refined audio cues: one-shot outro on standings, no Final Jeopardy times-up effect, and no Daily Double times-up effect.
+- Added reserved host shortcuts, a host-key legend, and stricter buzzer key conflict validation.
 
 ## In Progress
 
@@ -58,7 +59,6 @@ Polish setup navigation and test the full setup-to-standings loop.
 
 ## Next Up
 
-- Add stricter validation for duplicate buzzer keys in settings/setup.
 - Remove the one-clue round-completion debug option once full-game testing no longer needs it.
 
 ## Notes

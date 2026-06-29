@@ -30,4 +30,4 @@ npm run lint
 npm run build
 ```
 
-The development server runs at `http://127.0.0.1:5173` by default.
+The development server runs at `http://127.0.0.1:5174` by default.

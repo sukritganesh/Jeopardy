@@ -1,0 +1,505 @@
+{
+  "title": "Trivia Night B",
+  "rounds": [
+    {
+      "id": "jeopardy",
+      "name": "Jeopardy",
+      "values": [200, 400, 600, 800, 1000],
+      "categories": [
+        {
+          "title": "Palindrome Parade",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This word for flat, even, or equal reads the same backward and forward.",
+              "correctResponse": "Level",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This radio detection system has a name that is itself a palindrome.",
+              "correctResponse": "Radar",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This Dravidian language of Kerala is often cited as a long one-word palindrome in English letters.",
+              "correctResponse": "Malayalam",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "The Latin words Sator, Arepo, Tenet, Opera, and Rotas form this ancient five-by-five palindrome puzzle.",
+              "correctResponse": "Sator Square",
+              "acceptedResponses": ["The Sator Square"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "A joke word for fear of palindromes, this term is itself a palindrome.",
+              "correctResponse": "Aibohphobia",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Capitals To Countries",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "Lisbon is the capital of this country.",
+              "correctResponse": "Portugal",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "Bern is the federal capital of this country.",
+              "correctResponse": "Switzerland",
+              "acceptedResponses": ["Swiss Confederation"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "Tbilisi is the capital of this country at the crossroads of Europe and Asia.",
+              "correctResponse": "Georgia",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Yamoussoukro is the official capital of this West African country.",
+              "correctResponse": "Cote d'Ivoire",
+              "acceptedResponses": ["Ivory Coast"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "Bandar Seri Begawan is the capital of this small country on Borneo.",
+              "correctResponse": "Brunei",
+              "acceptedResponses": ["Brunei Darussalam"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Political Scandals",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This scandal named for a Washington office complex led to Richard Nixon's resignation.",
+              "correctResponse": "Watergate",
+              "acceptedResponses": ["Watergate scandal"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This Harding-era scandal involved secret leases of naval oil reserves in Wyoming and California.",
+              "correctResponse": "Teapot Dome",
+              "acceptedResponses": ["Teapot Dome scandal"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This Reagan-era affair involved arms sales to Iran and funds routed to rebels in Nicaragua.",
+              "correctResponse": "Iran-Contra affair",
+              "acceptedResponses": ["Iran-Contra", "Iran Contra affair"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This 1960s British scandal involved war minister John Profumo and Christine Keeler.",
+              "correctResponse": "Profumo affair",
+              "acceptedResponses": ["Profumo scandal"],
+              "dailyDouble": true
+            },
+            {
+              "value": 1000,
+              "clue": "This Italian bribery scandal, uncovered by the Mani Pulite investigations, helped collapse the First Republic.",
+              "correctResponse": "Tangentopoli",
+              "acceptedResponses": ["Bribesville", "Mani Pulite"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Beasts Real & Not",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "In Greek myth, this half-man, half-bull creature lived in the Labyrinth.",
+              "correctResponse": "Minotaur",
+              "acceptedResponses": ["The Minotaur"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This deep-sea fish, once thought long extinct, was found alive off South Africa in 1938.",
+              "correctResponse": "Coelacanth",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "In medieval bestiaries, this serpent or lizard could supposedly kill with its gaze.",
+              "correctResponse": "Basilisk",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This shy forest relative of the giraffe is native to the Democratic Republic of the Congo.",
+              "correctResponse": "Okapi",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This cryptid of the Congo Basin is often described as a surviving sauropod-like animal.",
+              "correctResponse": "Mokele-mbembe",
+              "acceptedResponses": ["Mokele mbembe"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Composer Cards",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "The opening four-note motif of this composer's Fifth Symphony is often described as fate knocking.",
+              "correctResponse": "Ludwig van Beethoven",
+              "acceptedResponses": ["Beethoven"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "The Four Seasons is the best-known work of this red-haired Venetian Baroque composer.",
+              "correctResponse": "Antonio Vivaldi",
+              "acceptedResponses": ["Vivaldi"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This French composer built Bolero from a repeated snare-drum rhythm and two melodies.",
+              "correctResponse": "Maurice Ravel",
+              "acceptedResponses": ["Ravel"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Pictures at an Exhibition was written for piano by this Russian composer before Ravel orchestrated it.",
+              "correctResponse": "Modest Mussorgsky",
+              "acceptedResponses": ["Mussorgsky"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This French composer wrote Quartet for the End of Time while held in a prisoner-of-war camp.",
+              "correctResponse": "Olivier Messiaen",
+              "acceptedResponses": ["Messiaen"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Lab Notes",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This two-letter scale measures how acidic or basic a solution is.",
+              "correctResponse": "pH",
+              "acceptedResponses": ["PH scale"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This spinning machine separates substances by density, often in tubes.",
+              "correctResponse": "Centrifuge",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This gene-editing system uses a guide RNA and a Cas enzyme.",
+              "correctResponse": "CRISPR",
+              "acceptedResponses": ["CRISPR-Cas9", "Crispr"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This technique amplifies DNA through cycles of heating and cooling; its abbreviation is PCR.",
+              "correctResponse": "Polymerase chain reaction",
+              "acceptedResponses": ["PCR"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This lab method separates DNA fragments by size as they move through a gel under an electric field.",
+              "correctResponse": "Gel electrophoresis",
+              "acceptedResponses": ["Electrophoresis"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "doubleJeopardy",
+      "name": "Double Jeopardy",
+      "values": [400, 800, 1200, 1600, 2000],
+      "categories": [
+        {
+          "title": "Deposed Royals",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This king of France was overthrown during the French Revolution and executed in 1793.",
+              "correctResponse": "Louis XVI",
+              "acceptedResponses": ["Louis the Sixteenth"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This last tsar of Russia abdicated in 1917 before he and his family were killed the next year.",
+              "correctResponse": "Nicholas II",
+              "acceptedResponses": ["Nicholas the Second", "Tsar Nicholas II"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This shah of Iran left the country during the 1979 revolution.",
+              "correctResponse": "Mohammad Reza Pahlavi",
+              "acceptedResponses": ["Shah Mohammad Reza Pahlavi", "The Shah of Iran", "Pahlavi"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This Egyptian king was forced to abdicate after the Free Officers movement of 1952.",
+              "correctResponse": "Farouk",
+              "acceptedResponses": ["King Farouk", "Farouk I"],
+              "dailyDouble": true
+            },
+            {
+              "value": 2000,
+              "clue": "This Ethiopian emperor was deposed by the Derg in 1974.",
+              "correctResponse": "Haile Selassie",
+              "acceptedResponses": ["Haile Selassie I"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Philosophy Corner",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This Athenian philosopher left no writings of his own and appears as a main character in Plato's dialogues.",
+              "correctResponse": "Socrates",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This German philosopher framed the categorical imperative in his moral philosophy.",
+              "correctResponse": "Immanuel Kant",
+              "acceptedResponses": ["Kant"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This Dutch philosopher's Ethics presents reality as one substance, often summarized as God or Nature.",
+              "correctResponse": "Baruch Spinoza",
+              "acceptedResponses": ["Spinoza", "Benedict de Spinoza"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "Fear and Trembling and Either/Or are works by this Danish thinker associated with existentialism.",
+              "correctResponse": "Soren Kierkegaard",
+              "acceptedResponses": ["Kierkegaard"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This philosopher attacked the analytic-synthetic distinction in 'Two Dogmas of Empiricism.'",
+              "correctResponse": "Willard Van Orman Quine",
+              "acceptedResponses": ["W. V. O. Quine", "Quine", "Willard Quine"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Stage Directions",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "Willy Loman is the struggling salesman at the center of this Arthur Miller play.",
+              "correctResponse": "Death of a Salesman",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Vladimir and Estragon wait by a tree in this Samuel Beckett play.",
+              "correctResponse": "Waiting for Godot",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "Lorraine Hansberry took the title of this play from a Langston Hughes poem about a deferred dream.",
+              "correctResponse": "A Raisin in the Sun",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "Madame Ranevskaya's estate is sold in this Chekhov play.",
+              "correctResponse": "The Cherry Orchard",
+              "acceptedResponses": ["Cherry Orchard"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "Thornton Wilder won a Pulitzer for this play featuring the Antrobus family surviving disasters across history.",
+              "correctResponse": "The Skin of Our Teeth",
+              "acceptedResponses": ["Skin of Our Teeth"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Elemental Hints",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "With symbol Hg, this liquid-at-room-temperature element was once called quicksilver.",
+              "correctResponse": "Mercury",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This element has symbol W from its alternate name wolfram.",
+              "correctResponse": "Tungsten",
+              "acceptedResponses": ["Wolfram"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This rare halogen, element 85, has a name from the Greek for unstable.",
+              "correctResponse": "Astatine",
+              "acceptedResponses": [],
+              "dailyDouble": true
+            },
+            {
+              "value": 1600,
+              "clue": "This lanthanide's name means green twin, paired historically with neodymium.",
+              "correctResponse": "Praseodymium",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "Element 106 is named for this American chemist, who was still living when the name was approved.",
+              "correctResponse": "Glenn Seaborg",
+              "acceptedResponses": ["Seaborg"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Borders & Waters",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This strait connects the Atlantic Ocean and Mediterranean Sea between Spain and Morocco.",
+              "correctResponse": "Strait of Gibraltar",
+              "acceptedResponses": ["Gibraltar Strait"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This is the world's largest island that is not usually counted as a continent.",
+              "correctResponse": "Greenland",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This country is completely surrounded by South Africa.",
+              "correctResponse": "Lesotho",
+              "acceptedResponses": ["Kingdom of Lesotho"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This strait separates Tasmania from mainland Australia.",
+              "correctResponse": "Bass Strait",
+              "acceptedResponses": ["The Bass Strait"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "The Diomede Islands sit in this strait, with the U.S.-Russia border and International Date Line between them.",
+              "correctResponse": "Bering Strait",
+              "acceptedResponses": ["The Bering Strait"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "The Old Internet",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This 'you've got mail' company bought Time Warner in a famously ill-timed 2000 merger.",
+              "correctResponse": "AOL",
+              "acceptedResponses": ["America Online"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This early search engine and web directory shares its name with a word meaning rude or uncultivated.",
+              "correctResponse": "Yahoo!",
+              "acceptedResponses": ["Yahoo"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "Before Google, this DEC search engine launched in 1995 had a name meaning 'high view.'",
+              "correctResponse": "AltaVista",
+              "acceptedResponses": ["Alta Vista"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This peer-to-peer service made MP3 file-sharing a household controversy around 1999 and 2000.",
+              "correctResponse": "Napster",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This browser, once dominant in the 1990s, lost the first browser war after Microsoft bundled Internet Explorer.",
+              "correctResponse": "Netscape Navigator",
+              "acceptedResponses": ["Netscape"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "category": "World Literature",
+    "clue": "This 1927 novel is divided into the sections 'The Window,' 'Time Passes,' and the title destination.",
+    "correctResponse": "To the Lighthouse",
+    "acceptedResponses": []
+  }
+}

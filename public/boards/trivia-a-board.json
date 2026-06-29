@@ -1,0 +1,505 @@
+{
+  "title": "triviaA",
+  "rounds": [
+    {
+      "id": "jeopardy",
+      "name": "Jeopardy",
+      "values": [200, 400, 600, 800, 1000],
+      "categories": [
+        {
+          "title": "Mountain High",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This mountain is the highest in Africa and rises above Tanzania.",
+              "correctResponse": "Mount Kilimanjaro",
+              "acceptedResponses": ["Kilimanjaro"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This South American peak is the highest mountain outside Asia.",
+              "correctResponse": "Aconcagua",
+              "acceptedResponses": ["Mount Aconcagua"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "Mont Blanc is the highest summit in this mountain range shared by France, Italy, Switzerland, and others.",
+              "correctResponse": "Alps",
+              "acceptedResponses": ["The Alps"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This Himalayan mountain's name is often translated as 'Five Treasures of Snow.'",
+              "correctResponse": "Kangchenjunga",
+              "acceptedResponses": ["Kanchenjunga", "Mount Kangchenjunga"],
+              "dailyDouble": true
+            },
+            {
+              "value": 1000,
+              "clue": "This Alaska peak was officially restored from Mount McKinley to its Koyukon name in 2015.",
+              "correctResponse": "Denali",
+              "acceptedResponses": ["Mount Denali"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Novel Notions",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "In George Orwell's Animal Farm, this animal class leads the revolution and then takes power.",
+              "correctResponse": "Pigs",
+              "acceptedResponses": ["The pigs"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This Jane Austen novel begins with a famous line about a single man in possession of a good fortune.",
+              "correctResponse": "Pride and Prejudice",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "The haunted Overlook Hotel is the snowbound setting of this Stephen King novel.",
+              "correctResponse": "The Shining",
+              "acceptedResponses": ["Shining"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "In One Hundred Years of Solitude, generations of the Buendia family live in this fictional town.",
+              "correctResponse": "Macondo",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This Italo Calvino novel is structured as a reader beginning ten different books but never finishing them.",
+              "correctResponse": "If on a winter's night a traveler",
+              "acceptedResponses": ["If on a winters night a traveler"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Rhyme Crimes",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "A very small feline would be this rhyming phrase.",
+              "correctResponse": "Itty-bitty kitty",
+              "acceptedResponses": ["Itty bitty kitty", "Bitty kitty"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "A soggy boxing winner would be this rhyming phrase.",
+              "correctResponse": "Damp champ",
+              "acceptedResponses": ["Wet champ"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "A stylish irrigation stream would be this rhyming phrase.",
+              "correctResponse": "Chic creek",
+              "acceptedResponses": ["Sleek creek"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "A law-practicing raptor could be this familiar rhyming phrase.",
+              "correctResponse": "Legal eagle",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "A conceited resident of Copenhagen could be this rhyming phrase.",
+              "correctResponse": "Vain Dane",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Science Sampler",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This organelle is often called the powerhouse of the cell.",
+              "correctResponse": "Mitochondrion",
+              "acceptedResponses": ["Mitochondria"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This number, about 6.02 times 10 to the 23rd, counts particles in a mole.",
+              "correctResponse": "Avogadro's number",
+              "acceptedResponses": ["Avogadro constant", "Avogadros number"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "This effect explains why a siren's pitch changes as an ambulance passes you.",
+              "correctResponse": "Doppler effect",
+              "acceptedResponses": ["The Doppler effect"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Named for a Scottish physicist, this thought experiment imagines a tiny being sorting hot and cold molecules.",
+              "correctResponse": "Maxwell's demon",
+              "acceptedResponses": ["Maxwells demon"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This Austrian physicist gave his name to the equation S equals k log W on his tombstone.",
+              "correctResponse": "Ludwig Boltzmann",
+              "acceptedResponses": ["Boltzmann"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Before & After",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "A Bruce Springsteen song about being born stateside meets a patriotic national identifier.",
+              "correctResponse": "Born in the USA citizen",
+              "acceptedResponses": ["Born in the U.S.A. citizen", "Born in the USA Citizen"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "A Shakespeare tragedy's prince of Denmark meets the first person to orbit Earth.",
+              "correctResponse": "Hamlet Gagarin",
+              "acceptedResponses": ["Hamlet Yuri Gagarin"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "A Melville whale meets the actor who played Captain America.",
+              "correctResponse": "Moby-Dick Evans",
+              "acceptedResponses": ["Moby Dick Evans", "Moby-Dick Chris Evans"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "A Greek hero who slew the Minotaur meets the ship that Charles Darwin sailed on.",
+              "correctResponse": "Theseus Beagle",
+              "acceptedResponses": ["Theseus HMS Beagle"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "A Joyce novel about one Dublin day meets the U.S. president nicknamed Silent Cal.",
+              "correctResponse": "Ulysses Coolidge",
+              "acceptedResponses": ["Ulysses Calvin Coolidge"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "History Corners",
+          "clues": [
+            {
+              "value": 200,
+              "clue": "This wall in Berlin fell in 1989, becoming a symbol of the Cold War's end.",
+              "correctResponse": "Berlin Wall",
+              "acceptedResponses": ["The Berlin Wall"],
+              "dailyDouble": false
+            },
+            {
+              "value": 400,
+              "clue": "This admiral defeated the Spanish Armada for Elizabeth I and later gave his name to a South American passage.",
+              "correctResponse": "Francis Drake",
+              "acceptedResponses": ["Sir Francis Drake", "Drake"],
+              "dailyDouble": false
+            },
+            {
+              "value": 600,
+              "clue": "The Defenestration of Prague helped ignite this 17th-century European conflict.",
+              "correctResponse": "Thirty Years' War",
+              "acceptedResponses": ["Thirty Years War", "The Thirty Years' War"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This Haitian revolutionary leader was captured by the French and died in a prison in the Jura Mountains.",
+              "correctResponse": "Toussaint Louverture",
+              "acceptedResponses": ["Toussaint L'Ouverture", "Louverture"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1000,
+              "clue": "This treaty ended the War of the Spanish Succession and gave Britain Gibraltar.",
+              "correctResponse": "Treaty of Utrecht",
+              "acceptedResponses": ["Utrecht"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "doubleJeopardy",
+      "name": "Double Jeopardy",
+      "values": [400, 800, 1200, 1600, 2000],
+      "categories": [
+        {
+          "title": "Letter Shift",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "Change one letter in 'mop' to get this chart used by sailors and pilots.",
+              "correctResponse": "Map",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "Change one letter in 'moral' to get this large wall painting.",
+              "correctResponse": "Mural",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "Change one letter in 'elicit' to get this word meaning unlawful.",
+              "correctResponse": "Illicit",
+              "acceptedResponses": [],
+              "dailyDouble": true
+            },
+            {
+              "value": 1600,
+              "clue": "Change one letter in 'proscribe' to get this word meaning to recommend or authorize.",
+              "correctResponse": "Prescribe",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "Change one letter in 'compliment' to get this word meaning to complete or go well with.",
+              "correctResponse": "Complement",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Museum Pieces",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This Paris museum is home to the Mona Lisa and the Venus de Milo.",
+              "correctResponse": "Louvre",
+              "acceptedResponses": ["The Louvre", "Louvre Museum"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This 1937 Picasso painting responds to the bombing of a Basque town during the Spanish Civil War.",
+              "correctResponse": "Guernica",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This artist painted The Garden of Earthly Delights, now in Madrid's Prado.",
+              "correctResponse": "Hieronymus Bosch",
+              "acceptedResponses": ["Bosch"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This sculptor created Bird in Space, which helped provoke a famous U.S. customs case over whether it was art.",
+              "correctResponse": "Constantin Brancusi",
+              "acceptedResponses": ["Brancusi"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This Flemish painter of The Fall of Icarus and peasant scenes is the elder of his famous artistic family.",
+              "correctResponse": "Pieter Bruegel the Elder",
+              "acceptedResponses": ["Bruegel", "Pieter Bruegel"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Food Footnotes",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This spicy Korean staple is usually made from fermented cabbage or radish.",
+              "correctResponse": "Kimchi",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "The name of this Italian dessert means 'pick me up.'",
+              "correctResponse": "Tiramisu",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This Georgian cheese bread often comes boat-shaped with an egg in the middle.",
+              "correctResponse": "Khachapuri",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This Filipino dish of meat marinated in vinegar, soy sauce, garlic, and bay leaves shares its name with a Spanish word for marinade.",
+              "correctResponse": "Adobo",
+              "acceptedResponses": ["Filipino adobo"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This ancient Roman fermented fish sauce was a salty staple made from fish guts.",
+              "correctResponse": "Garum",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Nature's Weird Desk",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This Australian mammal lays eggs and has a bill that senses electric fields.",
+              "correctResponse": "Platypus",
+              "acceptedResponses": ["Duck-billed platypus"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This plant genus includes the giant corpse flower, famous for smelling awful when it blooms.",
+              "correctResponse": "Amorphophallus",
+              "acceptedResponses": ["Amorphophallus titanum", "Titan arum"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This tough microscopic animal can survive dehydration, radiation, and even exposure to space.",
+              "correctResponse": "Tardigrade",
+              "acceptedResponses": ["Water bear", "Tardigrades"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "This deep-sea ecosystem forms around cracks where mineral-rich hot water pours from the ocean floor.",
+              "correctResponse": "Hydrothermal vent",
+              "acceptedResponses": ["Hydrothermal vents", "Black smoker"],
+              "dailyDouble": true
+            },
+            {
+              "value": 2000,
+              "clue": "The mantis shrimp is famous for seeing many channels of color and for striking with appendages called these.",
+              "correctResponse": "Raptorial appendages",
+              "acceptedResponses": ["Raptorial claws", "Dactyl clubs", "Smashers"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Political Islands",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "This island nation has Reykjavik as its capital.",
+              "correctResponse": "Iceland",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "The island of Hispaniola is shared by Haiti and this country.",
+              "correctResponse": "Dominican Republic",
+              "acceptedResponses": ["The Dominican Republic"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This island country was formerly known as Ceylon.",
+              "correctResponse": "Sri Lanka",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "Malabo, capital of Equatorial Guinea, is on this island rather than on the mainland.",
+              "correctResponse": "Bioko",
+              "acceptedResponses": ["Bioko Island"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "The island of New Guinea is divided between Indonesia and this independent country.",
+              "correctResponse": "Papua New Guinea",
+              "acceptedResponses": ["PNG"],
+              "dailyDouble": false
+            }
+          ]
+        },
+        {
+          "title": "Deep Cut Sports",
+          "clues": [
+            {
+              "value": 400,
+              "clue": "In baseball, this pitching statistic is calculated as earned runs times nine divided by innings pitched.",
+              "correctResponse": "ERA",
+              "acceptedResponses": ["Earned run average"],
+              "dailyDouble": false
+            },
+            {
+              "value": 800,
+              "clue": "This tennis tournament is played on the red clay courts of Roland-Garros.",
+              "correctResponse": "French Open",
+              "acceptedResponses": ["Roland-Garros", "Roland Garros"],
+              "dailyDouble": false
+            },
+            {
+              "value": 1200,
+              "clue": "This Olympic event combines cross-country skiing and rifle shooting.",
+              "correctResponse": "Biathlon",
+              "acceptedResponses": [],
+              "dailyDouble": false
+            },
+            {
+              "value": 1600,
+              "clue": "In cricket, a bowler who dismisses three batters with three consecutive deliveries has achieved this feat.",
+              "correctResponse": "Hat trick",
+              "acceptedResponses": ["A hat trick"],
+              "dailyDouble": false
+            },
+            {
+              "value": 2000,
+              "clue": "This fencing weapon targets the entire body and does not use right-of-way rules.",
+              "correctResponse": "Epee",
+              "acceptedResponses": ["Epee"],
+              "dailyDouble": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "final": {
+    "category": "American Letters",
+    "clue": "This writer's 1855 book began with the line 'I celebrate myself, and sing myself,' though the title page originally omitted his name.",
+    "correctResponse": "Walt Whitman",
+    "acceptedResponses": ["Whitman"]
+  }
+}
